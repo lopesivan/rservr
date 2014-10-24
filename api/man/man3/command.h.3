@@ -1,0 +1,668 @@
+.TH "rservr/api/command.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/command.h \- 
+.PP
+Types and constants\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef uint32_t \fBcommand_reference\fP"
+.br
+.ti -1c
+.RI "typedef const char * \fBtext_info\fP"
+.br
+.ti -1c
+.RI "typedef const \fBtext_info\fP * \fBinfo_list\fP"
+.br
+.ti -1c
+.RI "typedef const unsigned char * \fBbinary_info\fP"
+.br
+.ti -1c
+.RI "typedef uint32_t \fBbinary_size\fP"
+.br
+.ti -1c
+.RI "typedef char * \fBcommand_text\fP"
+.br
+.ti -1c
+.RI "typedef uint8_t \fBcommand_priority\fP"
+.br
+.ti -1c
+.RI "typedef uint8_t \fBresult\fP"
+.br
+.ti -1c
+.RI "typedef int8_t \fBmulti_result\fP"
+.br
+.ti -1c
+.RI "typedef uint16_t \fBentity_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBentity_type\fP \fBpermission_mask\fP"
+.br
+.ti -1c
+.RI "typedef \fBpermission_mask\fP \fBsecurity_level\fP"
+.br
+.ti -1c
+.RI "typedef uint16_t \fBresponse_type\fP"
+.br
+.ti -1c
+.RI "typedef uint8_t \fBserver_directive\fP"
+.br
+.ti -1c
+.RI "typedef uint16_t \fBcommand_type\fP"
+.br
+.ti -1c
+.RI "typedef uint32_t \fBcommand_event\fP"
+.br
+.ti -1c
+.RI "typedef clock_t \fBclient_time\fP"
+.br
+.ti -1c
+.RI "typedef float \fBlong_time\fP"
+.br
+.ti -1c
+.RI "typedef struct timespec \fBshort_time\fP"
+.br
+.ti -1c
+.RI "typedef uint8_t \fBlogging_mode\fP"
+.br
+.ti -1c
+.RI "typedef uint8_t \fBcreate_flags\fP"
+.br
+.ti -1c
+.RI "typedef uint8_t \fBio_device\fP"
+.br
+.ti -1c
+.RI "typedef uint32_t \fBmonitor_event\fP"
+.br
+.ti -1c
+.RI "typedef const struct 
+.br
+command_noaccess * \fBcommand_handle\fP"
+.br
+.ti -1c
+.RI "typedef const struct 
+.br
+entity_noaccess * \fBentity_handle\fP"
+.br
+.ti -1c
+.RI "typedef const struct 
+.br
+message_noaccess * \fBmessage_handle\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdebug_output\fP (\fBtext_info\fP Format,\&.\&.\&.) __attribute__((deprecated))"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBregex_compare\fP (\fBtext_info\fP Expression, \fBtext_info\fP String) __attribute__((deprecated))"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const \fBmulti_result\fP \fBresult_success\fP"
+.br
+.ti -1c
+.RI "const \fBmulti_result\fP \fBresult_fail\fP"
+.br
+.ti -1c
+.RI "const \fBmulti_result\fP \fBresult_invalid\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_handle\fP \fBdefault_command\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_ignore\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_normal\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_error\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_rejected\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_wait\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_group\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_start\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_partial\fP"
+.br
+.ti -1c
+.RI "const \fBresponse_type\fP \fBresponse_end\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_none\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_server\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_any_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_active_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_admin_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_service_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_monitor_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_resource_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_control_client\fP"
+.br
+.ti -1c
+.RI "const \fBentity_type\fP \fBtype_all_clients\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_none\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_server\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_request\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_response\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_remote\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_null\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_type\fP \fBcommand_all\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_none\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_error\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_bad_target\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_rejected\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_bad_permissions\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_retry\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_wait\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_discarded\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_unavailable\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_exit_mask\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_no_connection\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_sent\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_unsent\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_received_server\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_received_client\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_partial\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_complete\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_modified\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_register\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_event\fP \fBevent_no_success\fP"
+.br
+.ti -1c
+.RI "const \fBserver_directive\fP \fBdirected_none\fP"
+.br
+.ti -1c
+.RI "const \fBserver_directive\fP \fBdirected_disconnect\fP"
+.br
+.ti -1c
+.RI "const \fBserver_directive\fP \fBdirected_terminate\fP"
+.br
+.ti -1c
+.RI "const \fBlong_time\fP \fBtime_indefinite\fP"
+.br
+.ti -1c
+.RI "const \fBshort_time\fP \fBtime_none\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_none\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_minimal\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_normal\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_extended\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_debug\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_default\fP"
+.br
+.ti -1c
+.RI "const \fBlogging_mode\fP \fBlogging_all\fP"
+.br
+.ti -1c
+.RI "const \fBcreate_flags\fP \fBcreate_default\fP"
+.br
+.ti -1c
+.RI "const \fBcreate_flags\fP \fBcreate_exact\fP"
+.br
+.ti -1c
+.RI "const \fBcreate_flags\fP \fBcreate_target\fP"
+.br
+.ti -1c
+.RI "const \fBpermission_mask\fP \fBpermission_maximum\fP"
+.br
+.ti -1c
+.RI "const \fBcommand_priority\fP \fBpriority_minimum\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_0\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_1\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_2\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_3\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_4\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_5\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_6\fP"
+.br
+.ti -1c
+.RI "const \fBsecurity_level\fP \fBsecurity_7\fP"
+.br
+.ti -1c
+.RI "const \fBio_device\fP \fBdevice_none\fP"
+.br
+.ti -1c
+.RI "const \fBio_device\fP \fBdevice_input\fP"
+.br
+.ti -1c
+.RI "const \fBio_device\fP \fBdevice_output\fP"
+.br
+.ti -1c
+.RI "const \fBio_device\fP \fBdevice_error\fP"
+.br
+.ti -1c
+.RI "const \fBio_device\fP \fBdevice_log\fP"
+.br
+.ti -1c
+.RI "const \fBio_device\fP \fBdevice_terminal\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_none\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_add\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_remove\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_rejection\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_change\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_limit\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_attached_clients\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_registered_clients\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_registered_services\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_terminal_status\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_server\fP"
+.br
+.ti -1c
+.RI "const \fBmonitor_event\fP \fBmonitor_clients\fP"
+.br
+.ti -1c
+.RI "const char \fBclient_scope_char\fP"
+.br
+.ti -1c
+.RI "const char \fBaddress_scope_char\fP"
+.br
+.ti -1c
+.RI "const char \fBstandard_delimiter_char\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains almost all of the typedefs used internally and and externally, and also contains most of the publicly-accessible constants\&. 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef uint32_t \fBcommand_reference\fP"
+Command transmission reference number\&. 
+.SS "typedef const char* \fBtext_info\fP"
+General text data\&. 
+.SS "typedef const \fBtext_info\fP* \fBinfo_list\fP"
+General text data list\&. 
+.SS "typedef const unsigned char* \fBbinary_info\fP"
+General binary data\&. 
+.SS "typedef uint32_t \fBbinary_size\fP"
+General binary data size\&. 
+.SS "typedef char* \fBcommand_text\fP"
+Text data for a literal command\&. 
+.SS "typedef uint8_t \fBcommand_priority\fP"
+Priority for a command\&. 
+.SS "typedef uint8_t \fBresult\fP"
+True or false result\&. 
+.SS "typedef int8_t \fBmulti_result\fP"
+Three-possibility result\&. 
+.SS "typedef uint16_t \fBentity_type\fP"
+Entity type of the program\&. 
+.SS "typedef \fBentity_type\fP \fBpermission_mask\fP"
+Entity type permission mask\&. 
+.SS "typedef \fBpermission_mask\fP \fBsecurity_level\fP"
+Server security level\&. 
+.SS "typedef uint16_t \fBresponse_type\fP"
+Type of response to a command\&. 
+.SS "typedef uint8_t \fBserver_directive\fP"
+Directive to client from server\&. 
+.SS "typedef uint16_t \fBcommand_type\fP"
+Execution type of command\&. 
+.SS "typedef uint32_t \fBcommand_event\fP"
+Command event type\&. 
+.SS "typedef clock_t \fBclient_time\fP"
+Timestamp for client events\&. 
+.SS "typedef float \fBlong_time\fP"
+Extended wait time\&. 
+.SS "typedef struct timespec \fBshort_time\fP"
+Very short wait time\&. 
+.SS "typedef uint8_t \fBlogging_mode\fP"
+Message mode for automatic logs\&. 
+.SS "typedef uint8_t \fBcreate_flags\fP"
+Flags for creating new clients\&. 
+.SS "typedef uint8_t \fBio_device\fP"
+Device mask for changing IO settings\&. 
+.SS "typedef uint32_t \fBmonitor_event\fP"
+Event type to monitor\&. 
+.SS "typedef const struct command_noaccess* \fBcommand_handle\fP"
+Never defined\&. Handle for a waiting command\&. 
+.SS "typedef const struct entity_noaccess* \fBentity_handle\fP"
+Never defined\&. General entity handle\&. 
+.SS "typedef const struct message_noaccess* \fBmessage_handle\fP"
+Never defined\&. Handle for a message to respond to\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void debug_output (\fBtext_info\fPFormat, \&.\&.\&.)"
+For debugging only (like 'printf'\&.) 
+.SS "\fBresult\fP regex_compare (\fBtext_info\fPExpression, \fBtext_info\fPString)"
+For debugging only\&. 
+.SH "Variable Documentation"
+.PP 
+.SS "const \fBmulti_result\fP result_success"
+Successful operation\&. 
+.SS "const \fBmulti_result\fP result_fail"
+Failed operation\&. 
+.SS "const \fBmulti_result\fP result_invalid"
+Permanently-failed operation\&. 
+.SS "const \fBcommand_handle\fP default_command"
+Default command handle\&. 
+.SS "const \fBresponse_type\fP response_ignore"
+Request ignored\&. 
+.SS "const \fBresponse_type\fP response_normal"
+Complete or compliant response\&. 
+.SS "const \fBresponse_type\fP response_error"
+Error preventing compliance\&. 
+.SS "const \fBresponse_type\fP response_rejected"
+Request rejected\&. 
+.SS "const \fBresponse_type\fP response_wait"
+Instruct to try again later\&. 
+.SS "const \fBresponse_type\fP response_group"
+Indicate group of responses\&. 
+.SS "const \fBresponse_type\fP response_start"
+Start group of responses\&. 
+.SS "const \fBresponse_type\fP response_partial"
+Compliant partial response\&. 
+.SS "const \fBresponse_type\fP response_end"
+End of group responses\&. 
+.SS "const \fBentity_type\fP type_none"
+No entity type\&. 
+.SS "const \fBentity_type\fP type_server"
+Server program\&. 
+.SS "const \fBentity_type\fP type_any_client"
+Any client type\&. 
+.SS "const \fBentity_type\fP type_active_client"
+Client can send active commands\&. 
+.SS "const \fBentity_type\fP type_admin_client"
+Admin client type\&. 
+.SS "const \fBentity_type\fP type_service_client"
+Service client type\&. 
+.SS "const \fBentity_type\fP type_monitor_client"
+Monitor client type\&. 
+.SS "const \fBentity_type\fP type_resource_client"
+Resource client type\&. 
+.SS "const \fBentity_type\fP type_control_client"
+Control client type\&. 
+.SS "const \fBentity_type\fP type_all_clients"
+Sum of all client types\&. 
+.SS "const \fBcommand_type\fP command_none"
+Not a command\&. 
+.SS "const \fBcommand_type\fP command_server"
+Server command\&. 
+.SS "const \fBcommand_type\fP command_request"
+Request command type\&. 
+.SS "const \fBcommand_type\fP command_response"
+Response command type\&. 
+.SS "const \fBcommand_type\fP command_remote"
+Command to be forwarded\&. 
+.SS "const \fBcommand_type\fP command_null"
+Inert command type\&. 
+.SS "const \fBcommand_type\fP command_all"
+All commands (for searching)\&. 
+.SS "const \fBcommand_event\fP event_none"
+No new event\&. 
+.SS "const \fBcommand_event\fP event_error"
+Error preventing execution\&. 
+.SS "const \fBcommand_event\fP event_bad_target"
+The target doesn't exist\&. 
+.SS "const \fBcommand_event\fP event_rejected"
+general command rejection\&. 
+.SS "const \fBcommand_event\fP event_bad_permissions"
+Not enough permissions to execute\&. 
+.SS "const \fBcommand_event\fP event_retry"
+Command load exceeded\&. 
+.SS "const \fBcommand_event\fP event_wait"
+Resend command later\&. 
+.SS "const \fBcommand_event\fP event_discarded"
+Discarded because of unresponsive target\&. 
+.SS "const \fBcommand_event\fP event_unavailable"
+Event status not available\&. 
+.SS "const \fBcommand_event\fP event_exit_mask"
+Mask for program exit value\&. 
+.SS "const \fBcommand_event\fP event_no_connection"
+No connection to server\&. 
+.SS "const \fBcommand_event\fP event_sent"
+Command sent\&. 
+.SS "const \fBcommand_event\fP event_unsent"
+Command not sent\&. 
+.SS "const \fBcommand_event\fP event_received_server"
+Server received command\&. 
+.SS "const \fBcommand_event\fP event_received_client"
+Client received command\&. 
+.SS "const \fBcommand_event\fP event_partial"
+Command partially complete\&. 
+.SS "const \fBcommand_event\fP event_complete"
+Command fully complete\&. 
+.SS "const \fBcommand_event\fP event_modified"
+Request modified and completed\&. 
+.SS "const \fBcommand_event\fP event_register"
+A requested client has tried to register\&. 
+.SS "const \fBcommand_event\fP event_no_success"
+Composite of all no-success events\&. 
+.SS "const \fBserver_directive\fP directed_none"
+No direction from server\&. 
+.SS "const \fBserver_directive\fP directed_disconnect"
+Server directs disconnection\&. 
+.SS "const \fBserver_directive\fP directed_terminate"
+Server directs termination\&. 
+.SS "const \fBlong_time\fP time_indefinite"
+Indefinite wait time\&. 
+.SS "const \fBshort_time\fP time_none"
+No wait time\&. 
+.SS "const \fBlogging_mode\fP logging_none"
+No logging output\&. 
+.SS "const \fBlogging_mode\fP logging_minimal"
+very important logging messages\&. 
+.SS "const \fBlogging_mode\fP logging_normal"
+Normal logging messages\&. 
+.SS "const \fBlogging_mode\fP logging_extended"
+Too much information\&. 
+.SS "const \fBlogging_mode\fP logging_debug"
+Debugging output\&. 
+.SS "const \fBlogging_mode\fP logging_default"
+Default logging mode\&. 
+.SS "const \fBlogging_mode\fP logging_all"
+Sum of all logging types\&. 
+.SS "const \fBcreate_flags\fP create_default"
+Default creation flags\&. 
+.SS "const \fBcreate_flags\fP create_exact"
+Don't modify permissions at all\&. 
+.SS "const \fBcreate_flags\fP create_target"
+Modify permissions to meet limitations\&. 
+.SS "const \fBpermission_mask\fP permission_maximum"
+Least-restrictive client mask\&. 
+.SS "const \fBcommand_priority\fP priority_minimum"
+Highest possible priority\&. 
+.SS "const \fBsecurity_level\fP security_0"
+Allow everything\&. 
+.SS "const \fBsecurity_level\fP security_1"
+Disallow direct server control\&. 
+.SS "const \fBsecurity_level\fP security_2"
+Disallow detached clients\&. 
+.SS "const \fBsecurity_level\fP security_3"
+Disallow admin clients\&. 
+.SS "const \fBsecurity_level\fP security_4"
+Disallow monitoring\&. 
+.SS "const \fBsecurity_level\fP security_5"
+Disallow control clients\&. 
+.SS "const \fBsecurity_level\fP security_6"
+Disallow resource clients\&. 
+.SS "const \fBsecurity_level\fP security_7"
+Disallow all new connections\&. 
+.SS "const \fBio_device\fP device_none"
+No device\&. 
+.SS "const \fBio_device\fP device_input"
+Standard input device\&. 
+.SS "const \fBio_device\fP device_output"
+Standard output device\&. 
+.SS "const \fBio_device\fP device_error"
+Standard error device\&. 
+.SS "const \fBio_device\fP device_log"
+Log file device\&. 
+.SS "const \fBio_device\fP device_terminal"
+Terminal device\&. 
+.SS "const \fBmonitor_event\fP monitor_none"
+No event has taken place\&. 
+.SS "const \fBmonitor_event\fP monitor_add"
+Addition took place\&. 
+.SS "const \fBmonitor_event\fP monitor_remove"
+Removal took place\&. 
+.SS "const \fBmonitor_event\fP monitor_rejection"
+rejection took place\&. 
+.SS "const \fBmonitor_event\fP monitor_change"
+Change took place\&. 
+.SS "const \fBmonitor_event\fP monitor_limit"
+Important limit was reached\&. 
+.SS "const \fBmonitor_event\fP monitor_attached_clients"
+Attached clients events\&. 
+.SS "const \fBmonitor_event\fP monitor_registered_clients"
+Registered clients events\&. 
+.SS "const \fBmonitor_event\fP monitor_registered_services"
+Registered services events\&. 
+.SS "const \fBmonitor_event\fP monitor_terminal_status"
+Terminal status events\&. 
+.SS "const \fBmonitor_event\fP monitor_server"
+General server events\&. 
+.SS "const \fBmonitor_event\fP monitor_clients"
+General client events\&. 
+.SS "const char client_scope_char"
+Character used to separate client name from address\&. 
+.SS "const char address_scope_char"
+Character used to separate client/address pairs\&. 
+.SS "const char standard_delimiter_char"
+General delimiter used to separarate text sent by server\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

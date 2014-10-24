@@ -1,0 +1,100 @@
+.TH "rservr/api/monitor-client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/monitor-client.h \- 
+.PP
+Server-monitoring functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBmonitor_update_data\fP"
+.br
+.RI "\fIMonitor update data\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBregister_monitor_client\fP (void)"
+.br
+.RI "\fIRegister a monitor client\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmonitoring_allowed\fP (void)"
+.br
+.RI "\fIDetermine 'monitoring ability' attribute\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBset_monitor_flags\fP (\fBmonitor_event\fP Flags)"
+.br
+.RI "\fISet server-monitoring profile\&. \fP"
+.ti -1c
+.RI "void \fB__monitor_update_hook\fP (const struct \fBmonitor_update_data\fP *Data)"
+.br
+.RI "\fIMonitor update-processing hook\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains all of the functions specifically for use with clients registered as monitor-only clients with the server, as well as other clients that inherit 'monitoring ability' and need to use it\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP register_monitor_client (void)"
+Register a currently-unregistered client as a monitor-only-type client\&. The client must be initialized and the message queue must be running first\&.
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP monitoring_allowed (void)"
+Determine if a non-monitor-only client possesses the 'monitoring ability' attribute\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+yes (true) or no (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP set_monitor_flags (\fBmonitor_event\fPFlags)"
+Change the client's server-monitoring profile\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcommand\&.h\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIFlags\fP server event types to monitor 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "void __monitor_update_hook (const struct \fBmonitor_update_data\fP *Data)"
+Hook function defined by the client program to process monitor updates sent by the server\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIData\fP event update data 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

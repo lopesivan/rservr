@@ -1,0 +1,364 @@
+.TH "rservr/config-parser.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/config-parser.h \- 
+.PP
+Uniform configuration parsing\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBload_line\fP (const char *Line, const char *Path)"
+.br
+.RI "\fILoad a configuration line\&. \fP"
+.ti -1c
+.RI "int \fBload_line_fail_check\fP (const char *Line, const char *Path)"
+.br
+.RI "\fILoad a configuration line\&. \fP"
+.ti -1c
+.RI "void \fBset_command_substitution\fP (int State)"
+.br
+.RI "\fISet command substitution state\&. \fP"
+.ti -1c
+.RI "int \fBcommand_substition_state\fP (void)"
+.br
+.RI "\fIGet command substitution state\&. \fP"
+.ti -1c
+.RI "int \fBextra_lines\fP (void)"
+.br
+.RI "\fIDetermine if there are extra lines\&. \fP"
+.ti -1c
+.RI "void \fBclear_extra_lines\fP (void)"
+.br
+.RI "\fIClear all remaining extra lines\&. \fP"
+.ti -1c
+.RI "int \fBcurrent_argument\fP (const char **Variable)"
+.br
+.RI "\fIGet option name\&. \fP"
+.ti -1c
+.RI "int \fBnext_argument\fP (const char **Variable)"
+.br
+.RI "\fIGet next argument\&. \fP"
+.ti -1c
+.RI "int \fBremaining_line\fP (const char **Variable)"
+.br
+.RI "\fIGet last argument\&. \fP"
+.ti -1c
+.RI "unsigned int \fBnumber_remaining\fP (void)"
+.br
+.RI "\fIGet the number of arguments left\&. \fP"
+.ti -1c
+.RI "struct \fBconfig_arguments\fP * \fBsteal_config_arguments\fP (struct \fBconfig_arguments\fP *Arguments)"
+.br
+.RI "\fISteal the configuration arguments\&. \fP"
+.ti -1c
+.RI "int \fBfree_config_arguments\fP (struct \fBconfig_arguments\fP *Arguments)"
+.br
+.RI "\fIFree a converted argument list\&. \fP"
+.ti -1c
+.RI "char ** \fBconvert_config_array\fP (const struct \fBconfig_arguments\fP *Arguments)"
+.br
+.RI "\fIConvert the configuration arguments\&. \fP"
+.ti -1c
+.RI "int \fBfree_config_array\fP (char **List)"
+.br
+.RI "\fIFree a converted argument list\&. \fP"
+.ti -1c
+.RI "char * \fBconvert_config_concat\fP (const struct \fBconfig_arguments\fP *Arguments)"
+.br
+.RI "\fIConvert the configuration arguments\&. \fP"
+.ti -1c
+.RI "int \fBargument_delim_split\fP (const char *Argument, char ***List)"
+.br
+.RI "\fISplit an argument into a list\&. \fP"
+.ti -1c
+.RI "int \fBfree_delim_split\fP (char **List)"
+.br
+.RI "\fIFree a delimiter-split argument list\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the functions used throughout the project to parse configurations\&. These should be used to maintain a configuration format consistent with the server\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int load_line (const char *Line, const char *Path)"
+Load a single configuration line for parsing\&. Subsequent calls will erase the buffered line\&. Call using NULL to clear the buffer after the last line\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fILine\fP from a file line 
+.br
+\fIPath\fP optional path to execute substitution 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+parsed (RSERVR_LINE_LOADED), line error (RSERVR_LINE_ERROR), or continued to the next line (RSERVR_LINE_CONTINUE) 
+.RE
+.PP
+
+.SS "int load_line_fail_check (const char *Line, const char *Path)"
+Load a single configuration line for parsing\&. Subsequent calls will erase the buffered line\&. Call using NULL to clear the buffer after the last line\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fILine\fP from a file line 
+.br
+\fIPath\fP optional path to execute substitution 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+parsed (RSERVR_LINE_LOADED), parsed and execution failure is allowed (RSERVR_LINE_FALLIBLE), line error (RSERVR_LINE_ERROR), or continued to the next line (RSERVR_LINE_CONTINUE) 
+.RE
+.PP
+
+.SS "void set_command_substitution (intState)"
+Turn command substitution on or off\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The default state is on\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcommand_substition_state\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIState\fP non-zero to turn on and zero to turn off 
+.RE
+.PP
+
+.SS "int command_substition_state (void)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The default state is on\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBset_command_substitution\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+non-zero is on and zero is off 
+.RE
+.PP
+
+.SS "int extra_lines (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBset_command_substitution\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+non-zero is yes and zero is no 
+.RE
+.PP
+
+.SS "void clear_extra_lines (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBset_command_substitution\fP 
+.PP
+\fBextra_lines\fP 
+.RE
+.PP
+
+.SS "int current_argument (const char **Variable)"
+This assigns the name of the option being used to the pointer given\&. This should be called right after the line is loaded\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIVariable\fP pointer to assign 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or error (-1) 
+.RE
+.PP
+
+.SS "int next_argument (const char **Variable)"
+This assigns the next element of the configuration line to the pointer given\&. This should be called after the option name is extracted\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+option_name
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIVariable\fP pointer to assign 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or error (-1) 
+.RE
+.PP
+
+.SS "int remaining_line (const char **Variable)"
+This assigns the next element of the configuration line to the pointer given only if that element is the last one on the line\&. This should be called after the option name is extracted\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+option_name
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIVariable\fP pointer to assign 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or error (-1) 
+.RE
+.PP
+
+.SS "unsigned int number_remaining (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+number of arguments left after current 
+.RE
+.PP
+
+.SS "struct \fBconfig_arguments\fP* steal_config_arguments (struct \fBconfig_arguments\fP *Arguments)"
+If NULL is provided, a duplicate will be dynamically-allocated\&. If a pointer is provided, the underlying object will be overwritten\&. Use free_config_arguments to free a dynamically-allocated duplicate\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIArguments\fP container to steal arguments to 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+NULL or a dynamically-allocated container 
+.RE
+.PP
+
+.SS "int free_config_arguments (struct \fBconfig_arguments\fP *Arguments)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsteal_config_arguments\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIArguments\fP list to free 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or error (-1) 
+.RE
+.PP
+
+.SS "char** convert_config_array (const struct \fBconfig_arguments\fP *Arguments)"
+Use free_config_array to free the array when done\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIArguments\fP a list of stolen arguments 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+dynamically-allocated list 
+.RE
+.PP
+
+.SS "int free_config_array (char **List)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBconvert_config_array\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIList\fP list to free 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or error (-1) 
+.RE
+.PP
+
+.SS "char* convert_config_concat (const struct \fBconfig_arguments\fP *Arguments)"
+Dyanmically allocates a space-separated string of arguments\&.
+.PP
+\fBReturns:\fP
+.RS 4
+dynamically-allocated string 
+.RE
+.PP
+
+.SS "int argument_delim_split (const char *Argument, char ***List)"
+This will split an argument into a list using its first character as the delimiter\&. Use free_delim_split to free the list when done\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIArgument\fP argument to parse 
+.br
+\fIList\fP variable to store parsed list in 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+size of list or error (-1) 
+.RE
+.PP
+
+.SS "int free_delim_split (char **List)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBargument_delim_split\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIList\fP list to free 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or error (-1) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

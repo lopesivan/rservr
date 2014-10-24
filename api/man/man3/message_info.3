@@ -1,0 +1,76 @@
+.TH "message_info" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+message_info \- 
+.PP
+Queued message data\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <rservr/api/message-queue\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_reference\fP \fBmessage_reference\fP"
+.br
+.ti -1c
+.RI "\fBcommand_reference\fP \fBlast_reference\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBreceived_from\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBreceived_address\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBsent_to\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBsent_address\fP"
+.br
+.ti -1c
+.RI "pid_t \fBcreator_pid\fP"
+.br
+.ti -1c
+.RI "\fBclient_time\fP \fBtime_received\fP"
+.br
+.ti -1c
+.RI "\fBcommand_priority\fP \fBpriority\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBcommand_name\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Holds data for an incoming queued message\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBcommand_reference\fP message_info::message_reference"
+Original message reference number\&. 
+.SS "\fBcommand_reference\fP message_info::last_reference"
+Message reference number from the last-sending client\&. 
+.SS "\fBtext_info\fP message_info::received_from"
+Name of the last-sending client\&. 
+.SS "\fBtext_info\fP message_info::received_address"
+Address of the original-sending client\&. 
+.SS "\fBtext_info\fP message_info::sent_to"
+Target name of the message\&. 
+.SS "\fBtext_info\fP message_info::sent_address"
+Target address of the message from the original sender\&. 
+.SS "pid_t message_info::creator_pid"
+Process ID of the original sender\&. 
+.SS "\fBclient_time\fP message_info::time_received"
+Time the message was received\&. 
+.SS "\fBcommand_priority\fP message_info::priority"
+Priority the message was sent with\&. 
+.SS "\fBtext_info\fP message_info::command_name"
+Name of the command used to send the message\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

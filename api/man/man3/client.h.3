@@ -1,0 +1,370 @@
+.TH "rservr/api/client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/client.h \- 
+.PP
+General client functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBinitialize_client\fP (void)"
+.br
+.RI "\fIInitialize the client client\&. \fP"
+.ti -1c
+.RI "void \fBclient_cleanup\fP (void)"
+.br
+.RI "\fIFree client resources prior to exit\&. \fP"
+.ti -1c
+.RI "void \fBisolate_client\fP (void)"
+.br
+.RI "\fIIsolate a non-client fork\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBcheck_ipc_status\fP (void)"
+.br
+.RI "\fICheck IPC status\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBderegister_client\fP (void)"
+.br
+.RI "\fIDeregister the client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBclient_message\fP (\fBtext_info\fP Target, \fBtext_info\fP Data)"
+.br
+.RI "\fISend a basic text message\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBping_client\fP (\fBtext_info\fP Target)"
+.br
+.RI "\fICheck a client responsiveness\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBping_server\fP (void)"
+.br
+.RI "\fICheck a client responsiveness\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBshort_response\fP (\fBmessage_handle\fP Message, \fBcommand_event\fP Event)"
+.br
+.RI "\fIRespond to a message\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBclient_response\fP (\fBmessage_handle\fP Message, \fBcommand_event\fP Event, \fBtext_info\fP Data)"
+.br
+.RI "\fIRespond to a message with a message\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBclient_response_list\fP (\fBmessage_handle\fP Message, \fBcommand_event\fP Event, \fBinfo_list\fP Data)"
+.br
+.RI "\fIRespond to a message with a message\&. \fP"
+.ti -1c
+.RI "\fBtext_info\fP \fBget_client_name\fP (void)"
+.br
+.RI "\fIGet the client's registered name\&. \fP"
+.ti -1c
+.RI "\fBpermission_mask\fP \fBget_client_type\fP (void)"
+.br
+.RI "\fIGet the client's registered permissions\&. \fP"
+.ti -1c
+.RI "\fBtext_info\fP \fBget_server_name\fP (void)"
+.br
+.RI "\fIGet the attaching server's name\&. \fP"
+.ti -1c
+.RI "\fBcommand_event\fP \fBrequest_terminal\fP (int *Descriptor)"
+.br
+.RI "\fIRequest terminal control\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBreturn_terminal\fP (void)"
+.br
+.RI "\fIReturn terminal control\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBterminal_control\fP (void)"
+.br
+.RI "\fIDetermine terminal control\&. \fP"
+.ti -1c
+.RI "void \fBdisable_indicate_ready\fP (void)"
+.br
+.RI "\fIDelay indication of client readiness\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmanual_indicate_ready\fP (void)"
+.br
+.RI "\fIManually indicate client readiness\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the general functions pertaining to all clients such as client inititialization, basic client information, terminal access, and basic inter-client commands\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP initialize_client (void)"
+Initialize the client's internals to allow further client functionality\&. This must be called before any other client-related functionality is used\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBset_program_name\fP 
+.PP
+\fBset_log_file\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "void client_cleanup (void)"
+This isn't entirely necessary, but it will clean up certain one-time allocations (mostly to get rid of memory leak detections\&.) Call this just before exiting a client program if it was initialized\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinitialize_client\fP 
+.RE
+.PP
+
+.SS "void isolate_client (void)"
+Isolate a fork of a client program from the client/server IPC of its parent process to avoid interference\&. 
+.SS "\fBresult\fP check_ipc_status (void)"
+Check the status of IPC connections between the client and the server\&.
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP deregister_client (void)"
+Deregister a previously-registered client with the server\&. 
+.PP
+\fBNote:\fP
+.RS 4
+This is not required before the client exits\&. 
+.PP
+This is required if a client is going to register as a different type\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP client_message (\fBtext_info\fPTarget, \fBtext_info\fPData)"
+Send a basic inter-client informational message\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP client or service name 
+.br
+\fIData\fP text-formated message data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP ping_client (\fBtext_info\fPTarget)"
+Send a functionless message to another client to determine if it's active and if its message queue is functioning\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage-queue\&.h\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP client or service name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP ping_server (void)"
+Send a functionless message to the server\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage-queue\&.h\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP short_response (\fBmessage_handle\fPMessage, \fBcommand_event\fPEvent)"
+Send an event in response to a received message\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage-queue\&.h\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP message received from another client 
+.br
+\fIEvent\fP event mask to send to the sending client 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP client_response (\fBmessage_handle\fPMessage, \fBcommand_event\fPEvent, \fBtext_info\fPData)"
+Send a text message in addition to an event in response to a received message\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage-queue\&.h\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP message received from another client 
+.br
+\fIEvent\fP event mask to send to the sending client 
+.br
+\fIData\fP text-formated message data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP client_response_list (\fBmessage_handle\fPMessage, \fBcommand_event\fPEvent, \fBinfo_list\fPData)"
+Send a text message in addition to an event in response to a received message\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage-queue\&.h\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP message received from another client 
+.br
+\fIEvent\fP event mask to send to the sending client 
+.br
+\fIData\fP text-formated message data (NULL-terminated list) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBtext_info\fP get_client_name (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+client's name 
+.RE
+.PP
+
+.SS "\fBpermission_mask\fP get_client_type (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+client's permissions 
+.RE
+.PP
+
+.SS "\fBtext_info\fP get_server_name (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+server's name 
+.RE
+.PP
+
+.SS "\fBcommand_event\fP request_terminal (int *Descriptor)"
+Request the server turn over control of its controlling terminal\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The server the calling client is attached to must own a terminal\&. 
+.PP
+Close the provided file descriptor before calling this function again, but only if terminal access has been granted\&. 
+.PP
+The calling process must be in the same session as the server and also must belong to the process group of the client process started by the server\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIDescriptor\fP pointer to hold the terminal's file descriptor 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+command event based on the terminal's current status 
+.RE
+.PP
+
+.SS "\fBresult\fP return_terminal (void)"
+Turn terminal control back over to the server\&.
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP terminal_control (void)"
+Determine if the client currently controls its controlling terminal\&.
+.PP
+\fBReturns:\fP
+.RS 4
+yes (true) or no (false) 
+.RE
+.PP
+
+.SS "void disable_indicate_ready (void)"
+Call this function before registering the client to prevent the registration request from implicitly indicating that the client is ready\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmanual_indicate_ready\fP 
+.RE
+.PP
+
+.SS "\fBresult\fP manual_indicate_ready (void)"
+Call this function when the client is ready if you've disabled implicit notification with disable_indicate_ready\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBdisable_indicate_ready\fP 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+You must either use this function within a reasonable amount of time or exit the client process if you use disable_indicate_ready\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

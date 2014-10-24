@@ -1,0 +1,143 @@
+.TH "rservr/api/response.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/response.h \- 
+.PP
+Service response functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_handle\fP \fBservice_response\fP (\fBmessage_handle\fP Message, \fBtext_info\fP Data)"
+.br
+.RI "\fICreate a textual service response\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBbinary_service_response\fP (\fBmessage_handle\fP Message, \fBbinary_info\fP Data, \fBbinary_size\fP Size)"
+.br
+.RI "\fICreate a binary service response\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBpartial_service_response\fP (\fBmessage_handle\fP Message, \fBtext_info\fP Data, \fBresponse_type\fP Type)"
+.br
+.RI "\fICreate a textual partial service response\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBpartial_service_response_list\fP (\fBmessage_handle\fP Message, \fBinfo_list\fP Data, \fBresponse_type\fP Type)"
+.br
+.RI "\fICreate a textual partial service list response\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the basic response functions specific to service clients\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBrequest\&.h\fP 
+.PP
+\fBresource-client\&.h\fP 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBcommand_handle\fP service_response (\fBmessage_handle\fPMessage, \fBtext_info\fPData)"
+Create a textual service response to a queued message\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The message does not have to be a service request\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP original message 
+.br
+\fIData\fP text-formated message data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP binary_service_response (\fBmessage_handle\fPMessage, \fBbinary_info\fPData, \fBbinary_size\fPSize)"
+Create a binary service response to a queued message\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The message does not have to be a service request\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP original message 
+.br
+\fIData\fP binary-formated message data 
+.br
+\fISize\fP data size 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP partial_service_response (\fBmessage_handle\fPMessage, \fBtext_info\fPData, \fBresponse_type\fPType)"
+Create a textual partial service response to a queued message\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The message does not have to be a service request\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP original message 
+.br
+\fIData\fP text-formated message data 
+.br
+\fIType\fP response type 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP partial_service_response_list (\fBmessage_handle\fPMessage, \fBinfo_list\fPData, \fBresponse_type\fPType)"
+Create a textual partial service list response to a queued message\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The message does not have to be a service request\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIMessage\fP original message 
+.br
+\fIData\fP text-formated message data (NULL-terminated list) 
+.br
+\fIType\fP response type 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

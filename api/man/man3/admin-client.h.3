@@ -1,0 +1,378 @@
+.TH "rservr/api/admin-client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/admin-client.h \- 
+Admin-client-specific functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBregister_admin_client\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRegister an admin client\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBhave_server_control\fP (void)"
+.br
+.RI "\fIDetermine 'server control' attribute\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBcreate_new_system_client\fP (\fBtext_info\fP Command, uid_t User, gid_t Group, \fBcommand_priority\fP Priority, \fBpermission_mask\fP Permissions, \fBcreate_flags\fP Flags)"
+.br
+.RI "\fIRequest a new shell-interpreted client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBcreate_new_system_client_pid\fP (\fBtext_info\fP, uid_t, gid_t, \fBcommand_priority\fP, \fBpermission_mask\fP, \fBcreate_flags\fP)"
+.br
+.RI "\fIRequest a new shell-interpreted client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBcreate_new_exec_client\fP (\fBinfo_list\fP Command, uid_t User, gid_t Group, \fBcommand_priority\fP Priority, \fBpermission_mask\fP Permissions, \fBcreate_flags\fP Flags)"
+.br
+.RI "\fIRequest execution of a new client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBcreate_new_exec_client_pid\fP (\fBinfo_list\fP, uid_t, gid_t, \fBcommand_priority\fP, \fBpermission_mask\fP, \fBcreate_flags\fP)"
+.br
+.RI "\fIRequest execution of a new client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBconnect_detached_client\fP (\fBtext_info\fP Socket, \fBcommand_priority\fP Priority, \fBpermission_mask\fP Permissions, \fBcreate_flags\fP Flags)"
+.br
+.RI "\fIRequest attachment of an existing process\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBterminate_client\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRequest friendly termination of a client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBkill_client\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRequest hostile termination of a client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBterminate_client_pattern\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRequest friendly termination of multiple clients\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBkill_client_pattern\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRequest hostile termination of multiple clients\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBterminate_client_pid\fP (pid_t Process)"
+.br
+.RI "\fIRequest friendly termination of a client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBkill_client_pid\fP (pid_t Process)"
+.br
+.RI "\fIRequest hostile termination of a client\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBterminate_server\fP (void)"
+.br
+.RI "\fIRequest termination of the server\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBfind_registered_clients\fP (\fBtext_info\fP Name, \fBpermission_mask\fP Required, \fBpermission_mask\fP Denied)"
+.br
+.RI "\fIFind and list registered clients\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains all of the functions specifically for use with clients registered as admin clients with the server\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP register_admin_client (\fBtext_info\fPName)"
+Register a currently-unregistered client as an admin-type client\&. The client must be initialized and the message queue must be running first\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP have_server_control (void)"
+Determine if the client possesses the 'server control' attribute\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+yes (true) or no (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP create_new_system_client (\fBtext_info\fPCommand, uid_tUser, gid_tGroup, \fBcommand_priority\fPPriority, \fBpermission_mask\fPPermissions, \fBcreate_flags\fPFlags)"
+Send the server a request to start and attach a new client using a command to be interpreted by the default shell\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP shell-readable command line 
+.br
+\fIUser\fP user ID to use for the new client 
+.br
+\fIGroup\fP group ID to use for the new client 
+.br
+\fIPriority\fP minimum command priority value allowed by the new client 
+.br
+\fIPermissions\fP maximum registration permissions for the new client 
+.br
+\fIFlags\fP not currently implemented 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP create_new_system_client_pid (\fBtext_info\fP, uid_t, gid_t, \fBcommand_priority\fP, \fBpermission_mask\fP, \fBcreate_flags\fP)"
+Identical to create_new_system_client, but returns a queued message with a text representation of the new client's process ID\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcreate_new_system_client\fP 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP create_new_exec_client (\fBinfo_list\fPCommand, uid_tUser, gid_tGroup, \fBcommand_priority\fPPriority, \fBpermission_mask\fPPermissions, \fBcreate_flags\fPFlags)"
+Send the server a request to start and attach a new client using a command to be interpreted by the kernel using a sytem call\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP argv-style command + argument list 
+.br
+\fIUser\fP user ID to use for the new client 
+.br
+\fIGroup\fP group ID to use for the new client 
+.br
+\fIPriority\fP minimum command priority value allowed by the new client 
+.br
+\fIPermissions\fP maximum registration permissions for the new client 
+.br
+\fIFlags\fP not currently implemented 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP create_new_exec_client_pid (\fBinfo_list\fP, uid_t, gid_t, \fBcommand_priority\fP, \fBpermission_mask\fP, \fBcreate_flags\fP)"
+Identical to create_new_exec_client_pid, but returns a queued message with a text representation of the new client's process ID\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcreate_new_exec_client_pid\fP 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP connect_detached_client (\fBtext_info\fPSocket, \fBcommand_priority\fPPriority, \fBpermission_mask\fPPermissions, \fBcreate_flags\fPFlags)"
+Send the server a request to attach an existing process as a client using a local socket that the process has created for that purpose\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBconvert_client_detached\fP 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+Requires the 'server control' attribute\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fISocket\fP local socket file name 
+.br
+\fIPriority\fP minimum command priority value allowed by the new client 
+.br
+\fIPermissions\fP maximum registration permissions for the new client 
+.br
+\fIFlags\fP not currently implemented 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP terminate_client (\fBtext_info\fPName)"
+Send the server a request to detach a client based on its registered name\&. This method sends the client a courtesy message before disconnecting it\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The name provided can be the name of a service if the client possesses the 'server control' attribute\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP exact name of the client 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP kill_client (\fBtext_info\fPName)"
+Send the server a request to detach a client based on its registered name\&. This method disconnects the client without notifying it first\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Requires the 'server control' attribute\&. 
+.PP
+The name provided can be the name of a service\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP exact name of the client 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP terminate_client_pattern (\fBtext_info\fPName)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBterminate_client\fP 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+The name provided cannot be the name of a service\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP regular expression pattern for client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP kill_client_pattern (\fBtext_info\fPName)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBkill_client\fP 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+Requires the 'server control' attribute\&. 
+.PP
+The name provided cannot be the name of a service\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP regular expression pattern for client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP terminate_client_pid (pid_tProcess)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBterminate_client\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIProcess\fP client process ID 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP kill_client_pid (pid_tProcess)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBkill_client\fP 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+Requires the 'server control' attribute\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIProcess\fP client process ID 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBresult\fP terminate_server (void)"
+Request the server disconnect all clients and exit before processing any additional commands\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Requires the 'server control' attribute\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP find_registered_clients (\fBtext_info\fPName, \fBpermission_mask\fPRequired, \fBpermission_mask\fPDenied)"
+List all clients registered on the server matching the criteria given\&. A response list message is returned with a list of clients and their hexadecimal registered permissions\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage_info\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP regular expression pattern for client name 
+.br
+\fIRequired\fP registered permissions required of matching clients 
+.br
+\fIDenied\fP registered permissions not allowed for matching clients 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

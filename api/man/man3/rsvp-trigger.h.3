@@ -1,0 +1,74 @@
+.TH "rservr/plugins/rsvp-trigger.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-trigger.h \- 
+.PP
+Event-triggering command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrsvp_trigger_load\fP (struct local_commands *Loader)"
+.br
+.RI "\fILoad the plug-in\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_trigger_system_trigger\fP (\fBtext_info\fP Target, uint8_t Action, \fBtext_info\fP System)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int rsvp_trigger_load (struct local_commands *Loader)"
+Call this in load_all_commands if you're using multiple standard command plug-ins\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBload_all_commands\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fILoader\fP command loader provided to load_all_commands 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or failure (-1) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_trigger_system_trigger (\fBtext_info\fPTarget, uint8_tAction, \fBtext_info\fPSystem)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIAction\fP action type to be triggered 
+.br
+\fISystem\fP system to be triggered 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

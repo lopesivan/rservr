@@ -1,0 +1,216 @@
+.TH "rservr/api/event-functor.hpp" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/event-functor.hpp \- 
+.PP
+Functor implementation of command-queue callbacks\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_reference\fP \fBsend_command_functor\fP (\fBcommand_handle\fP Command, struct event_functor *Functor)"
+.br
+.RI "\fISend a command with a callback functor\&. \fP"
+.ti -1c
+.RI "\fBcommand_reference\fP \fBsend_command_functors\fP (\fBcommand_handle\fP Command, const event_functor_list &Functors)"
+.br
+.RI "\fISend a command with callback functors\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBnew_status_functor\fP (\fBcommand_reference\fP Reference, struct event_functor *Functor)"
+.br
+.RI "\fIAdd a status callback functor\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBnew_status_functors\fP (\fBcommand_reference\fP Reference, const event_functor_list &Functors)"
+.br
+.RI "\fIAdd status callback functors\&. \fP"
+.ti -1c
+.RI "template<class Type > event_functor * \fBencapsulate_callback\fP (const Type &Callback)"
+.br
+.RI "\fICreate a functor from a function\&. \fP"
+.ti -1c
+.RI "template<class Type , typename Member > event_functor * \fBencapsulate_functor\fP (const Type &Functor, Member Type::*Function)"
+.br
+.RI "\fICreate a functor from an object\&. \fP"
+.ti -1c
+.RI "template<class Type , typename Member > event_functor * \fBencapsulate_functor\fP (Type *Functor, Member Type::*Function)"
+.br
+.RI "\fICreate a functor from a pointer\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBcommand_reference\fP send_command_functor (\fBcommand_handle\fPCommand, struct event_functor *Functor)"
+Send a command from the command queue with a callback functor to be called when the command's status is updated\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Allocates a command status object\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBclear_command_status\fP 
+.PP
+\fBdestroy_command\fP 
+.PP
+\fBsend_command_callback\fP 
+.PP
+\fBencapsulate_callback\fP 
+.PP
+\fBencapsulate_functor\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIFunctor\fP callback functor to be called upon status update 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+reference of the sent command 
+.RE
+.PP
+
+.SS "\fBcommand_reference\fP send_command_functors (\fBcommand_handle\fPCommand, const event_functor_list &Functors)"
+
+.PP
+\fBNote:\fP
+.RS 4
+Allocates a command status object\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBclear_command_status\fP 
+.PP
+\fBdestroy_command\fP 
+.PP
+\fBsend_command_functor\fP 
+.PP
+\fBsend_command_callback\fP 
+.PP
+\fBencapsulate_callback\fP 
+.PP
+\fBencapsulate_functor\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIFunctors\fP callback functors to be called upon status update 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+reference of the sent command 
+.RE
+.PP
+
+.SS "\fBresult\fP new_status_functor (\fBcommand_reference\fPReference, struct event_functor *Functor)"
+Add a command status callback functor to an already-sent command's status object\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsend_command_functor\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fIFunctor\fP callback functor to be called upon status update 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP new_status_functors (\fBcommand_reference\fPReference, const event_functor_list &Functors)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsend_command_functors\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fIFunctors\fP callback functors to be called upon status update 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "template<class Type > event_functor* encapsulate_callback (const Type &Callback)\fC [inline]\fP"
+Encapsulate a non-member function pointer as an event_functor\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fICallback\fP pointer to the callback function 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+dynamically-allocated event_functor 
+.RE
+.PP
+
+.SS "template<class Type , typename Member > event_functor* encapsulate_functor (const Type &Functor, Member Type::*Function)\fC [inline]\fP"
+Encapsulate an object and member function as an event_functor\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIFunctor\fP object to call a function against (copied) 
+.br
+\fIFunction\fP pointer to a member function 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+dynamically-allocated event_functor 
+.RE
+.PP
+
+.SS "template<class Type , typename Member > event_functor* encapsulate_functor (Type *Functor, Member Type::*Function)\fC [inline]\fP"
+Encapsulate a pointer and member function as an event_functor\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIFunctor\fP pointer to an object to call a function against 
+.br
+\fIFunction\fP pointer to a member function 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+dynamically-allocated event_functor 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

@@ -1,0 +1,473 @@
+.TH "rservr/api/message-queue.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/message-queue.h \- 
+.PP
+Message queue functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBincoming_request_data\fP"
+.br
+.ti -1c
+.RI "struct \fBincoming_response_data\fP"
+.br
+.ti -1c
+.RI "struct \fBincoming_remote_data\fP"
+.br
+.ti -1c
+.RI "struct \fBincoming_info_data\fP"
+.br
+.ti -1c
+.RI "struct \fBmessage_info\fP"
+.br
+.RI "\fIQueued message data\&. \fP"
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBqueue_event_hook\fP )(int)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBmessage_dimension\fP "
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBstart_message_queue\fP (void)"
+.br
+.RI "\fIStart the message queue\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBinline_message_queue\fP (void)"
+.br
+.RI "\fIInline the message queue\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBstop_message_queue\fP (void)"
+.br
+.RI "\fIStop the message queue\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_status\fP (void)"
+.br
+.RI "\fIDetermine the message queue's status\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_pause\fP (void)"
+.br
+.RI "\fIPause the message queue\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_unpause\fP (void)"
+.br
+.RI "\fIUnpause the message queue\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_pause_state\fP (void)"
+.br
+.RI "\fICheck the message queue pause state\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_timed_pause\fP (\fBlong_time\fP Time)"
+.br
+.RI "\fITemporarily pause the message queue\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_auto_pause\fP (double Threshold, double Restore, \fBlong_time\fP Time)"
+.br
+.RI "\fIAutomatically pause message queue when overloaded\&. \fP"
+.ti -1c
+.RI "unsigned int \fBmessage_queue_size\fP (void)"
+.br
+.ti -1c
+.RI "unsigned int \fBmessage_queue_limit\fP (void)"
+.br
+.ti -1c
+.RI "void \fBset_message_queue_limit\fP (unsigned int)"
+.br
+.ti -1c
+.RI "void \fBblock_messages\fP (void)"
+.br
+.ti -1c
+.RI "void \fBallow_messages\fP (void)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBblock_messages_status\fP (void)"
+.br
+.ti -1c
+.RI "void \fBallow_privileged_responses\fP (void)"
+.br
+.ti -1c
+.RI "void \fBallow_responses\fP (void)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBallow_privileged_responses_status\fP (void)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBallow_responses_status\fP (void)"
+.br
+.ti -1c
+.RI "void \fBblock_remote\fP (void)"
+.br
+.ti -1c
+.RI "void \fBallow_remote\fP (void)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBblock_remote_status\fP (void)"
+.br
+.ti -1c
+.RI "\fBqueue_event_hook\fP \fBset_queue_event_hook\fP (\fBqueue_event_hook\fP Callback)"
+.br
+.RI "\fISet a message queue hook\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBmessage_queue_sync\fP (void)"
+.br
+.RI "\fIsynchronize with the message queue\&. \fP"
+.ti -1c
+.RI "void \fBqueue_sync_continue\fP (void)"
+.br
+.RI "\fIContinue blocked synchronizations\&. \fP"
+.ti -1c
+.RI "const struct \fBmessage_info\fP * \fBcurrent_message\fP (void)"
+.br
+.ti -1c
+.RI "const struct \fBmessage_info\fP * \fBvalidate_message\fP (\fBmessage_handle\fP)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBremove_current_message\fP (void)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBremove_message\fP (\fBmessage_handle\fP)"
+.br
+.ti -1c
+.RI "void \fBclear_messages\fP (void)"
+.br
+.ti -1c
+.RI "unsigned int \fBcheck_responses\fP (\fBcommand_reference\fP)"
+.br
+.ti -1c
+.RI "const struct \fBmessage_info\fP * \fBrotate_response\fP (\fBcommand_reference\fP)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBremove_responses\fP (\fBcommand_reference\fP)"
+.br
+.ti -1c
+.RI "\fBmessage_handle\fP \fBset_async_response\fP (void)"
+.br
+.RI "\fIRecord response data for future use\&. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_reference\fP \fBmessage_reference\fP"
+.br
+.ti -1c
+.RI "\fBcommand_reference\fP \fBlast_reference\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBreceived_from\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBreceived_address\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBsent_to\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBsent_address\fP"
+.br
+.ti -1c
+.RI "pid_t \fBcreator_pid\fP"
+.br
+.ti -1c
+.RI "\fBclient_time\fP \fBtime_received\fP"
+.br
+.ti -1c
+.RI "\fBcommand_priority\fP \fBpriority\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBcommand_name\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains all of the message queue management functions\&. The message queue is both a running process and a table of received messages\&. The queue must be running to have any communication with the server or other clients\&. The queue thread is responsible for receiving incoming commands and queueing messages if commands register them\&. 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* queue_event_hook)(int)"
+Callback function to be hooked into the message queue\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBmessage_dimension\fP"
+For macro and internal use only\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP start_message_queue (void)"
+Start the client's message queue for receiving messages and command status updates\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The client must first be initialized\&. 
+.PP
+The message queue must be running before any commands can be sent\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinitialize_client\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP inline_message_queue (void)"
+Start the client's message queue from within the current thread's execution\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBstart_message_queue\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP stop_message_queue (void)"
+Stop the client's message queue\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Don't call this when using the inline message queue\&. 
+.PP
+This must be called when the client exits to avoid an exception\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_status (void)"
+Determine if the message queue is currently running\&.
+.PP
+\fBReturns:\fP
+.RS 4
+running (true) or not running (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_pause (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+running (true) or not running (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_unpause (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+running (true) or not running (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_pause_state (void)"
+
+.PP
+\fBReturns:\fP
+.RS 4
+paused (true) or not paused (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_timed_pause (\fBlong_time\fPTime)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITime\fP maximum length of pause 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+running (true) or not running (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_auto_pause (doubleThreshold, doubleRestore, \fBlong_time\fPTime)"
+This will automatically pause the message queue when the number of messages reaches 'Threshold' % of its capacity\&. The queue will remain paused until either the number of messages returns to 'Restore' % capacity or 'Time' has elapsed, whichever is sooner\&. If 'Time' is zero then this will not time out\&. A failure indicates that the message queue isn't running, either 'Threshold' or 'Restore' are greater than 1\&.0, or 'Restore' is greater than 'Threshold'\&. Setting all to 0\&.0 will cancel the previous settings\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage_queue_pause\fP 
+.PP
+\fBmessage_queue_unpause\fP 
+.PP
+\fBmessage_queue_timed_pause\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIThreshold\fP % fullness at which to trigger pause 
+.br
+\fIRestore\fP % fullness at which to unpause 
+.br
+\fITime\fP maximum length of pause 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "unsigned int message_queue_size (void)"
+Total number of messages in the queue\&. 
+.SS "unsigned int message_queue_limit (void)"
+Maximum number of messages allowed in the queue\&. 
+.SS "void set_message_queue_limit (unsignedint)"
+Set the maximum number of messages allowed in the queue\&. 
+.SS "void block_messages (void)"
+Disallow all incoming messages\&. 
+.SS "void allow_messages (void)"
+Allow all incoming messages\&. This is the default\&. 
+.SS "\fBresult\fP block_messages_status (void)"
+Determine the status of message blocking\&. 
+.SS "void allow_privileged_responses (void)"
+Disallow all incoming messages except for server responses\&. 
+.SS "void allow_responses (void)"
+Disallow all incoming messages except for responses\&. 
+.SS "\fBresult\fP allow_privileged_responses_status (void)"
+Determine the status of non-server-response blocking\&. 
+.SS "\fBresult\fP allow_responses_status (void)"
+Determine the status of non-response blocking\&. 
+.SS "void block_remote (void)"
+Disallow all incoming remote commands\&. This is the default\&. 
+.SS "void allow_remote (void)"
+Allow all incoming remote commands\&. 
+.SS "\fBresult\fP block_remote_status (void)"
+Determine the status of remote command blocking\&. 
+.SS "\fBqueue_event_hook\fP set_queue_event_hook (\fBqueue_event_hook\fPCallback)"
+Hook a callback function into the message queue\&. The queue calls this function whenever specified events occur with the queue\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+RSERVR_QUEUE_START 
+.PP
+RSERVR_QUEUE_STOP 
+.PP
+RSERVR_QUEUE_BLOCK 
+.PP
+RSERVR_QUEUE_UNBLOCK 
+.PP
+RSERVR_QUEUE_MESSAGE 
+.PP
+RSERVR_QUEUE_PAUSE 
+.PP
+RSERVR_QUEUE_UNPAUSE
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICallback\fP callback function to be called for queue events 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+previous callback function 
+.RE
+.PP
+
+.SS "\fBresult\fP message_queue_sync (void)"
+Cause the current function to block and wait for a message to be added to the message queue\&.
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "void queue_sync_continue (void)"
+Cause all functions blocked waiting for new messages to continue\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage_queue_sync\fP 
+.RE
+.PP
+
+.SS "const struct \fBmessage_info\fP* current_message (void)"
+Obtain the current message\&. 
+.SS "const struct \fBmessage_info\fP* validate_message (\fBmessage_handle\fP)"
+Verify that the given message is in the queue\&. 
+.SS "\fBresult\fP remove_current_message (void)"
+Remove the current message\&. 
+.SS "\fBresult\fP remove_message (\fBmessage_handle\fP)"
+Remove a specified message\&. 
+.SS "void clear_messages (void)"
+Clear all messages from the queue\&. 
+.SS "unsigned int check_responses (\fBcommand_reference\fP)"
+Determine the number of responses to a sent command\&. 
+.SS "const struct \fBmessage_info\fP* rotate_response (\fBcommand_reference\fP)"
+Rotate to the next response to a sent command\&. 
+.SS "\fBresult\fP remove_responses (\fBcommand_reference\fP)"
+Remove all responses to a sent command\&. 
+.SS "\fBmessage_handle\fP set_async_response (void)"
+Record response information for the currently-executing command for future use\&. This must be called from within a command plug-in hook to work\&. This is generally used right before creating a separate thread to handle processing, while the hook function returns\&. The thread creates a response to the original command from this handle at a later time\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Remove the created message with remove_message when done\&. 
+.PP
+clear_messages will not remove messages created with this function\&. 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "\fBcommand_reference\fP message_reference"
+Original message reference number\&. 
+.SS "\fBcommand_reference\fP last_reference"
+Message reference number from the last-sending client\&. 
+.SS "\fBtext_info\fP received_from"
+Name of the last-sending client\&. 
+.SS "\fBtext_info\fP received_address"
+Address of the original-sending client\&. 
+.SS "\fBtext_info\fP sent_to"
+Target name of the message\&. 
+.SS "\fBtext_info\fP sent_address"
+Target address of the message from the original sender\&. 
+.SS "pid_t creator_pid"
+Process ID of the original sender\&. 
+.SS "\fBclient_time\fP time_received"
+Time the message was received\&. 
+.SS "\fBcommand_priority\fP priority"
+Priority the message was sent with\&. 
+.SS "\fBtext_info\fP command_name"
+Name of the command used to send the message\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

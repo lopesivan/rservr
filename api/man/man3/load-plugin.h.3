@@ -1,0 +1,56 @@
+.TH "rservr/api/load-plugin.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/load-plugin.h \- 
+.PP
+Command plug-in loading\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef int(* \fBplugin_loader_callback\fP )(struct local_commands *)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBload_plugin_lib\fP (\fBtext_info\fP)"
+.br
+.ti -1c
+.RI "int \fBload_plugin_callback\fP (\fBplugin_loader_callback\fP)"
+.br
+.ti -1c
+.RI "int \fBload_internal_plugins\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the command plug-in loading functions\&. 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef int(* plugin_loader_callback)(struct local_commands *)"
+Callback function defined by a plug-in library\&. 
+.SH "Function Documentation"
+.PP 
+.SS "int load_plugin_lib (\fBtext_info\fP)"
+Load the specified plug-in library\&. 
+.SS "int load_plugin_callback (\fBplugin_loader_callback\fP)"
+Load a plug-in using its callback function\&. 
+.SS "int load_internal_plugins (void)"
+Load plug-ins that are hard-linked into the client program\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

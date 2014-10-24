@@ -1,0 +1,53 @@
+.TH "rservr/plugin-dev/entry-point.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugin-dev/entry-point.h \- 
+.PP
+Entry point for plug-in loading\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBload_all_commands\fP (struct local_commands *Loader)"
+.br
+.RI "\fILoad local plug-ins\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry The function in this file is defined by command plug-in libraries as a default load function\&. Redefine this function if your client links to more than one command plug-in\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int load_all_commands (struct local_commands *Loader)"
+Define this function to load plug-in commands within a plug-in library\&. If a client links to multiple plug-ins, you should redefine this function to call each of the plug-ins' own load functions one at a time\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBexternal-command\&.hpp\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fILoader\fP command loader to be passed to plug-in's own load function or to load_plugin_command, etc\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or failure (-1) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

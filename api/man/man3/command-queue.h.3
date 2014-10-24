@@ -1,0 +1,455 @@
+.TH "rservr/api/command-queue.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/command-queue.h \- 
+.PP
+Command queue functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBresult\fP(* \fBevent_callback\fP )(\fBcommand_reference\fP Reference, \fBcommand_event\fP Event, \fBcommand_event\fP Cumulative, const struct command_info *Info)"
+.br
+.RI "\fICommand status callback\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBchange_command_priority\fP (\fBcommand_handle\fP Command, \fBcommand_priority\fP Priority)"
+.br
+.RI "\fIChange command priority\&. \fP"
+.ti -1c
+.RI "\fBcommand_reference\fP \fBsend_command\fP (\fBcommand_handle\fP Command)"
+.br
+.RI "\fISend a command\&. \fP"
+.ti -1c
+.RI "\fBcommand_reference\fP \fBsend_command_no_status\fP (\fBcommand_handle\fP Command)"
+.br
+.RI "\fIBlindly send a command\&. \fP"
+.ti -1c
+.RI "\fBcommand_reference\fP \fBsend_command_callback\fP (\fBcommand_handle\fP Command, \fBevent_callback\fP Callback)"
+.br
+.RI "\fISend a command with a callback\&. \fP"
+.ti -1c
+.RI "\fBcommand_reference\fP \fBsend_command_callbacks\fP (\fBcommand_handle\fP Command, const \fBevent_callback\fP *Callbacks)"
+.br
+.RI "\fISend a command with a callbacks\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBdestroy_command\fP (\fBcommand_handle\fP Command)"
+.br
+.RI "\fIDestroy a command\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBnew_status_callback\fP (\fBcommand_reference\fP Reference, \fBevent_callback\fP Callback)"
+.br
+.RI "\fIAdd a status callback\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBnew_status_callbacks\fP (\fBcommand_reference\fP Reference, const \fBevent_callback\fP *Callbacks)"
+.br
+.RI "\fIAdd a status callback\&. \fP"
+.ti -1c
+.RI "\fBcommand_event\fP \fBwait_command_event\fP (\fBcommand_reference\fP Reference, \fBcommand_event\fP Event, \fBlong_time\fP Timeout)"
+.br
+.RI "\fIWait for a command event\&. \fP"
+.ti -1c
+.RI "\fBcommand_event\fP \fBcancelable_wait_command_event\fP (\fBcommand_reference\fP Reference, \fBcommand_event\fP Event, \fBlong_time\fP Timeout, int(*Callback)(\fBcommand_reference\fP, \fBcommand_event\fP))"
+.br
+.RI "\fIWait for a command event\&. \fP"
+.ti -1c
+.RI "\fBcommand_event\fP \fBfind_command_status\fP (\fBcommand_reference\fP Reference)"
+.br
+.RI "\fIFind a command's status\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBclear_command_status\fP (\fBcommand_reference\fP Reference)"
+.br
+.RI "\fIClear a command's status\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBinsert_remote_address\fP (\fBcommand_handle\fP Command, \fBtext_info\fP Address)"
+.br
+.RI "\fIInsert a remote address\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBinsert_remote_target\fP (\fBcommand_handle\fP Command, \fBtext_info\fP Client, \fBtext_info\fP Location)"
+.br
+.RI "\fIInsert a remote target\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBset_target_to_server_of\fP (\fBcommand_handle\fP Command, \fBtext_info\fP Client, \fBtext_info\fP Address)"
+.br
+.RI "\fISet a target server\&. \fP"
+.ti -1c
+.RI "void \fBnonblocking_send\fP (void)"
+.br
+.ti -1c
+.RI "void \fBblocking_send\fP (void)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBblocking_send_status\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains all of the command queue management functions\&. The command queue holds all commands created by the client that are waiting to be sent to the server to allow clients to modify their addressing and priority, send them, and check on their status\&. 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef \fBresult\fP(* event_callback)(\fBcommand_reference\fP Reference, \fBcommand_event\fP Event, \fBcommand_event\fP Cumulative, const struct command_info *Info)"
+Callback used when awaiting a status update for a sent command\&. Returning 'true' will cause the callback to be removed from the list of callbacks\&. The entire status of the command will be removed once all registered callbacks return 'true', but only when callbacks are used\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsend_command_callback\fP 
+.PP
+\fBsend_command_callbacks\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fIEvent\fP the newest event received 
+.br
+\fICumulative\fP the cumulative mask of all \fIprevious\fP events 
+.br
+\fIInfo\fP for internal use 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP change_command_priority (\fBcommand_handle\fPCommand, \fBcommand_priority\fPPriority)"
+Change the execution priority of an unsent command\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIPriority\fP new priority value 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBcommand_reference\fP send_command (\fBcommand_handle\fPCommand)"
+Send a command from the command queue\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Allocates a command status object\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBclear_command_status\fP 
+.PP
+\fBdestroy_command\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+reference of the sent command 
+.RE
+.PP
+
+.SS "\fBcommand_reference\fP send_command_no_status (\fBcommand_handle\fPCommand)"
+Send a command from the command queue with no updated status\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBdestroy_command\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+reference of the sent command 
+.RE
+.PP
+
+.SS "\fBcommand_reference\fP send_command_callback (\fBcommand_handle\fPCommand, \fBevent_callback\fPCallback)"
+Send a command from the command queue with a callback to be called when the command's status is updated\&. The command's status will be automatically removed if all callbacks return 'true' individually\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Allocates a command status object\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBclear_command_status\fP 
+.PP
+\fBdestroy_command\fP 
+.PP
+\fBevent_callback\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fICallback\fP callback function to be called upon status update 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+reference of the sent command 
+.RE
+.PP
+
+.SS "\fBcommand_reference\fP send_command_callbacks (\fBcommand_handle\fPCommand, const \fBevent_callback\fP *Callbacks)"
+
+.PP
+\fBNote:\fP
+.RS 4
+Allocates a command status object\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsend_command_callback\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fICallbacks\fP NULL-terminated array of callbacks 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+reference of the sent command 
+.RE
+.PP
+
+.SS "\fBresult\fP destroy_command (\fBcommand_handle\fPCommand)"
+Destroy a queued command after it's no longer needed\&. 
+.PP
+\fBNote:\fP
+.RS 4
+Call this for every command created on the queue\&. 
+.PP
+This does not have to be called for every time a command is sent\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP new_status_callback (\fBcommand_reference\fPReference, \fBevent_callback\fPCallback)"
+Add a command status callback to an already-sent command's status object\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBsend_command_callback\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fICallback\fP callback function to be called upon status update 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP new_status_callbacks (\fBcommand_reference\fPReference, const \fBevent_callback\fP *Callbacks)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBnew_status_callback\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fICallbacks\fP NULL-terminated array of callbacks 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBcommand_event\fP wait_command_event (\fBcommand_reference\fPReference, \fBcommand_event\fPEvent, \fBlong_time\fPTimeout)"
+Wait for one of the specified events to occur with a sent command's status object\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fIEvent\fP mask of possible event bits to wait for 
+.br
+\fITimeout\fP timeout value in seconds 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+cumulative events for the sent command 
+.RE
+.PP
+
+.SS "\fBcommand_event\fP cancelable_wait_command_event (\fBcommand_reference\fPReference, \fBcommand_event\fPEvent, \fBlong_time\fPTimeout, int(*)(\fBcommand_reference\fP, \fBcommand_event\fP)Callback)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBwait_command_event\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.br
+\fIEvent\fP mask of possible event bits to wait for 
+.br
+\fITimeout\fP timeout value in seconds 
+.br
+\fICallback\fP function to determine if the operation should continue (0 to continue, -1 to stop) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+cumulative events for the sent command 
+.RE
+.PP
+
+.SS "\fBcommand_event\fP find_command_status (\fBcommand_reference\fPReference)"
+Find the current cumulative status of a sent command\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+cumulative events for the sent command 
+.RE
+.PP
+
+.SS "\fBresult\fP clear_command_status (\fBcommand_reference\fPReference)"
+Deallocate a sent command's status object\&. 
+.PP
+\fBNote:\fP
+.RS 4
+This must be called once for every time a status object is allocated\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIReference\fP reference of the sent command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP insert_remote_address (\fBcommand_handle\fPCommand, \fBtext_info\fPAddress)"
+Insert a remote address before all existing addresses a command currently has\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIAddress\fP composite remote address 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP insert_remote_target (\fBcommand_handle\fPCommand, \fBtext_info\fPClient, \fBtext_info\fPLocation)"
+Insert a remote address before all existing addresses a command currently has\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIClient\fP first client to send to 
+.br
+\fILocation\fP location the given client should forward the command to 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP set_target_to_server_of (\fBcommand_handle\fPCommand, \fBtext_info\fPClient, \fBtext_info\fPAddress)"
+Insert the remote address of a client's server\&. 
+.PP
+\fBNote:\fP
+.RS 4
+This should only be used with server commands\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIClient\fP remote client's name 
+.br
+\fIAddress\fP remote client's address 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "void nonblocking_send (void)"
+Enable non-blocking command sending (default)\&. 
+.SS "void blocking_send (void)"
+Enable blocking command sending\&. 
+.SS "\fBresult\fP blocking_send_status (void)"
+Check status of command-send blocking\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

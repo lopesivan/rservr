@@ -1,0 +1,178 @@
+.TH "rservr/api/command-table.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/command-table.h \- 
+.PP
+Command table functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBcommand_table_info\fP"
+.br
+.RI "\fICommand table information\&. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBcheck_command_loaded\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fICheck for a loaded command\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBcheck_command_can_create\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fICheck for command creation ability\&. \fP"
+.ti -1c
+.RI "\fBtext_info\fP \fBcommand_information\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIFind command information\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBcommand_can_auto_generate\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fICommand auto-generation check\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBcommand_auto_generate\fP (\fBtext_info\fP Name, \fBtext_info\fP Parameters)"
+.br
+.RI "\fICommand auto-generation\&. \fP"
+.ti -1c
+.RI "const \fBcommand_table_element\fP * \fBget_local_command_table\fP (\fBcommand_type\fP Type, \fBtext_info\fP Name)"
+.br
+.RI "\fICommand table query\&. \fP"
+.ti -1c
+.RI "void \fBfree_command_table_info\fP (const \fBcommand_table_element\fP *List)"
+.br
+.RI "\fIFree a command list\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains command table query functions\&. The command table is a table of commands the client is authorized to create, send, and receive\&. No command can be sent if it isn't listed in the table\&. All built-in commands are created and queued automatically using specific API functions; however, some plug-ins might utilize the auto-generation interface, generating a command using its name and a single initializer string\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBload-plugin\&.h\fP 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP check_command_loaded (\fBtext_info\fPName)"
+Determine if a command has been loaded in the client's command table\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP name or alias of a command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+yes (true) or no (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP check_command_can_create (\fBtext_info\fPName)"
+Determine if the client can create and queue a command\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP name or alias of a command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+yes (true) or no (false) 
+.RE
+.PP
+
+.SS "\fBtext_info\fP command_information (\fBtext_info\fPName)"
+Retrieve command informatio for a command listed in the command table\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP name or alias of a command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+text-formatted command information 
+.RE
+.PP
+
+.SS "\fBresult\fP command_can_auto_generate (\fBtext_info\fPName)"
+Determine if a command can be created using auto-generation\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBcommand_auto_generate\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP name or alias of a command 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+yes (true) or no (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP command_auto_generate (\fBtext_info\fPName, \fBtext_info\fPParameters)"
+Generate a new command using command auto-generation\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP name or alias of a command 
+.br
+\fIParameters\fP text-formatted parameter string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "const \fBcommand_table_element\fP* get_local_command_table (\fBcommand_type\fPType, \fBtext_info\fPName)"
+List commands currently loaded meeting the given criteria\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBfree_command_table_info\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIType\fP execution type mask required 
+.br
+\fIName\fP name or alias regular expression 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+dynamically-allocated command information list (NULL) 
+.RE
+.PP
+
+.SS "void free_command_table_info (const \fBcommand_table_element\fP *List)"
+Free a command list resulting from a command table query\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIList\fP dynamically-allocated command information list 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

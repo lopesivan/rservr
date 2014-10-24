@@ -1,0 +1,107 @@
+.TH "rservr/plugins/rsvp-rqsrvc-auto.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-rqsrvc-auto.h \- 
+.PP
+Automation of \fBrsvp-rqsrvc\&.h\fP command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_event\fP \fBrsvp_rqsrvc_auto_hook_register_services\fP (const struct rqsrvc_source_info *, \fBtext_info\fP)"
+.br
+.ti -1c
+.RI "\fBcommand_event\fP \fBrsvp_rqsrvc_auto_hook_deregister_services\fP (const struct rqsrvc_source_info *, \fBtext_info\fP)"
+.br
+.ti -1c
+.RI "void \fBrsvp_rqsrvc_auto_remote_service_action_hook\fP (const struct remote_service_data *)"
+.br
+.ti -1c
+.RI "void \fBrsvp_rqsrvc_auto_resource_exit_hook\fP (\fBtext_info\fP)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fB__rsvp_rqsrvc_auto_hook_type_check\fP (\fBtext_info\fP Type, \fBtext_info\fP Name, \fBtext_info\fP *NewType, \fBtext_info\fP *NewName)"
+.br
+.RI "\fIVerify service type\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBcommand_event\fP rsvp_rqsrvc_auto_hook_register_services (const struct rqsrvc_source_info *, \fBtext_info\fP)"
+Call this if you redefine __rsvp_rqsrvc_hook_register_services and still want the automatic action executed\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBrsvp-rqsrvc-hook\&.h\fP 
+.RE
+.PP
+
+.SS "\fBcommand_event\fP rsvp_rqsrvc_auto_hook_deregister_services (const struct rqsrvc_source_info *, \fBtext_info\fP)"
+Call this if you redefine __rsvp_rqsrvc_hook_deregister_services and still want the automatic action executed\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBrsvp-rqsrvc-hook\&.h\fP 
+.RE
+.PP
+
+.SS "void rsvp_rqsrvc_auto_remote_service_action_hook (const struct remote_service_data *)"
+Call this if you redefine __remote_service_action_hook and still want the automatic action executed\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBremote-service\&.h\fP 
+.RE
+.PP
+
+.SS "void rsvp_rqsrvc_auto_resource_exit_hook (\fBtext_info\fP)"
+Call this if you redefine __resource_exit_hook and still want the automatic action executed\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBremote-service\&.h\fP 
+.RE
+.PP
+
+.SS "\fBresult\fP __rsvp_rqsrvc_auto_hook_type_check (\fBtext_info\fPType, \fBtext_info\fPName, \fBtext_info\fP *NewType, \fBtext_info\fP *NewName)"
+Define this to have control over the types of services the client will automatically register\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+rqsrvc_register_services
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIType\fP requested service type 
+.br
+\fIName\fP requested name 
+.br
+\fINewType\fP revised type (dynamically allocate if changed) 
+.br
+\fINewName\fP revised name (dynamically allocate if changed) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+approved (true) or disapproved (false) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

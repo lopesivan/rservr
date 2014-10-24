@@ -1,0 +1,363 @@
+.TH "rservr/plugins/rsvp-netcntl.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-netcntl.h \- 
+.PP
+Network connection command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrsvp_netcntl_load\fP (struct local_commands *Loader)"
+.br
+.RI "\fILoad the plug-in\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_connection_list\fP (\fBtext_info\fP Target)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_connect\fP (\fBtext_info\fP Target, \fBtext_info\fP Address, \fBtext_info\fP Port)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_connect_cut\fP (\fBtext_info\fP Target, \fBtext_info\fP Address, \fBtext_info\fP Delimiter)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_filtered_connect\fP (\fBtext_info\fP Target, \fBtext_info\fP Address, \fBtext_info\fP Port, \fBtext_info\fP Filter)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_filtered_connect_cut\fP (\fBtext_info\fP Target, \fBtext_info\fP Address, \fBtext_info\fP Delimiter, \fBtext_info\fP Filter)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_disconnect\fP (\fBtext_info\fP Target, \fBtext_info\fP Address)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_listen_list\fP (\fBtext_info\fP Target)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_listen\fP (\fBtext_info\fP Target, \fBtext_info\fP Port)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_net_unlisten\fP (\fBtext_info\fP Target, \fBtext_info\fP Port)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_connection_list\fP (\fBtext_info\fP Target)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_connect\fP (\fBtext_info\fP Target, \fBtext_info\fP Socket)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_filtered_connect\fP (\fBtext_info\fP Target, \fBtext_info\fP Socket, \fBtext_info\fP Filter)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_disconnect\fP (\fBtext_info\fP Target, \fBtext_info\fP Socket)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_listen_list\fP (\fBtext_info\fP Target)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_listen\fP (\fBtext_info\fP Target, \fBtext_info\fP Socket)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_netcntl_local_unlisten\fP (\fBtext_info\fP Target, \fBtext_info\fP Socket)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int rsvp_netcntl_load (struct local_commands *Loader)"
+Call this in load_all_commands if you're using multiple standard command plug-ins\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBload_all_commands\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fILoader\fP command loader provided to load_all_commands 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or failure (-1) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_connection_list (\fBtext_info\fPTarget)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_connect (\fBtext_info\fPTarget, \fBtext_info\fPAddress, \fBtext_info\fPPort)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIAddress\fP 
+.br
+\fIPort\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_connect_cut (\fBtext_info\fPTarget, \fBtext_info\fPAddress, \fBtext_info\fPDelimiter)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIAddress\fP combined address:port 
+.br
+\fIDelimiter\fP delimiter separating address and port 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_filtered_connect (\fBtext_info\fPTarget, \fBtext_info\fPAddress, \fBtext_info\fPPort, \fBtext_info\fPFilter)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIAddress\fP 
+.br
+\fIPort\fP 
+.br
+\fIFilter\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_filtered_connect_cut (\fBtext_info\fPTarget, \fBtext_info\fPAddress, \fBtext_info\fPDelimiter, \fBtext_info\fPFilter)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIAddress\fP combined address:port 
+.br
+\fIDelimiter\fP delimiter separating address and port 
+.br
+\fIFilter\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_disconnect (\fBtext_info\fPTarget, \fBtext_info\fPAddress)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIAddress\fP does not include port 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_listen_list (\fBtext_info\fPTarget)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_listen (\fBtext_info\fPTarget, \fBtext_info\fPPort)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIPort\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_net_unlisten (\fBtext_info\fPTarget, \fBtext_info\fPPort)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIPort\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_connection_list (\fBtext_info\fPTarget)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_connect (\fBtext_info\fPTarget, \fBtext_info\fPSocket)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISocket\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_filtered_connect (\fBtext_info\fPTarget, \fBtext_info\fPSocket, \fBtext_info\fPFilter)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISocket\fP 
+.br
+\fIFilter\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_disconnect (\fBtext_info\fPTarget, \fBtext_info\fPSocket)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISocket\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_listen_list (\fBtext_info\fPTarget)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_listen (\fBtext_info\fPTarget, \fBtext_info\fPSocket)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISocket\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_netcntl_local_unlisten (\fBtext_info\fPTarget, \fBtext_info\fPSocket)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISocket\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

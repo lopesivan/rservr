@@ -1,0 +1,176 @@
+.TH "rservr/api/resource-client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/resource-client.h \- 
+.PP
+Resource-client-specific functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBregister_resource_client\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRegister a resource client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBfind_resource_clients\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIFind and list registered resource clients\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBregister_service\fP (\fBtext_info\fP Name, \fBtext_info\fP Type)"
+.br
+.RI "\fIRegister a service on the server\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBderegister_own_service\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIDeregister a service on the server\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBderegister_all_own_services\fP (void)"
+.br
+.RI "\fIDeregister all services on the server\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBderegister_remote_services\fP (\fBtext_info\fP Address)"
+.br
+.RI "\fIDeregister remote services\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBset_alternate_sender\fP (\fBcommand_handle\fP Command, \fBtext_info\fP Name)"
+.br
+.RI "\fIChange a command's sender\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains all of the functions specifically for use with clients registered as resource clients with the server\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP register_resource_client (\fBtext_info\fPName)"
+Register a currently-unregistered client as a resource-type client\&. The client must be initialized and the message queue must be running first\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP find_resource_clients (\fBtext_info\fPName)"
+List all clients registered as resource clients based on name\&. A response list message is returned with a list of clients\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage_info\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP regular expression pattern for client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP register_service (\fBtext_info\fPName, \fBtext_info\fPType)"
+Register a service (a special-use client alias) with the server\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBrequest\&.h\fP 
+.PP
+\fBresponse\&.h\fP 
+.PP
+service\&.h
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP service name 
+.br
+\fIType\fP arbitrary service type string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP deregister_own_service (\fBtext_info\fPName)"
+Deregister a service belonging to the client\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP service name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP deregister_all_own_services (void)"
+Deregister all services belonging to the client\&.
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP deregister_remote_services (\fBtext_info\fPAddress)"
+Deregister services registered via the client originating from a remote address\&. 
+.PP
+\fBNote:\fP
+.RS 4
+This is intended for command forwarders only\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBresult\fP set_alternate_sender (\fBcommand_handle\fPCommand, \fBtext_info\fPName)"
+Change the name of a command's sender before sending\&. 
+.PP
+\fBNote:\fP
+.RS 4
+The name used must be the name of a service associated with the client sending the command\&. 
+.PP
+This function is required when sending an inter-client command from a nameless resource client\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIName\fP service name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

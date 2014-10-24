@@ -1,0 +1,40 @@
+.TH "rservr/api/label-check.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/label-check.h \- 
+.PP
+Label compliance checks\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBcheck_entity_label\fP (\fBtext_info\fP)"
+.br
+.ti -1c
+.RI "\fBresult\fP \fBcheck_address_label\fP (\fBtext_info\fP)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains functions to validate client, server, and service names as well as composite addresses\&. All are required to fit a certain text pattern to avoid interference with command parsing\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP check_entity_label (\fBtext_info\fP)"
+Check a client, service, or immediate address name for validity\&. 
+.SS "\fBresult\fP check_address_label (\fBtext_info\fP)"
+Check a composite address for validity\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

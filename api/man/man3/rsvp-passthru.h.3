@@ -1,0 +1,112 @@
+.TH "rservr/plugins/rsvp-passthru.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-passthru.h \- 
+.PP
+Connection-reutilizing command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrsvp_passthru_load\fP (struct local_commands *Loader)"
+.br
+.RI "\fILoad the plug-in\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_passthru_reserve_channel\fP (\fBtext_info\fP Target, \fBtext_info\fP Channel)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_passthru_unreserve_channel\fP (\fBtext_info\fP Target, \fBtext_info\fP Channel)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_passthru_steal_channel\fP (\fBtext_info\fP Target, \fBtext_info\fP Channel, \fBtext_info\fP Socket)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int rsvp_passthru_load (struct local_commands *Loader)"
+Call this in load_all_commands if you're using multiple standard command plug-ins\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBload_all_commands\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fILoader\fP command loader provided to load_all_commands 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or failure (-1) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_passthru_reserve_channel (\fBtext_info\fPTarget, \fBtext_info\fPChannel)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIChannel\fP name of channel to reserve 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_passthru_unreserve_channel (\fBtext_info\fPTarget, \fBtext_info\fPChannel)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIChannel\fP name of channel to un-reserve 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_passthru_steal_channel (\fBtext_info\fPTarget, \fBtext_info\fPChannel, \fBtext_info\fPSocket)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIChannel\fP name of channel to steal for passthru 
+.br
+\fISocket\fP name of a local socket being listened to 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

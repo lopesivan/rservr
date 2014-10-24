@@ -1,0 +1,53 @@
+.TH "rservr/api/detached-client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/detached-client.h \- 
+.PP
+Detached process conversion\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBconvert_client_detached\fP (int Socket)"
+.br
+.RI "\fIConvert a process to a client\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBis_client_detached\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the functions necessary to convert an existing process to a client attached to the server\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP convert_client_detached (intSocket)"
+Convert the existing process, started independently of any server, into a client using the descriptor of a local socket\&. The process must bind the socket to the file system, listen to it, block for accepting a connection, and an admin client must request the server attach the client using the name of the file used to bind the socket\&. Call this function using the descriptor returned by the accept call to convert the current process into a client\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fISocket\fP accepted socket connection to the server 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP is_client_detached (void)"
+Determine if a client was started independently of the server\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

@@ -1,0 +1,286 @@
+.TH "rservr/api/tools.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/tools.h \- 
+.PP
+Basic conversion tools\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBparse_permissions\fP (\fBtext_info\fP String, \fBpermission_mask\fP *Permission)"
+.br
+.RI "\fIParse a permission string\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBparse_logging_mode\fP (\fBtext_info\fP String, \fBlogging_mode\fP *Mode)"
+.br
+.RI "\fIParse a logging-mode string\&. \fP"
+.ti -1c
+.RI "\fBtext_info\fP \fBconvert_integer10\fP (int Value, char *Output)"
+.br
+.RI "\fIConvert a signed value to decimal\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBparse_integer10\fP (\fBtext_info\fP String, int *Value)"
+.br
+.RI "\fIParse a decimal value\&. \fP"
+.ti -1c
+.RI "\fBtext_info\fP \fBconvert_integer16\fP (unsigned int Value, char *Output)"
+.br
+.RI "\fIConvert an unsigned value to hexadecimal\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBparse_integer16\fP (\fBtext_info\fP String, unsigned int *Value)"
+.br
+.RI "\fIParse a hexadecimal value\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBparse_integer16l\fP (\fBtext_info\fP String, unsigned long long *Value)"
+.br
+.RI "\fIParse a 64-bit hexadecimal value\&. \fP"
+.ti -1c
+.RI "\fBtext_info\fP \fBconvert_double\fP (double Value, char *Output)"
+.br
+.RI "\fIConvert a floating point value to text\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBparse_double\fP (\fBtext_info\fP String, double *Value)"
+.br
+.RI "\fIParse a floating point value\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry The functions in this header provide a consistent text/binary conversion interface\&. This interface is used internally and should be used by client programs and plug-ins as much as possible to maintain consistency\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP parse_permissions (\fBtext_info\fPString, \fBpermission_mask\fP *Permission)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The entire string provided must be a valid match\&.
+.RE
+.PP
+Convert a built-in value ('s?' pattern) or a hexadecimal number to a permission value\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIString\fP input string 
+.br
+\fIPermission\fP permission variable 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP parse_logging_mode (\fBtext_info\fPString, \fBlogging_mode\fP *Mode)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The entire string provided must be a valid match\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIString\fP input string 
+.br
+\fIMode\fP logging-mode variable 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBtext_info\fP convert_integer10 (intValue, char *Output)"
+
+.PP
+\fBNote:\fP
+.RS 4
+This function is reentrant unless the character array is NULL\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+RSERVR_MAX_CONVERT_SIZE
+.RE
+.PP
+Convert the provided value to a decimal-formatted text string\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIValue\fP integer value 
+.br
+\fIOutput\fP output array 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+output string or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBresult\fP parse_integer10 (\fBtext_info\fPString, int *Value)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The entire string provided must be a valid match\&.
+.RE
+.PP
+Convert a decimal-formatted text value to a signed integer\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIString\fP input string 
+.br
+\fIValue\fP integer variable 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBtext_info\fP convert_integer16 (unsigned intValue, char *Output)"
+
+.PP
+\fBNote:\fP
+.RS 4
+This function is reentrant unless the character array is NULL\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+RSERVR_MAX_CONVERT_SIZE
+.RE
+.PP
+Convert the provided value to a hexadecimal-formatted text string\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIValue\fP integer value 
+.br
+\fIOutput\fP output array 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+output string or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBresult\fP parse_integer16 (\fBtext_info\fPString, unsigned int *Value)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The entire string provided must be a valid match\&.
+.RE
+.PP
+Convert a hexadecimal-formatted text value to a signed integer\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIString\fP input string 
+.br
+\fIValue\fP integer variable 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBresult\fP parse_integer16l (\fBtext_info\fPString, unsigned long long *Value)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The entire string provided must be a valid match\&.
+.RE
+.PP
+Convert a hexadecimal-formatted text value to a signed integer\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIString\fP input string 
+.br
+\fIValue\fP integer variable 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBtext_info\fP convert_double (doubleValue, char *Output)"
+
+.PP
+\fBNote:\fP
+.RS 4
+This function is reentrant unless the character array is NULL\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+RSERVR_MAX_CONVERT_SIZE
+.RE
+.PP
+Convert the provided value to a floating-point-formatted text string\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIValue\fP floating-point value 
+.br
+\fIOutput\fP output array 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+output string or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBresult\fP parse_double (\fBtext_info\fPString, double *Value)"
+
+.PP
+\fBNote:\fP
+.RS 4
+The entire string provided must be a valid match\&.
+.RE
+.PP
+Convert a floating-point-formatted text value to a double\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIString\fP input string 
+.br
+\fIValue\fP double variable 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

@@ -1,0 +1,60 @@
+.TH "rservr/plugins/rsvp-passthru-assist.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-passthru-assist.h \- 
+.PP
+Assistance functions for \fBrsvp-passthru\&.h\fP command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_event\fP \fBrsvp_passthru_assist_steal_channel\fP (\fBtext_info\fP Target, \fBtext_info\fP Channel, \fBtext_info\fP Socket, mode_t Mode, int *File)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBcommand_event\fP rsvp_passthru_assist_steal_channel (\fBtext_info\fPTarget, \fBtext_info\fPChannel, \fBtext_info\fPSocket, mode_tMode, int *File)"
+Automate the process of creating a local socket, requesting passthru, and waiting for the final status\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+passthru_steal_channel
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIChannel\fP name of channel to un-reserve 
+.br
+\fISocket\fP name of a local socket being listened to 
+.br
+\fIMode\fP permissions mode to create socket with 
+.br
+\fIFile\fP pointer to store resulting descriptor in 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+outcome of operation 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

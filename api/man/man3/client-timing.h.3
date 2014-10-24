@@ -1,0 +1,138 @@
+.TH "rservr/api/client-timing.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/client-timing.h \- 
+.PP
+Client timing functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBinitialize_timing_table\fP (void)"
+.br
+.RI "\fIInitialize the timing table\&. \fP"
+.ti -1c
+.RI "\fBshort_time\fP \fBlocal_default_cycle\fP (void)"
+.br
+.ti -1c
+.RI "\fBshort_time\fP \fBlocal_default_slow_cycle\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_timeout\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_short_timeout\fP (void)"
+.br
+.ti -1c
+.RI "\fBshort_time\fP \fBlocal_default_connect_timeout\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_cycle_dec\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_slow_cycle_dec\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_timeout_dec\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_short_timeout_dec\fP (void)"
+.br
+.ti -1c
+.RI "\fBlong_time\fP \fBlocal_default_connect_timeout_dec\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the most common timing functions used by clients\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP initialize_timing_table (void)"
+Initialize the clients internal timing tables\&. 
+.PP
+\fBNote:\fP
+.RS 4
+This is only required if the client requires access to the timing values in \fBclient-timing\&.h\fP and will not initialize the client beforehand\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBinitialize_client\fP
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBshort_time\fP local_default_cycle (void)"
+Default cycle timing rate\&. 
+.SS "\fBshort_time\fP local_default_slow_cycle (void)"
+Default slow cycle timing rate\&. 
+.SS "\fBlong_time\fP local_default_timeout (void)"
+Default timeout value\&. 
+.SS "\fBlong_time\fP local_default_short_timeout (void)"
+Default short timeout value\&. 
+.SS "\fBshort_time\fP local_default_connect_timeout (void)"
+Default connection timeout value\&. 
+.SS "\fBlong_time\fP local_default_cycle_dec (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBlocal_default_cycle\fP 
+.RE
+.PP
+
+.SS "\fBlong_time\fP local_default_slow_cycle_dec (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBlocal_default_slow_cycle\fP 
+.RE
+.PP
+
+.SS "\fBlong_time\fP local_default_timeout_dec (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBlocal_default_timeout\fP 
+.RE
+.PP
+
+.SS "\fBlong_time\fP local_default_short_timeout_dec (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBlocal_default_short_timeout\fP 
+.RE
+.PP
+
+.SS "\fBlong_time\fP local_default_connect_timeout_dec (void)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBlocal_default_connect_timeout\fP 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

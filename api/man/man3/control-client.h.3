@@ -1,0 +1,71 @@
+.TH "rservr/api/control-client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/control-client.h \- 
+.PP
+Control-client-specific functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBresult\fP \fBregister_control_client\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIRegister a control client\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBfind_control_clients\fP (\fBtext_info\fP Name)"
+.br
+.RI "\fIFind and list registered control clients\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains all of the functions specifically for use with clients registered as control clients with the server\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBresult\fP register_control_client (\fBtext_info\fPName)"
+Register a currently-unregistered client as a control-type client\&. The client must be initialized and the message queue must be running first\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP find_control_clients (\fBtext_info\fPName)"
+List all clients registered as control clients based on name\&. A response list message is returned with a list of clients\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBmessage_info\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP regular expression pattern for client name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

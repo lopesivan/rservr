@@ -1,0 +1,91 @@
+.TH "rservr/plugins/rsvp-rqsrvc.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-rqsrvc.h \- 
+.PP
+Remote-service-registration command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrsvp_rqsrvc_load\fP (struct local_commands *Loader)"
+.br
+.RI "\fILoad the plug-in\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_rqsrvc_register_services\fP (\fBtext_info\fP Target, \fBtext_info\fP Type)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_rqsrvc_deregister_services\fP (\fBtext_info\fP Target, \fBtext_info\fP Type)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int rsvp_rqsrvc_load (struct local_commands *Loader)"
+Call this in load_all_commands if you're using multiple standard command plug-ins\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBload_all_commands\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fILoader\fP command loader provided to load_all_commands 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or failure (-1) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_rqsrvc_register_services (\fBtext_info\fPTarget, \fBtext_info\fPType)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIType\fP service type to register 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_rqsrvc_deregister_services (\fBtext_info\fPTarget, \fBtext_info\fPType)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fIType\fP service type to deregister 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

@@ -1,0 +1,46 @@
+.TH "command_table_info" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+command_table_info \- 
+.PP
+Command table information\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <rservr/api/command-table\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBtext_info\fP \fBname\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBalias\fP"
+.br
+.ti -1c
+.RI "\fBtext_info\fP \fBinfo\fP"
+.br
+.ti -1c
+.RI "\fBcommand_type\fP \fBtype\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Holds information regarding a specific command listed in the command table\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBtext_info\fP command_table_info::name"
+Command's primary name\&. 
+.SS "\fBtext_info\fP command_table_info::alias"
+Command's alias name\&. 
+.SS "\fBtext_info\fP command_table_info::info"
+Command information\&. 
+.SS "\fBcommand_type\fP command_table_info::type"
+Command's execution type\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

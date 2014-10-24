@@ -1,0 +1,91 @@
+.TH "rservr/plugins/rsvp-rqconfig.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/plugins/rsvp-rqconfig.h \- 
+.PP
+Self-configuration-requesting command plug-in\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrsvp_rqconfig_load\fP (struct local_commands *Loader)"
+.br
+.RI "\fILoad the plug-in\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_rqconfig_request_configure\fP (\fBtext_info\fP Target, \fBtext_info\fP System)"
+.br
+.ti -1c
+.RI "\fBcommand_handle\fP \fBrsvp_rqconfig_request_deconfigure\fP (\fBtext_info\fP Target, \fBtext_info\fP System)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int rsvp_rqconfig_load (struct local_commands *Loader)"
+Call this in load_all_commands if you're using multiple standard command plug-ins\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBload_all_commands\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fILoader\fP command loader provided to load_all_commands 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (0) or failure (-1) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_rqconfig_request_configure (\fBtext_info\fPTarget, \fBtext_info\fPSystem)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISystem\fP system to configure 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP rsvp_rqconfig_request_deconfigure (\fBtext_info\fPTarget, \fBtext_info\fPSystem)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP 
+.br
+\fISystem\fP system to deconfigure 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+queued command or error (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

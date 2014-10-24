@@ -1,0 +1,96 @@
+.TH "rservr/api/service-client.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/service-client.h \- 
+.PP
+Service client functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_handle\fP \fBfind_services\fP (\fBtext_info\fP Name, \fBtext_info\fP Type)"
+.br
+.RI "\fIFind and list registered services\&. \fP"
+.ti -1c
+.RI "\fBresult\fP \fBinsert_service_address\fP (\fBcommand_handle\fP Command, \fBtext_info\fP Name)"
+.br
+.RI "\fISteal a service's address\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains some of the functions specifically for use with clients registered as a client type inheriting service client properties (control and resource clients\&.) 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBrequest\&.h\fP 
+.PP
+\fBresponse\&.h\fP 
+.PP
+\fBresource-client\&.h\fP 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBcommand_handle\fP find_services (\fBtext_info\fPName, \fBtext_info\fPType)"
+List all services registered on the server matching the given criteria\&. A response list message is returned with a list of services\&. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBregister_service\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIName\fP regular expression pattern for service name 
+.br
+\fIType\fP regular expression pattern for service type 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBresult\fP insert_service_address (\fBcommand_handle\fPCommand, \fBtext_info\fPName)"
+Insert the address of a service registered on the local server\&. This causes the server to forward the command to the server that service is registered on (normally used with services registered from remote clients\&.) 
+.PP
+\fBNote:\fP
+.RS 4
+This should only be used with server commands\&. 
+.PP
+This will not work using the name of a client\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBfind_services\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICommand\fP handle for a queued command 
+.br
+\fIName\fP service name 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+success (true) or failure (false) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

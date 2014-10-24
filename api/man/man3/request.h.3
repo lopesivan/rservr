@@ -1,0 +1,99 @@
+.TH "rservr/api/request.h" 3 "Fri Oct 24 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/api/request.h \- 
+.PP
+Service request functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBcommand_handle\fP \fBservice_request\fP (\fBtext_info\fP Target, \fBtext_info\fP Data)"
+.br
+.RI "\fICreate a textual service request\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBservice_request_list\fP (\fBtext_info\fP Target, \fBinfo_list\fP Data)"
+.br
+.RI "\fICreate a textual service list request\&. \fP"
+.ti -1c
+.RI "\fBcommand_handle\fP \fBbinary_service_request\fP (\fBtext_info\fP Target, \fBbinary_info\fP Data, \fBbinary_size\fP Size)"
+.br
+.RI "\fICreate a binary service request\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains the basic request functions specific to service clients\&. 
+.RE
+.PP
+\fBSee also:\fP
+.RS 4
+\fBresponse\&.h\fP 
+.PP
+\fBresource-client\&.h\fP 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBcommand_handle\fP service_request (\fBtext_info\fPTarget, \fBtext_info\fPData)"
+Create a textual service request to be sent to a single service\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP client or service name 
+.br
+\fIData\fP text-formated message data 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP service_request_list (\fBtext_info\fPTarget, \fBinfo_list\fPData)"
+Create a textual service list request to be sent to a single service\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP client or service name 
+.br
+\fIData\fP text-formated message data (NULL-terminated list) 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SS "\fBcommand_handle\fP binary_service_request (\fBtext_info\fPTarget, \fBbinary_info\fPData, \fBbinary_size\fPSize)"
+Create a binary service request to be sent to a single service\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fITarget\fP client or service name 
+.br
+\fIData\fP binary-formated message data 
+.br
+\fISize\fP data size 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+handle of queued command or failure (NULL) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.
