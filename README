@@ -1,7 +1,7 @@
 Download and install before doing anything else:
 
-	hparser 1.0.0 - C++ Hierarchical Data Framework
-	http://hparser.berlios.de/
+	hparser 1.0.1 - C++ Hierarchical Data Framework
+	http://github.com/ta0kira/hparser
 
 If you have problems with 'make', you're probably using a non-GNU version. This
 project was designed to use GNU make; therefore, try 'gmake' instead if you're

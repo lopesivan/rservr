@@ -235,13 +235,12 @@ extern result regex_compare(text_info Expression, text_info String) __attribute_
  *
  * <!-- this is just some info for the API index HTML page -->
  *
- * <h2 align="center"><a href="http://rservr.berlios.de/" target="_blank"><b>Resourcerver Main Page</b></a><br /><br /></h2>
- * <h3 align="center">hosted by <a href="http://developer.berlios.de/" target="_blank">http://developer.berlios.de/</a></h3>
- * <img src="http://developer.berlios.de/bslogo.php?group_id=10653" width="124" height="32" border="0" alt="BerliOS Logo" align="left" />
+ * <h2 align="center"><a href="http://ta0kira.github.io/rservr" target="_blank"><b>Resourcerver Main Page</b></a><br /><br /></h2>
+ * <h3 align="center">hosted by <a href="http://github.com" target="_blank">GitHub</a></h3>
  *
- * <h3><br />The <a href="http://rservr.berlios.de/" target="_blank"><b>Resourcerver Project</b></a>
+ * <h3><br />The <a href="http://ta0kira.github.io/rservr" target="_blank"><b>Resourcerver Project</b></a>
  * was conceived, designed, and written by
- * <a href="mailto:ta0kira@users.berlios.de">Kevin P. Barry</a>.  Source code is
+ * <a href="mailto:ta0kira@gmail.com">Kevin P. Barry</a>.  Source code is
  * released under the terms of the
  * <a href="http://www.opensource.org/licenses/bsd-license.php" target="_blank">BSD License</a>.
  * </h3>
