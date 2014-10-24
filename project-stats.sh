@@ -16,8 +16,8 @@ if [ "$1" = "all" ];then
 fi
 
 if [ "$2" = "all" ];then
-  additional_really="../../hparser/trunk/{include,src}"
-  additional_really_specific="echo ../../hparser/trunk/Makefile.am; "
+  additional_really="../hparser/trunk/{include,src}"
+  additional_really_specific="echo ../hparser/trunk/Makefile.am; "
 fi
 
 patterns="$additional_really include/{rservr,global$additional} lang libs plugins programs security extensions -name \"*.h\" -o -name \"*.hpp\" -o -name \"*.c\" -o -name \"*.cpp\" -o -name \"*.py\" -o -name \"*.r\" -o -name Makefile.am"
