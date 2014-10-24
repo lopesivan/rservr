@@ -1,5 +1,0 @@
-ALL_INCLUDES=$(STANDARD_INCLUDES)
-AM_CPPFLAGS=$(ALL_INCLUDES)
-bin_PROGRAMS=safexec
-safexec_SOURCES=safexec.c
-safexec_LDADD=

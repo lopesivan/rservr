@@ -1,3 +1,0 @@
-execute_critical rservrd -dxr
-execute_critical rsv-netrelay relay relay-setup
-register_all_wait
