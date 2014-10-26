@@ -67,7 +67,7 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	static char protocol[PARAM_MAX_INPUT_SECTION], file[PARAM_MAX_INPUT_SECTION];
 
 	if (sscanf(sSpec,
-	           STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION) ":"
+	           STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION) "://"
 	           STRING_FORMAT("s", PARAM_MAX_INPUT_SECTION),
 	           protocol, file) == 2)
 	{
