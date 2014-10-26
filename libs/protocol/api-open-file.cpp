@@ -143,6 +143,9 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	if (protocol_stat.st_gid != 0) _exit(1);
 	  }
 
+	//TODO: add a function that just returns this command, and another that
+	//calls it and waits, etc.; that way, this can be used for files that
+	//need to be reread (e.g., in rsvx-tls)
 	char *command[] = { &protocol_file[0], &filename[0],
 	  (use_last && getenv("_RSERVR_LAST_FILENAME"))? getenv("_RSERVR_LAST_FILENAME") : NULL, NULL };
 
