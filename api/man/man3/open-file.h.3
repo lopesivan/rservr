@@ -1,0 +1,126 @@
+.TH "rservr/open-file.h" 3 "Sun Oct 26 2014" "Version gamma.10" "Resourcerver" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rservr/open-file.h \- 
+.PP
+Protocol-based file access\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBopen_file\fP (const char *Spec, pid_t *Process)"
+.br
+.RI "\fIOpen a file using a protocol\&. \fP"
+.ti -1c
+.RI "char * \fBtry_filename\fP (const char *Spec)"
+.br
+.RI "\fIAttempt to extract the filename of the protocol specification\&. \fP"
+.ti -1c
+.RI "int \fBclose_file\fP (int File, pid_t Process)"
+.br
+.RI "\fIClose a file opened by open_file\&. \fP"
+.ti -1c
+.RI "int \fBclose_process\fP (pid_t Process)"
+.br
+.RI "\fIClose a protocol process without closing a file\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+\fBAuthor:\fP
+.RS 4
+Kevin P\&. Barry This header contains a function to automatically open a file, based on an optionally-specified protocol, e\&.g\&., 'tar:configs\&.tar:config'\&. 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "int open_file (const char *Spec, pid_t *Process)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBclose_file\fP 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+This function isn't reentrant\&.
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fISpec\fP a file specification with the format 'protocol:specification', where 'protocol' names a protocol (e\&.g\&., 'tar') and 'specification' is a string whose format depends on 'protocol' 
+.br
+\fIProcess\fP pointer for storing the process id of the protocol 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+open file descriptor ready to read, or < 0 for an error 
+.RE
+.PP
+
+.SS "char* try_filename (const char *Spec)"
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fISpec\fP a file specification with the format 'protocol:specification', where 'protocol' names a protocol (e\&.g\&., 'tar') and 'specification' is a string whose format depends on 'protocol' 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+filename, or NULL if a protocol is used (must be freed) 
+.RE
+.PP
+
+.SS "int close_file (intFile, pid_tProcess)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBopen_file\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIFile\fP file descriptor returned by open_file 
+.br
+\fIProcess\fP process id of the protocol returned by open_file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+process exit status (nonzero for error) 
+.RE
+.PP
+
+.SS "int close_process (pid_tProcess)"
+
+.PP
+\fBSee also:\fP
+.RS 4
+\fBopen_file\fP
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIProcess\fP process id of the protocol returned by open_file 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+process exit status (nonzero for error) 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Resourcerver from the source code\&.

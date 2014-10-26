@@ -6,5 +6,6 @@ var dir_5083d196f835a300aefa3c36c0474c12 =
     [ "remote", "dir_57932b11f003729ef032a470aecb8aa5.html", "dir_57932b11f003729ef032a470aecb8aa5" ],
     [ "config-parser.h", "config-parser_8h.html", "config-parser_8h" ],
     [ "config-parser.hpp", "config-parser_8hpp.html", "config-parser_8hpp" ],
-    [ "filter.h", "filter_8h_source.html", null ]
+    [ "filter.h", "filter_8h_source.html", null ],
+    [ "open-file.h", "open-file_8h.html", "open-file_8h" ]
 ];

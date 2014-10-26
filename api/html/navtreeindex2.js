@@ -1,5 +1,13 @@
 var NAVTREEINDEX2 =
 {
+"structcommand__table__info.html#a42079cfb6b047a5e6d90e85a159f3ce3":[1,0,0,2],
+"structcommand__table__info.html#abc8106538043266580bb56eec6c2f42e":[1,0,0,0],
+"structcommand__table__info.html#ade8b6f38b744aa5f3090fb13c0f8dc70":[1,0,0,3],
+"structconfig__arguments.html":[1,0,1],
+"structexternal__buffer.html":[1,0,2],
+"structincoming__info__data.html":[1,0,3],
+"structincoming__remote__data.html":[1,0,4],
+"structincoming__request__data.html":[1,0,5],
 "structincoming__response__data.html":[1,0,6],
 "structmessage__info.html":[1,0,7],
 "structmessage__info.html#a0acb920a4267290cca9af9ee7db760aa":[1,0,7,9],

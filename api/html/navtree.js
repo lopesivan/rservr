@@ -26,7 +26,7 @@ var NAVTREEINDEX =
 [
 "admin-client_8h.html",
 "event-functor_8hpp.html#ac38188fec31fc50de367f2685da49c96",
-"structincoming__response__data.html"
+"structcommand__table__info.html#a42079cfb6b047a5e6d90e85a159f3ce3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
