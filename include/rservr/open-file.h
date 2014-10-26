@@ -41,6 +41,8 @@ _]|]_______]|]]]]|]__]|]]]]]|]__]|]____________]|]__]|]____________, , , , , ,__
  | POSSIBILITY OF SUCH DAMAGE.
  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+/*TODO: this needs python bindings!*/
+
 /*! \file rservr/open-file.h
  *  \author Kevin P. Barry
  *  \brief Protocol-based file access.
