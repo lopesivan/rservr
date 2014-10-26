@@ -69,6 +69,7 @@ static bool split_protocol(const char *sSpec, std::string &pProto, std::string &
 	bool use_last = false;
 
 	if (sscanf(sSpec,
+	//NOTE: excluding "/" is very important for security!
 	           STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION) "://"
 	           STRING_FORMAT("s", PARAM_MAX_INPUT_SECTION),
 	           protocol, file) == 2)
@@ -117,13 +118,30 @@ int open_file(const char *sSpec, pid_t *pProcess)
 
 	else if (new_process == 0)
 	 {
+	struct stat protocol_stat;
+
+	if (stat(PROTOCOL_PATH, &protocol_stat) == -1) _exit(1);
+	if (!S_ISDIR(protocol_stat.st_mode)) _exit(1);
+
+	if (getuid() == 0)
+	  {
+	if ((protocol_stat.st_mode & (S_IWGRP | S_IWOTH))) _exit(1);
+	if (protocol_stat.st_uid != 0) _exit(1);
+	if (protocol_stat.st_gid != 0) _exit(1);
+	  }
+
 	std::string protocol_file = std::string(PROTOCOL_PATH "/") + protocol;
 	if (access(protocol_file.c_str(), X_OK | R_OK) == -1) _exit(1);
 
-	struct stat protocol_stat;
 	if (stat(protocol_file.c_str(), &protocol_stat) == -1) _exit(1);
 	if (!S_ISREG(protocol_stat.st_mode)) _exit(1);
-	if (getuid() == 0 && (protocol_stat.st_mode & (S_IWGRP | S_IWOTH))) _exit(1);
+
+	if (getuid() == 0)
+	  {
+	if ((protocol_stat.st_mode & (S_IWGRP | S_IWOTH))) _exit(1);
+	if (protocol_stat.st_uid != 0) _exit(1);
+	if (protocol_stat.st_gid != 0) _exit(1);
+	  }
 
 	char *command[] = { &protocol_file[0], &filename[0],
 	  (use_last && getenv("_RSERVR_LAST_FILENAME"))? getenv("_RSERVR_LAST_FILENAME") : NULL, NULL };
