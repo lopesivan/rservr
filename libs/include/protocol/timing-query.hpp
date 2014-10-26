@@ -35,6 +35,11 @@
 
 #include "plugin-dev/external-command.hpp"
 
+extern "C" {
+//NOTE: must come before "external/clist.hpp"
+#include "param.h"
+}
+
 #include "external/clist.hpp"
 
 extern "C" {

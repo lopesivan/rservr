@@ -10,3 +10,4 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 plugin_LTLIBRARIES=librsvx-penalty.la
 librsvx_penalty_la_SOURCES=rsvx-penalty.cpp
 librsvx_penalty_la_LIBADD=$(USE_LIBPTHREAD)
+librsvx_penalty_la_LDFLAGS=-shared

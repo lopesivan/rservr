@@ -4,4 +4,5 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 lib_LTLIBRARIES=librservr-i18n-us-english.la
 librservr_i18n_us_english_la_SOURCES=client.c general.c proto.c protocol.c server.c command-info.c
 librservr_i18n_us_english_la_LIBADD=
+librservr_i18n_us_english_la_LDFLAGS=-shared
 EXTRA_DIST=../translation.h

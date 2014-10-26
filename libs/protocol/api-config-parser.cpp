@@ -230,6 +230,7 @@ static bool execute_meta(const std::string &cCommand, const char *pPath)
 	if (error < 0 || WIFEXITED(status))
 	 {
 	kill(new_process, SIGKILL);
+	close(pipes[0]);
 	return false;
 	 }
 
@@ -237,6 +238,7 @@ static bool execute_meta(const std::string &cCommand, const char *pPath)
 	if (!input)
 	 {
 	kill(new_process, SIGKILL);
+	close(pipes[0]);
 	return false;
 	 }
 

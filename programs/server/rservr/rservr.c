@@ -44,6 +44,7 @@
 
 #include "param.h"
 #include "config-parser.h"
+#include "open-file.h"
 #include "api/tools.h"
 
 #include "lang/translation.h"
@@ -207,12 +208,33 @@ int main(int argc, char *argv[])
 
 	/*config parsing~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 	FILE *config_file = NULL;
-	int current = 3;
+	int current = 3, protocol_pid = -1;
 
 	do
 	{
+	config_file  = NULL;
+	protocol_pid = -1;
 
-	if (argc > 3) config_file = fopen(argv[current], "r");
+	if (argc > 3)
+	 {
+	int config_fd = open_file(argv[current], &protocol_pid);
+	if (config_fd < 0)
+	  {
+	if (config_fd == RSERVR_PROTOCOL_ERROR)
+	/*TODO: get rid of hard-coded message*/
+    log_server_config_file_error(argv[current], "protocol error");
+	if (config_fd == RSERVR_BAD_PROTOCOL)
+	/*TODO: get rid of hard-coded message*/
+    log_server_config_file_error(argv[current], "bad protocol");
+
+	fprintf(stderr, "%s: configuration error (check log file)\n", argv[0]);
+	CANCEL_PARENT
+	clean_server_exit(1);
+	  }
+
+	else config_file = fdopen(config_fd, "r");
+	 }
+
 	else
 	 {
 	if (isatty(STDIN_FILENO))
@@ -322,6 +344,7 @@ int main(int argc, char *argv[])
 	clear_extra_lines();
 	load_line_fail_check(NULL, NULL);
 	fclose(config_file);
+	if (protocol_pid >= 0) close_process(protocol_pid);
 
 	}
 	while (++current < argc);

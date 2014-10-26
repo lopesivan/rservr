@@ -5,3 +5,4 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 plugin_LTLIBRARIES=librsvx-ipregex.la
 librsvx_ipregex_la_SOURCES=rsvx-ipregex.cpp
 librsvx_ipregex_la_LIBADD=
+librsvx_ipregex_la_LDFLAGS=-shared

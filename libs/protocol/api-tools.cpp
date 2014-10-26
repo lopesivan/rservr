@@ -32,6 +32,11 @@
 
 #include "api-tools.hpp"
 
+#ifndef __LONG_LONG_SUPPORTED
+//(a hack to make sure 'strtoull' works on FreeBSD with clang)
+#define __LONG_LONG_SUPPORTED
+#endif
+
 #include <string.h> //'strcmp'
 #include <stdlib.h> //'strtoul'
 #include <stdio.h> //'snprintf'

@@ -5,3 +5,4 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 plugin_LTLIBRARIES=librsvx-dnsregex.la
 librsvx_dnsregex_la_SOURCES=rsvx-dnsregex.cpp
 librsvx_dnsregex_la_LIBADD=
+librsvx_dnsregex_la_LDFLAGS=-shared

@@ -5,3 +5,4 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 plugin_LTLIBRARIES=librsvx-tls.la
 librsvx_tls_la_SOURCES=rsvx-tls.cpp
 librsvx_tls_la_LIBADD=-lgnutls -lgnutls-extra -lgcrypt
+librsvx_tls_la_LDFLAGS=-shared

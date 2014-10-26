@@ -4,4 +4,5 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL -DRSERVR_RESTRICT_COMMAND_INTERFACE $(ALL_IN
 lib_LTLIBRARIES=librservr-proto-admin.la
 librservr_proto_admin_la_SOURCES=proto-admin-client.cpp
 librservr_proto_admin_la_LIBADD=../../protocol/librservr-protocol.la
+librservr_proto_admin_la_LDFLAGS=-shared
 EXTRA_DIST=../../include/proto/proto-admin-client.hpp

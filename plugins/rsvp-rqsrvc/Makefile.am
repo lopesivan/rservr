@@ -5,5 +5,7 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL -DRSERVR_RESTRICT_COMMAND_INTERFACE $(ALL_IN
 plugin_LTLIBRARIES=librsvp-rqsrvc.la librsvp-rqsrvc-auto.la
 librsvp_rqsrvc_la_SOURCES=api-rqsrvc.cpp plugin-rqsrvc.cpp api-rqsrvc.h plugin-rqsrvc.hpp
 librsvp_rqsrvc_la_LIBADD=../../libs/protocol/librservr-protocol.la
+librsvp_rqsrvc_la_LDFLAGS=-shared
 librsvp_rqsrvc_auto_la_SOURCES=rqsrvc-auto.cpp
 librsvp_rqsrvc_auto_la_LIBADD=librsvp-rqsrvc.la ../../libs/client/librservr-client.la
+librsvp_rqsrvc_auto_la_LDFLAGS=-shared

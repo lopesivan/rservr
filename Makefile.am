@@ -1,3 +1,4 @@
+ACLOCAL_AMFLAGS=-I m4
 SUBDIRS=include lang libs plugins security programs
 EXTRA_DIST=param.h attributes.h
 export AM_CXXFLAGS=-Wall

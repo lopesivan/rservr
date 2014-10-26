@@ -5,3 +5,4 @@ AM_CPPFLAGS=-DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 plugin_LTLIBRARIES=librsvx-inert.la
 librsvx_inert_la_SOURCES=rsvx-inert.c
 librsvx_inert_la_LIBADD=
+librsvx_inert_la_LDFLAGS=-shared

@@ -88,7 +88,6 @@ const entity_type type_all_clients = type_admin_client   | type_monitor_client  
 const entity_type type_client_flags = type_all_clients    | type_any_client | type_active_client |
                                       type_server_control | type_detached_client;
 
-const entity_type type_default_allowed       = PARAM_DEFAULT_PERMISSION;
 const entity_type type_allow_message         = type_admin_client | type_resource_client |
                                                type_control_client;
 const entity_type type_allow_response        = type_any_client;
@@ -182,6 +181,10 @@ const security_level security_7 = type_none;
 const security_level security_mask_admin    = security_1;
 const security_level security_mask_detached = (type_control_client_all | type_resource_client_all) &
                                               ~type_monitor_client;
+
+
+//NOTE: keep this at the end in case 'PARAM_DEFAULT_PERMISSION' uses something above!
+const entity_type type_default_allowed = PARAM_DEFAULT_PERMISSION;
 
 
 const create_flags create_exact   = 0x01 << 0;

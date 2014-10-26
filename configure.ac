@@ -3,7 +3,7 @@
 
 AC_PREREQ(2.61)
 AC_INIT(rservr-core, gamma.10, [Kevin P. Barry (ta0kira@users.berlios.de)])
-AM_INIT_AUTOMAKE([dist-bzip2])
+AM_INIT_AUTOMAKE([dist-bzip2 subdir-objects])
 PACKAGE=rservr-core
 VERSION=gamma.10
 
