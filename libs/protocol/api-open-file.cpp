@@ -45,6 +45,7 @@ extern "C" {
 #include <sys/wait.h> //'waitpid'
 #include <sys/select.h> //'select'
 #include <sys/types.h> //'uid_t', 'gid_t'
+#include <sys/stat.h> //'stat'
 #include <errno.h> //'errno'
 
 extern "C" {
@@ -56,29 +57,53 @@ extern "C" {
 #define STRING_FORMAT(format, size) "%" STRINGIFY(size) format
 
 
-static std::string last_protocol;
-static std::string last_file;
-
-
-int open_file(const char *sSpec, pid_t *pProcess)
+static bool split_protocol(const char *sSpec, std::string &pProto, std::string &fFile)
 {
-	if (!sSpec) return RSERVR_BAD_PROTOCOL;
+	//TODO: this should really be 'assert' or something
+	if (!sSpec) return false;
 
-	static char protocol[PARAM_MAX_INPUT_SECTION], file[PARAM_MAX_INPUT_SECTION];
+	char protocol[PARAM_MAX_INPUT_SECTION], file[PARAM_MAX_INPUT_SECTION];
+	pProto.clear();
+	fFile = sSpec;
+
+	bool use_last = false;
 
 	if (sscanf(sSpec,
 	           STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION) "://"
 	           STRING_FORMAT("s", PARAM_MAX_INPUT_SECTION),
 	           protocol, file) == 2)
 	{
-	//reuse the last protocol if the protocol specified was "*"
-	if (strcmp(protocol, "*") == 0) strncpy(protocol, last_protocol.c_str(), PARAM_MAX_INPUT_SECTION);
+	fFile = file;
 
-	//unset the last file if the protocol isn't being reused
-	else last_file.clear();
+	//reuse the last protocol if the protocol specified was "-"
+	//TODO: use a parameter for "-"
+	if (strcmp(protocol, "-") == 0)
+	 {
+	if (getenv("_RSERVR_LAST_PROTOCOL"))
+	  {
+	strncpy(protocol, getenv("_RSERVR_LAST_PROTOCOL"), PARAM_MAX_INPUT_SECTION);
+	use_last = true;
+	  }
+	else protocol[0] = 0x00;
+	 }
 
-	std::string protocol_file = std::string(PROTOCOL_PATH "/") + protocol;
+	pProto = protocol;
+	}
 
+	return use_last;
+}
+
+
+int open_file(const char *sSpec, pid_t *pProcess)
+{
+	if (!sSpec) return RSERVR_BAD_PROTOCOL;
+
+	std::string protocol, filename;
+	bool use_last = split_protocol(sSpec, protocol, filename);
+
+
+	if (protocol.size())
+	{
 	int pipes[2] = { -1, -1 };
 	if (pipe(pipes) != 0) return RSERVR_PROTOCOL_ERROR;
 
@@ -92,9 +117,16 @@ int open_file(const char *sSpec, pid_t *pProcess)
 
 	else if (new_process == 0)
 	 {
+	std::string protocol_file = std::string(PROTOCOL_PATH "/") + protocol;
 	if (access(protocol_file.c_str(), X_OK | R_OK) == -1) _exit(1);
 
-	char *command[] = { &protocol_file[0], file, last_file.size()? &last_file[0] : NULL, NULL };
+	struct stat protocol_stat;
+	if (stat(protocol_file.c_str(), &protocol_stat) == -1) _exit(1);
+	if (!S_ISREG(protocol_stat.st_mode)) _exit(1);
+	if (getuid() == 0 && (protocol_stat.st_mode & (S_IWGRP | S_IWOTH))) _exit(1);
+
+	char *command[] = { &protocol_file[0], &filename[0],
+	  (use_last && getenv("_RSERVR_LAST_FILENAME"))? getenv("_RSERVR_LAST_FILENAME") : NULL, NULL };
 
 	close(pipes[0]);
 	if (dup2(pipes[1], STDOUT_FILENO) < 0) _exit(1);
@@ -124,6 +156,10 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	FD_ZERO(&read_ready);
 	FD_SET(pipes[0], &read_ready);
 
+	//TODO: this will result in awkward behavior if the process stops in
+	//the background waiting for terminal access; therefore, maybe a timeout
+	//should be used, followed by a 'WIFSTOPPED' check
+
 	while ((error = select(pipes[0] + 1, &read_ready, NULL, NULL, NULL)) < 0 && errno == EINTR);
 
 	if (error < 0)
@@ -134,14 +170,18 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	return RSERVR_PROTOCOL_ERROR;
 	  }
 
-	else if (waitpid(new_process, &status, WNOHANG | WEXITED) == new_process)
+	//TODO: this is a harmless race condition, but maybe add a 'nanosleep' or something
+	else if (waitpid(new_process, &status, WNOHANG | WEXITED) == new_process && WEXITSTATUS(status) != 0)
 	  {
 	close(pipes[0]);
 	return RSERVR_PROTOCOL_ERROR;
 	  }
 
-	last_protocol = protocol;
-	last_file     = file;
+	if (!use_last)
+	  {
+	setenv("_RSERVR_LAST_PROTOCOL", protocol.c_str(), 1);
+	setenv("_RSERVR_LAST_FILENAME", filename.c_str(), 1);
+	  }
 
 	if (pProcess) *pProcess = new_process;
 	return pipes[0];
@@ -151,24 +191,37 @@ int open_file(const char *sSpec, pid_t *pProcess)
 
 	else
 	{
-	int new_file = open(sSpec, O_RDONLY);
-	if (new_file == -1) return RSERVR_PROTOCOL_ERROR;
+	int new_file = open(filename.c_str(), O_RDONLY);
+	if (new_file == -1) return RSERVR_FILE_ERROR;
 	return new_file;
 	}
 }
 
 
-void close_file(int fFile, pid_t pProcess)
+char *try_filename(const char *sSpec)
 {
-	if (fFile < 0) return;
-	close(fFile);
-	close_process(pProcess);
+	if (!sSpec) return NULL;
+
+	std::string protocol, filename;
+	split_protocol(sSpec, protocol, filename);
+
+	if (protocol.size()) return NULL;
+	else return strdup(filename.c_str());
 }
 
 
-void close_process(pid_t pProcess)
+int close_file(int fFile, pid_t pProcess)
 {
-	if (pProcess < 0) return;
-	kill(pProcess, SIGTERM);
-	waitpid(pProcess, NULL, 0x00);
+	if (fFile >= 0) close(fFile);
+	return close_process(pProcess);
+}
+
+
+int close_process(pid_t pProcess)
+{
+	if (pProcess < 0) return 0;
+	int status = 0;
+	int error = waitpid(pProcess, &status, WEXITED);
+	if (error != pProcess) return (error < 0 && errno == ECHILD)? 0 : RSERVR_PROTOCOL_ERROR;
+	return (!WIFEXITED(status) || WEXITSTATUS(status) != 0)? RSERVR_PROTOCOL_ERROR : 0;
 }

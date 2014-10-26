@@ -54,7 +54,8 @@ AC_CONFIG_FILES([ Makefile
                   programs/other/safexec/Makefile
                   programs/other/rsvbits/Makefile
                   programs/other/pipexec/Makefile
-                  programs/other/unsterm/Makefile ])
+                  programs/other/unsterm/Makefile
+                  protocols/Makefile ])
 
 AC_CONFIG_SRCDIR([param.h])
 
@@ -117,7 +118,8 @@ AC_CHECK_HEADERS([gnutls/extra.h], [EXTRA=true], [], []) #not _ONCE!
 # Set custom build flags.
 AM_CONDITIONAL([LINK_READLINE], [test x$READLINE = xtrue])
 AM_CONDITIONAL([LINK_HISTORY], [test x$HISTORY = xtrue])
-AM_CONDITIONAL([LINK_GNUTLS], [test x$GNUTLS = xtrue && test x$EXTRA = xtrue])
+AM_CONDITIONAL([LINK_GNUTLS], [test x$GNUTLS = xtrue])
+AM_CONDITIONAL([LINK_EXTRA], [test x$EXTRA = xtrue])
 AM_CONDITIONAL([LINK_LIBDL], [test x$LIBDL = xtrue])
 AM_CONDITIONAL([LINK_LIBPTHREAD], [test x$LIBPTHREAD = xtrue])
 AM_CONDITIONAL([USE_PYTHON], [test x$HAVE_PYTHON != x])

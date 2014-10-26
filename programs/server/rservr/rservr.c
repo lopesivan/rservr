@@ -220,6 +220,8 @@ int main(int argc, char *argv[])
 	int config_fd = open_file(argv[current], &protocol_pid);
 	if (config_fd < 0)
 	  {
+	if (config_fd == RSERVR_FILE_ERROR)
+    log_server_config_file_error(argv[current], strerror(errno));
 	if (config_fd == RSERVR_PROTOCOL_ERROR)
 	/*TODO: get rid of hard-coded message*/
     log_server_config_file_error(argv[current], "protocol error");
@@ -290,20 +292,18 @@ int main(int argc, char *argv[])
 	unsigned int current_line = 0;
 	int outcome = 0;
 
+	char *directory = try_filename(argv[current]);
+	const char *working_directory = directory? dirname(directory) : NULL;
+
 	while (extra_lines() || fgets(holding, PARAM_MAX_INPUT_SECTION, config_file))
 	 {
-	char *directory = (argc > 3 && strlen(argv[current]))?
-	  strdup(argv[current]) : NULL;
-
 	if (!extra_lines())
 	  {
 	current_line++;
-	outcome = parse_option(holding, directory? dirname(directory) : NULL);
+	outcome = parse_option(holding, working_directory);
 	holding[ strlen(holding) - 1 ] = 0x00;
 	  }
-	else outcome = parse_option(NULL, directory? dirname(directory) : NULL);
-
-	if (directory) free(directory);
+	else outcome = parse_option(NULL, working_directory);
 
 	if (outcome == 2) continue;
 
@@ -344,7 +344,18 @@ int main(int argc, char *argv[])
 	clear_extra_lines();
 	load_line_fail_check(NULL, NULL);
 	fclose(config_file);
-	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (directory) free(directory);
+
+	if (protocol_pid >= 0)
+	 {
+	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	  {
+	/*TODO: get rid of hard-coded message*/
+    log_server_config_file_error(argv[current], "protocol error");
+	CANCEL_PARENT
+	clean_server_exit(1);
+	  }
+	 }
 
 	}
 	while (++current < argc);

@@ -32,6 +32,7 @@
 
 #include "param.h"
 #include "config-parser.h"
+#include "open-file.h"
 #include "api/tools.h"
 #include "api/client.h"
 #include "api/client-timing.h"
@@ -108,11 +109,31 @@ int main(int argc, char *argv[])
 
 	for (I = 2; I < argc && outcome >= 0; I++)
 	{
-	FILE *next_file = fopen(argv[I], "r");
+	int protocol_pid = -1;
+
+	int config_fd = open_file(argv[I], &protocol_pid);
+	if (config_fd < 0)
+	 {
+	if (config_fd == RSERVR_FILE_ERROR)
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], strerror(errno));
+	if (config_fd == RSERVR_PROTOCOL_ERROR)
+	/*TODO: get rid of hard-coded message*/
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], "protocol error");
+	if (config_fd == RSERVR_BAD_PROTOCOL)
+	/*TODO: get rid of hard-coded message*/
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], "bad protocol");
+
+	stop_message_queue();
+	client_cleanup();
+	return 1;
+	 }
+
+	FILE *next_file = fdopen(config_fd, "r");
 
 	if (!next_file)
 	 {
-	fprintf(stderr, "%s: can't open file '%s': %s\n", argv[0], argv[I], strerror(errno));
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], strerror(errno));
+	if (protocol_pid >= 0) close_process(protocol_pid);
 	stop_message_queue();
 	client_cleanup();
 	return 1;
@@ -120,19 +141,34 @@ int main(int argc, char *argv[])
 
 	else
 	 {
-	char *directory = strlen(argv[I])? strdup(argv[I]) : NULL;
+	char *directory = try_filename(argv[I]);
 
 	if ( (outcome = parse_file(next_file, argv[0],
 	    directory? dirname(directory) : NULL)) < 0 )
 	  {
-	fprintf(stderr, "%s: parsing error in file '%s'\n", argv[0], argv[I]);
+	fprintf(stderr, "%s: parsing error in configuration file '%s'\n", argv[0], argv[I]);
+	fclose(next_file);
+	if (protocol_pid >= 0) close_process(protocol_pid);
 	if (directory) free(directory);
 	stop_message_queue();
 	client_cleanup();
 	return 1;
 	  }
 
+	fclose(next_file);
 	if (directory) free(directory);
+
+	if (protocol_pid >= 0)
+	  {
+	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	   {
+	/*TODO: get rid of hard-coded message*/
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], "protocol error");
+	stop_message_queue();
+	client_cleanup();
+	return 1;
+	   }
+	  }
 	 }
 	}
 

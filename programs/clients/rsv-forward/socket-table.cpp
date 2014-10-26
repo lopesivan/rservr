@@ -38,6 +38,7 @@ extern "C" {
 
 extern "C" {
 #include "param.h"
+#include "open-file.h"
 #include "api/tools.h"
 #include "plugins/rsvp-netcntl-hook.h"
 #include "api/client.h"
@@ -74,12 +75,32 @@ int parse_config_file(const char *fFile)
 {
 	//TODO: model this after 'rsv-respawn'! (is continuation allowed across files?)
 
-	FILE *config_file = fopen(fFile, "r");
+	int protocol_pid = -1;
+
+	int config_fd = open_file(fFile, &protocol_pid);
+	if (config_fd < 0)
+	{
+	if (config_fd == RSERVR_FILE_ERROR)
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name, fFile, strerror(errno));
+	if (config_fd == RSERVR_PROTOCOL_ERROR)
+	/*TODO: get rid of hard-coded message*/
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name, fFile, "protocol error");
+	if (config_fd == RSERVR_BAD_PROTOCOL)
+	/*TODO: get rid of hard-coded message*/
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name, fFile, "bad protocol");
+
+	stop_message_queue();
+	client_cleanup();
+	return -1;
+	}
+
+	FILE *config_file = fdopen(config_fd, "r");
 
 	if (!config_file)
 	{
 	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name,
 	  fFile, strerror(errno));
+	if (protocol_pid >= 0) close_process(protocol_pid);
 	return -1;
 	}
 
@@ -90,18 +111,17 @@ int parse_config_file(const char *fFile)
 	holding[ PARAM_MAX_INPUT_SECTION - 1 ] = 0x00;
 	int outcome = 0;
 
+	char *directory = try_filename(fFile);
+	const char *working_directory = directory? dirname(directory) : NULL;
+
 	while (extra_lines() || fgets(holding, sizeof holding, config_file))
 	{
-	char *directory = strlen(fFile)? strdup(fFile) : NULL;
-
 	if (!extra_lines())
 	 {
-	outcome = parse_config_line(holding, directory? dirname(directory) : NULL);
+	outcome = parse_config_line(holding, working_directory);
 	holding[ strlen(holding) - 1 ] = 0x00;
 	 }
-	else outcome = parse_config_line(NULL, directory? dirname(directory) : NULL);
-
-	if (directory) free(directory);
+	else outcome = parse_config_line(NULL, working_directory);
 
 	if (outcome == 2) continue;
 
@@ -110,6 +130,8 @@ int parse_config_file(const char *fFile)
 	fprintf(stderr, "%s: error in configuration line (%s): '%s'\n", client_name,
 	  fFile, holding);
 	fclose(config_file);
+	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (directory) free(directory);
 	return -1;
 	 }
 
@@ -127,12 +149,27 @@ int parse_config_file(const char *fFile)
 	{
 	fprintf(stderr, "%s: missing continuation line (%s)\n", client_name, fFile);
 	fclose(config_file);
+	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (directory) free(directory);
 	return -1;
 	}
 
 	clear_extra_lines();
 	load_line_fail_check(NULL, NULL);
 	fclose(config_file);
+	if (directory) free(directory);
+
+	if (protocol_pid >= 0)
+	{
+	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	 {
+	/*TODO: get rid of hard-coded message*/
+	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name, fFile, "protocol error");
+	stop_message_queue();
+	client_cleanup();
+	return -1;
+	 }
+	}
 
 	return 0;
 }

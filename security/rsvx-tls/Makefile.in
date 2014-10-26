@@ -78,6 +78,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+@LINK_EXTRA_TRUE@am__append_1 = -lgnutls-extra
 subdir = security/rsvx-tls
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
@@ -120,7 +121,8 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(plugindir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
-librsvx_tls_la_DEPENDENCIES =
+am__DEPENDENCIES_1 =
+librsvx_tls_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_librsvx_tls_la_OBJECTS = rsvx-tls.lo
 librsvx_tls_la_OBJECTS = $(am_librsvx_tls_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -321,7 +323,7 @@ ALL_INCLUDES = $(STANDARD_INCLUDES) -I$(srcdir)/../.. -I$(srcdir)/../../include/
 AM_CPPFLAGS = -DENABLE_VIRT_ARRAY_ALL $(ALL_INCLUDES)
 plugin_LTLIBRARIES = librsvx-tls.la
 librsvx_tls_la_SOURCES = rsvx-tls.cpp
-librsvx_tls_la_LIBADD = -lgnutls -lgnutls-extra -lgcrypt
+librsvx_tls_la_LIBADD = -lgnutls -lgcrypt $(am__append_1)
 librsvx_tls_la_LDFLAGS = -shared
 all: all-am
 

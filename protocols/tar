@@ -1,0 +1,21 @@
+#!/bin/sh
+
+sep='?'
+
+if [ $# -gt 1 ]; then
+  archive="$( echo "$2" | cut -d$sep -f1 )"
+  filename="$1"
+else
+  archive="$( echo "$1" | cut -d$sep -f1 )"
+  filename="$( echo "$1" | cut -d$sep -f2- )"
+fi
+
+if echo "$archive" | grep -q '\.tar\.gz$'; then
+  options='-z'
+elif echo "$archive" | grep -q '\.tar\.bz2$'; then
+  options='-j'
+elif echo "$archive" | grep -q '\.tbz$'; then
+  options='-j'
+fi
+
+tar $options -O -xf "$archive" "$filename" || exit 1

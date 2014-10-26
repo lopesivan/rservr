@@ -59,8 +59,9 @@ extern "C" {
 #include <sys/types.h> /*'uid_t', 'gid_t', */
 
 
-#define RSERVR_PROTOCOL_ERROR -1 /**< Protocol exited with an error before sending data.*/
-#define RSERVR_BAD_PROTOCOL   -2 /**< Bad protocol specified.*/
+#define RSERVR_FILE_ERROR     -1 /**< Problem opening file without a protocol.*/
+#define RSERVR_PROTOCOL_ERROR -2 /**< Protocol exited with an error before sending data.*/
+#define RSERVR_BAD_PROTOCOL   -3 /**< Bad protocol specified.*/
 
 
 /*! \brief Open a file using a protocol.
@@ -77,21 +78,33 @@ extern "C" {
 extern int open_file(const char *Spec, pid_t *Process);
 
 
+/*! \brief Attempt to extract the filename of the protocol specification.
+ *
+ * \param Spec a file specification with the format 'protocol:specification',
+ * where 'protocol' names a protocol (e.g., 'tar') and 'specification' is a
+ * string whose format depends on 'protocol'
+ * \return filename, or NULL if a protocol is used (must be freed)
+ */
+extern char *try_filename(const char *Spec);
+
+
 /*! \brief Close a file opened by open_file.
  * @see open_file
  *
  * \param File file descriptor returned by open_file
  * \param Process process id of the protocol returned by open_file
+ * \return process exit status (nonzero for error)
  */
-extern void close_file(int File, pid_t Process);
+extern int close_file(int File, pid_t Process);
 
 
 /*! \brief Close a protocol process without closing a file.
  * @see open_file
  *
  * \param Process process id of the protocol returned by open_file
+ * \return process exit status (nonzero for error)
  */
-extern void close_process(pid_t Process);
+extern int close_process(pid_t Process);
 
 #ifdef __cplusplus
 }

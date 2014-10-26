@@ -36,6 +36,7 @@
 extern "C" {
 #include "param.h"
 #include "config-parser.h"
+#include "open-file.h"
 #include "api/log-output.h"
 #include "api/client-timing.h"
 #include "remote/security.h"
@@ -56,7 +57,10 @@ extern "C" {
 #include <unistd.h> //'read', 'write'
 
 #include <gnutls/gnutls.h>
+
+#if defined(HAVE_GNUTLS_EXTRA_H) && HAVE_GNUTLS_EXTRA_H
 #include <gnutls/extra.h>
+#endif
 
 #ifdef HAVE_GCRYPT_H
 #include <gcrypt.h>
@@ -113,7 +117,26 @@ static std::string srp_file;
 
 static bool parse_passwd()
 {
-	FILE *passwd_file = fopen(srp_file.c_str(), "r");
+	int protocol_pid = -1;
+
+	//NOTE: this is actually pointless at the moment because the certificate
+	//files can't be opened using the rservr protocols
+	int config_fd = open_file(srp_file.c_str(), &protocol_pid);
+	if (config_fd < 0)
+	{
+	if (config_fd == RSERVR_FILE_ERROR)
+    client_log_output(logging_minimal, "rsvx-tls:passwd", strerror(errno));
+	if (config_fd == RSERVR_PROTOCOL_ERROR)
+	/*TODO: get rid of hard-coded message*/
+    client_log_output(logging_minimal, "rsvx-tls:passwd", "protocol error");
+	if (config_fd == RSERVR_BAD_PROTOCOL)
+	/*TODO: get rid of hard-coded message*/
+    client_log_output(logging_minimal, "rsvx-tls:passwd", "bad protocol");
+
+	return false;
+	}
+
+	FILE *passwd_file = fdopen(config_fd, "r");
 	if (!passwd_file)
 	{
     client_log_output(logging_minimal, "rsvx-tls:passwd", strerror(errno));
@@ -148,6 +171,17 @@ static bool parse_passwd()
 	}
 
 	fclose(passwd_file);
+
+	if (protocol_pid >= 0)
+	{
+	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	 {
+	/*TODO: get rid of hard-coded message*/
+    client_log_output(logging_minimal, "rsvx-tls:passwd", "protocol error");
+	return false;
+	 }
+	}
+
 	return true;
 }
 
@@ -494,7 +528,9 @@ const struct remote_security_filter *load_security_filter(int tType, const char 
 	  }
 	 }
 
+#if defined(HAVE_GNUTLS_EXTRA_H) && HAVE_GNUTLS_EXTRA_H
 	gnutls_global_init_extra();
+#endif
 
 	if (srp_passwd && strlen(srp_passwd) && srp_passwd_conf &&
 	  strlen(srp_passwd_conf))

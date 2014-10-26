@@ -644,6 +644,8 @@ LINK_LIBPTHREAD_FALSE
 LINK_LIBPTHREAD_TRUE
 LINK_LIBDL_FALSE
 LINK_LIBDL_TRUE
+LINK_EXTRA_FALSE
+LINK_EXTRA_TRUE
 LINK_GNUTLS_FALSE
 LINK_GNUTLS_TRUE
 LINK_HISTORY_FALSE
@@ -3184,7 +3186,7 @@ fi
 PACKAGE=rservr-core
 VERSION=gamma.10
 
-ac_config_files="$ac_config_files Makefile include/Makefile lang/Makefile lang/us-english/Makefile libs/Makefile libs/protocol/Makefile libs/proto/Makefile libs/proto/proto-server/Makefile libs/proto/proto-common/Makefile libs/proto/proto-admin/Makefile libs/proto/proto-service/Makefile libs/proto/proto-control/Makefile libs/proto/proto-resource/Makefile libs/proto/proto-monitor/Makefile libs/server/Makefile libs/client/Makefile libs/filter/Makefile plugins/Makefile plugins/rsvp-netcntl/Makefile plugins/rsvp-rqsrvc/Makefile plugins/rsvp-rqconfig/Makefile plugins/rsvp-ready/Makefile plugins/rsvp-dataref/Makefile plugins/rsvp-trigger/Makefile plugins/rsvp-passthru/Makefile security/Makefile security/rsvx-localhost/Makefile security/rsvx-ipregex/Makefile security/rsvx-dnsregex/Makefile security/rsvx-penalty/Makefile security/rsvx-tls/Makefile security/rsvx-inert/Makefile programs/Makefile programs/server/Makefile programs/server/rservr/Makefile programs/clients/Makefile programs/clients/rservrd/Makefile programs/clients/rsv-forward/Makefile programs/clients/rsv-echo/Makefile programs/clients/rsv-terminal/Makefile programs/clients/rsv-respawn/Makefile programs/filters/Makefile programs/filters/rsvf-log/Makefile programs/other/Makefile programs/other/safexec/Makefile programs/other/rsvbits/Makefile programs/other/pipexec/Makefile programs/other/unsterm/Makefile"
+ac_config_files="$ac_config_files Makefile include/Makefile lang/Makefile lang/us-english/Makefile libs/Makefile libs/protocol/Makefile libs/proto/Makefile libs/proto/proto-server/Makefile libs/proto/proto-common/Makefile libs/proto/proto-admin/Makefile libs/proto/proto-service/Makefile libs/proto/proto-control/Makefile libs/proto/proto-resource/Makefile libs/proto/proto-monitor/Makefile libs/server/Makefile libs/client/Makefile libs/filter/Makefile plugins/Makefile plugins/rsvp-netcntl/Makefile plugins/rsvp-rqsrvc/Makefile plugins/rsvp-rqconfig/Makefile plugins/rsvp-ready/Makefile plugins/rsvp-dataref/Makefile plugins/rsvp-trigger/Makefile plugins/rsvp-passthru/Makefile security/Makefile security/rsvx-localhost/Makefile security/rsvx-ipregex/Makefile security/rsvx-dnsregex/Makefile security/rsvx-penalty/Makefile security/rsvx-tls/Makefile security/rsvx-inert/Makefile programs/Makefile programs/server/Makefile programs/server/rservr/Makefile programs/clients/Makefile programs/clients/rservrd/Makefile programs/clients/rsv-forward/Makefile programs/clients/rsv-echo/Makefile programs/clients/rsv-terminal/Makefile programs/clients/rsv-respawn/Makefile programs/filters/Makefile programs/filters/rsvf-log/Makefile programs/other/Makefile programs/other/safexec/Makefile programs/other/rsvbits/Makefile programs/other/pipexec/Makefile programs/other/unsterm/Makefile protocols/Makefile"
 
 
 
@@ -17051,12 +17053,20 @@ else
   LINK_HISTORY_FALSE=
 fi
 
- if test x$GNUTLS = xtrue && test x$EXTRA = xtrue; then
+ if test x$GNUTLS = xtrue; then
   LINK_GNUTLS_TRUE=
   LINK_GNUTLS_FALSE='#'
 else
   LINK_GNUTLS_TRUE='#'
   LINK_GNUTLS_FALSE=
+fi
+
+ if test x$EXTRA = xtrue; then
+  LINK_EXTRA_TRUE=
+  LINK_EXTRA_FALSE='#'
+else
+  LINK_EXTRA_TRUE='#'
+  LINK_EXTRA_FALSE=
 fi
 
  if test x$LIBDL = xtrue; then
@@ -18403,6 +18413,10 @@ if test -z "${LINK_GNUTLS_TRUE}" && test -z "${LINK_GNUTLS_FALSE}"; then
   as_fn_error $? "conditional \"LINK_GNUTLS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${LINK_EXTRA_TRUE}" && test -z "${LINK_EXTRA_FALSE}"; then
+  as_fn_error $? "conditional \"LINK_EXTRA\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${LINK_LIBDL_TRUE}" && test -z "${LINK_LIBDL_FALSE}"; then
   as_fn_error $? "conditional \"LINK_LIBDL\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
@@ -19410,6 +19424,7 @@ do
     "programs/other/rsvbits/Makefile") CONFIG_FILES="$CONFIG_FILES programs/other/rsvbits/Makefile" ;;
     "programs/other/pipexec/Makefile") CONFIG_FILES="$CONFIG_FILES programs/other/pipexec/Makefile" ;;
     "programs/other/unsterm/Makefile") CONFIG_FILES="$CONFIG_FILES programs/other/unsterm/Makefile" ;;
+    "protocols/Makefile") CONFIG_FILES="$CONFIG_FILES protocols/Makefile" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
 
