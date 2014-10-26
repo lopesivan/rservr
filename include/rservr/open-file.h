@@ -65,24 +65,8 @@ extern "C" {
 
 /*! \brief Open a file using a protocol.
  *
- * Automatically determine and use a protocol to open a file.
  * @see close_file
  * \note This function isn't reentrant.
- *
- * \param Spec a file specification with the format 'protocol:specification',
- * where 'protocol' names a protocol (e.g., 'tar') and 'specification' is a
- * string whose format depends on 'protocol'
- * \param Process pointer for storing the process id of the protocol
- * \param User user ID to use for the protocol process
- * \param Group group ID to use for the protocol process
- * \return open file descriptor ready to read, or < 0 for an error
- */
-extern int open_file_as_user(const char *Spec, pid_t *Process, uid_t User, gid_t Group);
-
-
-/*! \brief Open a file using a protocol.
- *
- * @see open_file_as_user
  *
  * \param Spec a file specification with the format 'protocol:specification',
  * where 'protocol' names a protocol (e.g., 'tar') and 'specification' is a

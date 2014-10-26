@@ -52,14 +52,15 @@ extern "C" {
 }
 
 
-#define STRING_FORMAT(format, size) "%" #size format
+#define STRINGIFY(value) #value
+#define STRING_FORMAT(format, size) "%" STRINGIFY(size) format
 
 
 static std::string last_protocol;
 static std::string last_file;
 
 
-int open_file_as_user(const char *sSpec, pid_t *pProcess, uid_t uUid, gid_t gGid)
+int open_file(const char *sSpec, pid_t *pProcess)
 {
 	if (!sSpec) return RSERVR_BAD_PROTOCOL;
 
@@ -91,11 +92,6 @@ int open_file_as_user(const char *sSpec, pid_t *pProcess, uid_t uUid, gid_t gGid
 
 	else if (new_process == 0)
 	 {
-	if (getuid() == 0 && setuid(gGid)) _exit(1);
-	if (getuid() == 0 && setuid(uUid)) _exit(1);
-	if (getuid() == 0 || (uUid != 0 && getuid() != uUid)) _exit(1);
-	if (gGid != 0 && getgid() != gGid)                    _exit(1);
-
 	if (access(protocol_file.c_str(), X_OK | R_OK) == -1) _exit(1);
 
 	char *command[] = { &protocol_file[0], file, last_file.size()? &last_file[0] : NULL, NULL };
@@ -160,10 +156,6 @@ int open_file_as_user(const char *sSpec, pid_t *pProcess, uid_t uUid, gid_t gGid
 	return new_file;
 	}
 }
-
-
-int open_file(const char *sSpec, pid_t *pProcess)
-{ return open_file_as_user(sSpec, pProcess, 0, 0); }
 
 
 void close_file(int fFile, pid_t pProcess)
