@@ -2926,7 +2926,7 @@ private:
   //Here we call the reference list's own presorting function while using our
   //own option flags
 
-  if (!rRef.pre_sort_data <typename clist <Type2> ::shell_type,
+  if (!rRef.template pre_sort_data <typename clist <Type2> ::shell_type,
           typename clist <Type2> ::i_shell_type> (rRef.list_element(0), TRANS,
         RS1, RS2, clist <Type2> ::internal_container::is_virtual, true,
         o_inverted_sort_mode(), false, o_reverse_process(), o_reverse_equals()))
@@ -2981,7 +2981,7 @@ private:
 
   transposer_container TRANS;
 
-  if (!rRef.f_pre_sort_data <typename clist <Type2> ::shell_type,
+  if (!rRef.template f_pre_sort_data <typename clist <Type2> ::shell_type,
           typename clist <Type2> ::i_shell_type> (rRef.list_element(0), TRANS,
         RS1, RS2, clist <Type2> ::internal_container::is_virtual, true,
         o_inverted_sort_mode(), false, o_reverse_process(), o_reverse_equals(),
