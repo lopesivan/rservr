@@ -41,7 +41,7 @@
 
 #include <stddef.h> /* 'offsetof' */
 #include <stdio.h> /* 'fprintf', 'remove' */
-#include <stdlib.h> /* 'free' */
+#include <stdlib.h> /* 'free', 'getenv' */
 #include <unistd.h> /* 'chown', 'getcwd', 'chdir', 'access' */
 #include <sys/stat.h> /* 'stat', 'chmod', 'mkdir', open modes */
 #include <string.h> /* 'strncpy', 'strlen', 'strerror', 'strcmp' */
@@ -76,17 +76,21 @@ int check_table()
 {
 	struct stat current_stats;
 
+	const char *table = global_dir_name;
+	/*TODO: use a macro for this name?*/
+	if (getenv("RSERVRD_TABLE") && strlen(getenv("RSERVRD_TABLE"))) table = getenv("RSERVRD_TABLE");
+
 	/*visible directory*/
 
-	if (stat(global_dir_name, &current_stats) < 0 || !S_ISDIR(current_stats.st_mode))
+	if (stat(table, &current_stats) < 0 || !S_ISDIR(current_stats.st_mode))
 	{
-	if (stat(global_dir_name, &current_stats) >= 0 && remove(global_dir_name) < 0)
+	if (stat(table, &current_stats) >= 0 && remove(table) < 0)
 	 {
 	fprintf(stderr, "%s: call without arguments as root to repair daemon table\n", command_name);
 	return -1;
 	 }
 
-	int new_dir = mkdir(global_dir_name, global_mode);
+	int new_dir = mkdir(table, global_mode);
 	if (new_dir < 0)
 	 {
 	fprintf(stderr, "%s: could not open or create daemon table\n", command_name);
@@ -94,21 +98,21 @@ int check_table()
 	 }
 	}
 
-	if (stat(global_dir_name, &current_stats) < 0)
+	if (stat(table, &current_stats) < 0)
 	{
 	fprintf(stderr, "%s: could not open or create daemon table\n", command_name);
 	return -1;
 	}
 
 	if (current_stats.st_uid != user_id || current_stats.st_gid != group_id)
-	if (chown(global_dir_name, user_id, group_id) < 0)
+	if (chown(table, user_id, group_id) < 0)
 	{
 	fprintf(stderr, "%s: call without arguments as root to repair daemon table\n", command_name);
 	return -1;
 	}
 
 
-	if (chdir(global_dir_name) < 0)
+	if (chdir(table) < 0)
 	{
 	fprintf(stderr, "%s: could not read daemon table\n", command_name);
 	return -1;
@@ -487,8 +491,15 @@ int list_daemons(const char *nName)
 
 	if ((current = entries)) while (total_matches-- && *current)
 	{
+	if (getenv("RSERVRD_TABLE") && strlen(getenv("RSERVRD_TABLE")))
+	fprintf(stderr, "%s: bad daemon table entry '%s' (skipping)\n", nName, (*current)->d_name);
+
+	else if (remove((*current)->d_name) != 0)
 	fprintf(stderr, "%s: bad daemon table entry '%s' (run as root to remove)\n", nName, (*current)->d_name);
-	remove((*current)->d_name);
+
+	else
+	fprintf(stderr, "%s: removed bad daemon table entry '%s'\n", nName, (*current)->d_name);
+
 	free(*current++);
 	}
 
