@@ -44,7 +44,7 @@
 
 #include "param.h"
 #include "config-parser.h"
-#include "open-file.h"
+#include "protocol-file.h"
 #include "api/tools.h"
 
 #include "lang/translation.h"
@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 
 	if (argc > 3)
 	 {
-	int config_fd = open_file(argv[current], &protocol_pid);
+	int config_fd = open_protocol_file(argv[current], &protocol_pid);
 	if (config_fd < 0)
 	  {
 	if (config_fd == RSERVR_FILE_ERROR)
@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
 	unsigned int current_line = 0;
 	int outcome = 0;
 
-	char *directory = try_filename(argv[current]);
+	char *directory = try_protocol_filename(argv[current]);
 	const char *working_directory = directory? dirname(directory) : NULL;
 
 	while (extra_lines() || fgets(holding, PARAM_MAX_INPUT_SECTION, config_file))
@@ -348,7 +348,7 @@ int main(int argc, char *argv[])
 
 	if (protocol_pid >= 0)
 	 {
-	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	if (close_protocol_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
 	  {
 	/*TODO: get rid of hard-coded message*/
     log_server_config_file_error(argv[current], "protocol error");

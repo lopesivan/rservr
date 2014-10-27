@@ -123,9 +123,9 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 librservr_protocol_la_DEPENDENCIES =
 am__dirstamp = $(am__leading_dot)dirstamp
 am_librservr_protocol_la_OBJECTS = api-config-parser.lo \
-	api-open-file.lo api-timing.lo api-tools.lo timing-manager.lo \
-	timing-query.lo constants.lo conversion.lo api-command.lo \
-	command-generator.lo api-label-check.lo \
+	api-protocol-file.lo api-timing.lo api-tools.lo \
+	timing-manager.lo timing-query.lo constants.lo conversion.lo \
+	api-command.lo command-generator.lo api-label-check.lo \
 	ipc/command-transmit.lo ipc/common-input.lo \
 	ipc/cstring-input.lo ipc/common-output.lo \
 	ipc/api-external-command.lo ipc/ipc-parser.tab.lo \
@@ -345,7 +345,7 @@ AM_LDFLAGS = -version-info 5:0:0
 ALL_INCLUDES = $(STANDARD_INCLUDES) -I$(srcdir)/local-include -I$(srcdir)/../.. -I$(srcdir)/../../include/rservr -I$(srcdir)/../../include -I$(srcdir)/../include/protocol -I$(srcdir)/../include
 AM_CPPFLAGS = -DPROTOCOL_LIB -DENABLE_VIRT_ARRAY_ALL "-DSAFEXEC_PATH=\"$(DESTDIR)$(bindir)\"" -DPROTOCOL_PATH=\"$(PLUGIN_PATH)/protocols\" $(ALL_INCLUDES)
 lib_LTLIBRARIES = librservr-protocol.la
-librservr_protocol_la_SOURCES = api-config-parser.cpp api-open-file.cpp api-timing.cpp api-tools.cpp timing-manager.c timing-query.cpp constants.cpp conversion.cpp api-command.cpp command-generator.cpp api-label-check.cpp ipc/command-transmit.cpp ipc/common-input.cpp ipc/cstring-input.cpp ipc/common-output.cpp ipc/api-external-command.cpp ipc/ipc-parser.tab.cpp ipc/ipc-lexer.c
+librservr_protocol_la_SOURCES = api-config-parser.cpp api-protocol-file.cpp api-timing.cpp api-tools.cpp timing-manager.c timing-query.cpp constants.cpp conversion.cpp api-command.cpp command-generator.cpp api-label-check.cpp ipc/command-transmit.cpp ipc/common-input.cpp ipc/cstring-input.cpp ipc/common-output.cpp ipc/api-external-command.cpp ipc/ipc-parser.tab.cpp ipc/ipc-lexer.c
 librservr_protocol_la_LIBADD = $(STANDARD_LIBRARIES) -lhparser -lhpaux
 librservr_protocol_la_LDFLAGS = -shared
 EXTRA_DIST = ../include/protocol/local-check.h \
@@ -477,7 +477,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-command.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-config-parser.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-label-check.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-open-file.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-protocol-file.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-timing.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/api-tools.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/command-generator.Plo@am__quote@

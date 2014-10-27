@@ -32,7 +32,7 @@
 
 #include "param.h"
 #include "config-parser.h"
-#include "open-file.h"
+#include "protocol-file.h"
 #include "api/tools.h"
 #include "api/client.h"
 #include "api/client-timing.h"
@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 	{
 	int protocol_pid = -1;
 
-	int config_fd = open_file(argv[I], &protocol_pid);
+	int config_fd = open_protocol_file(argv[I], &protocol_pid);
 	if (config_fd < 0)
 	 {
 	if (config_fd == RSERVR_FILE_ERROR)
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 	if (!next_file)
 	 {
 	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], strerror(errno));
-	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (protocol_pid >= 0) close_protocol_process(protocol_pid);
 	stop_message_queue();
 	client_cleanup();
 	return 1;
@@ -141,14 +141,14 @@ int main(int argc, char *argv[])
 
 	else
 	 {
-	char *directory = try_filename(argv[I]);
+	char *directory = try_protocol_filename(argv[I]);
 
 	if ( (outcome = parse_file(next_file, argv[0],
 	    directory? dirname(directory) : NULL)) < 0 )
 	  {
 	fprintf(stderr, "%s: parsing error in configuration file '%s'\n", argv[0], argv[I]);
 	fclose(next_file);
-	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (protocol_pid >= 0) close_protocol_process(protocol_pid);
 	if (directory) free(directory);
 	stop_message_queue();
 	client_cleanup();
@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
 
 	if (protocol_pid >= 0)
 	  {
-	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	if (close_protocol_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
 	   {
 	/*TODO: get rid of hard-coded message*/
 	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", argv[0], argv[I], "protocol error");

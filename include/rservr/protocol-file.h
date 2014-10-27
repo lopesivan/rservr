@@ -43,7 +43,7 @@ _]|]_______]|]]]]|]__]|]]]]]|]__]|]____________]|]__]|]____________, , , , , ,__
 
 /*TODO: this needs python bindings!*/
 
-/*! \file rservr/open-file.h
+/*! \file rservr/protocol-file.h
  *  \author Kevin P. Barry
  *  \brief Protocol-based file access.
  *
@@ -51,8 +51,8 @@ _]|]_______]|]]]]|]__]|]]]]]|]__]|]____________]|]__]|]____________, , , , , ,__
  * optionally-specified protocol, e.g., 'tar:configs.tar:config'.
  */
 
-#ifndef rservr_open_file_h
-#define rservr_open_file_h
+#ifndef rservr_protocol_file_h
+#define rservr_protocol_file_h
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,50 +66,96 @@ extern "C" {
 #define RSERVR_BAD_PROTOCOL   -3 /**< Bad protocol specified.*/
 
 
-/*! \brief Open a file using a protocol.
+typedef char **protocol_command; /**< Protocol command for a specific resource.*/
+
+
+/*! \brief Parse a file specification into a protocol command.
  *
- * @see close_file
+ * @see open_protocol_command
+ * @see free_protocol_command
  * \note This function isn't reentrant.
  *
- * \param Spec a file specification with the format 'protocol:specification',
+ * \param Spec a file specification with the format 'protocol://specification',
+ * where 'protocol' names a protocol (e.g., 'tar') and 'specification' is a
+ * string whose format depends on 'protocol'
+ * \return protocol command, or NULL for error
+ */
+extern protocol_command get_protocol_command(const char *Spec);
+
+
+/*! \brief Free a protocol command returned by get_protocol_command.
+ *
+ * @see get_protocol_command
+ *
+ * \param Command a protocol command to free
+ */
+extern void free_protocol_command(protocol_command Command);
+
+
+/*! \brief Open a file using a protocol.
+ *
+ * @see get_protocol_command
+ * @see open_protocol_file
+ * @see close_protocol_file
+ * @see close_protocol_process
+ * \note This function isn't reentrant.
+ *
+ * \param Command a protocol command from get_protocol_command
+ * \param Process pointer for storing the process id of the protocol
+ * \return open file descriptor ready to read, or < 0 for an error
+ */
+extern int open_protocol_command(protocol_command Command, pid_t *Process);
+
+
+/*! \brief Open a file using a protocol.
+ *
+ * @see close_protocol_file
+ * @see close_protocol_process
+ * \note This function isn't reentrant.
+ *
+ * \param Spec a file specification with the format 'protocol://specification',
  * where 'protocol' names a protocol (e.g., 'tar') and 'specification' is a
  * string whose format depends on 'protocol'
  * \param Process pointer for storing the process id of the protocol
  * \return open file descriptor ready to read, or < 0 for an error
  */
-extern int open_file(const char *Spec, pid_t *Process);
+extern int open_protocol_file(const char *Spec, pid_t *Process);
 
 
 /*! \brief Attempt to extract the filename of the protocol specification.
  *
- * \param Spec a file specification with the format 'protocol:specification',
+ * @see open_protocol_file
+ *
+ * \param Spec a file specification with the format 'protocol://specification',
  * where 'protocol' names a protocol (e.g., 'tar') and 'specification' is a
  * string whose format depends on 'protocol'
  * \return filename, or NULL if a protocol is used (must be freed)
  */
-extern char *try_filename(const char *Spec);
+extern char *try_protocol_filename(const char *Spec);
 
 
 /*! \brief Close a file opened by open_file.
- * @see open_file
+ *
+ * @see open_protocol_file
  *
  * \param File file descriptor returned by open_file
  * \param Process process id of the protocol returned by open_file
  * \return process exit status (nonzero for error)
  */
-extern int close_file(int File, pid_t Process);
+extern int close_protocol_file(int File, pid_t Process);
 
 
 /*! \brief Close a protocol process without closing a file.
- * @see open_file
+ *
+ * @see open_protocol_file
  *
  * \param Process process id of the protocol returned by open_file
  * \return process exit status (nonzero for error)
  */
-extern int close_process(pid_t Process);
+extern int close_protocol_process(pid_t Process);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /*rservr_open_file_h*/
+#endif /*rservr_protocol_file_h*/

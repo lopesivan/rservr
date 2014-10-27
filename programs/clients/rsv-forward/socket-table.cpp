@@ -38,7 +38,7 @@ extern "C" {
 
 extern "C" {
 #include "param.h"
-#include "open-file.h"
+#include "protocol-file.h"
 #include "api/tools.h"
 #include "plugins/rsvp-netcntl-hook.h"
 #include "api/client.h"
@@ -77,7 +77,7 @@ int parse_config_file(const char *fFile)
 
 	int protocol_pid = -1;
 
-	int config_fd = open_file(fFile, &protocol_pid);
+	int config_fd = open_protocol_file(fFile, &protocol_pid);
 	if (config_fd < 0)
 	{
 	if (config_fd == RSERVR_FILE_ERROR)
@@ -100,7 +100,7 @@ int parse_config_file(const char *fFile)
 	{
 	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name,
 	  fFile, strerror(errno));
-	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (protocol_pid >= 0) close_protocol_process(protocol_pid);
 	return -1;
 	}
 
@@ -111,7 +111,7 @@ int parse_config_file(const char *fFile)
 	holding[ PARAM_MAX_INPUT_SECTION - 1 ] = 0x00;
 	int outcome = 0;
 
-	char *directory = try_filename(fFile);
+	char *directory = try_protocol_filename(fFile);
 	const char *working_directory = directory? dirname(directory) : NULL;
 
 	while (extra_lines() || fgets(holding, sizeof holding, config_file))
@@ -130,7 +130,7 @@ int parse_config_file(const char *fFile)
 	fprintf(stderr, "%s: error in configuration line (%s): '%s'\n", client_name,
 	  fFile, holding);
 	fclose(config_file);
-	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (protocol_pid >= 0) close_protocol_process(protocol_pid);
 	if (directory) free(directory);
 	return -1;
 	 }
@@ -149,7 +149,7 @@ int parse_config_file(const char *fFile)
 	{
 	fprintf(stderr, "%s: missing continuation line (%s)\n", client_name, fFile);
 	fclose(config_file);
-	if (protocol_pid >= 0) close_process(protocol_pid);
+	if (protocol_pid >= 0) close_protocol_process(protocol_pid);
 	if (directory) free(directory);
 	return -1;
 	}
@@ -161,7 +161,7 @@ int parse_config_file(const char *fFile)
 
 	if (protocol_pid >= 0)
 	{
-	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	if (close_protocol_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
 	 {
 	/*TODO: get rid of hard-coded message*/
 	fprintf(stderr, "%s: can't open configuration file '%s': %s\n", client_name, fFile, "protocol error");

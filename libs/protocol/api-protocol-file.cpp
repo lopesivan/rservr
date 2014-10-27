@@ -31,7 +31,7 @@
  +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 extern "C" {
-#include "open-file.h"
+#include "protocol-file.h"
 }
 
 #include <string>
@@ -57,54 +57,91 @@ extern "C" {
 #define STRING_FORMAT(format, size) "%" STRINGIFY(size) format
 
 
-static bool split_protocol(const char *sSpec, std::string &pProto, std::string &fFile)
+static bool split_protocol(const char*, std::string&, std::string&);
+
+
+protocol_command get_protocol_command(const char *sSpec)
 {
-	//TODO: this should really be 'assert' or something
-	if (!sSpec) return false;
-
-	char protocol[PARAM_MAX_INPUT_SECTION], file[PARAM_MAX_INPUT_SECTION];
-	pProto.clear();
-	fFile = sSpec;
-
-	bool use_last = false;
-
-	if (sscanf(sSpec,
-	//NOTE: excluding "/" is very important for security!
-	           STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION) "://"
-	           STRING_FORMAT("s", PARAM_MAX_INPUT_SECTION),
-	           protocol, file) == 2)
-	{
-	fFile = file;
-
-	//reuse the last protocol if the protocol specified was "-"
-	//TODO: use a parameter for "-"
-	if (strcmp(protocol, "-") == 0)
-	 {
-	if (getenv("_RSERVR_LAST_PROTOCOL"))
-	  {
-	strncpy(protocol, getenv("_RSERVR_LAST_PROTOCOL"), PARAM_MAX_INPUT_SECTION);
-	use_last = true;
-	  }
-	else protocol[0] = 0x00;
-	 }
-
-	pProto = protocol;
-	}
-
-	return use_last;
-}
-
-
-int open_file(const char *sSpec, pid_t *pProcess)
-{
-	if (!sSpec) return RSERVR_BAD_PROTOCOL;
+	if (!sSpec) return NULL;
 
 	std::string protocol, filename;
 	bool use_last = split_protocol(sSpec, protocol, filename);
 
 
-	if (protocol.size())
+	if (!protocol.size())
 	{
+	protocol_command new_command = (protocol_command) malloc(2 * sizeof(char*));
+	if (!new_command) return NULL;
+
+	new_command[1] = NULL;
+	new_command[0] = strdup(filename.c_str());
+
+	setenv("_RSERVR_LAST_PROTOCOL", protocol.c_str(), 1);
+	setenv("_RSERVR_LAST_FILENAME", "", 1);
+
+	return new_command;
+	}
+
+
+	else
+	{
+	std::string protocol_file = std::string(PROTOCOL_PATH "/") + protocol;
+
+	protocol_command new_command = (protocol_command) malloc((use_last? 4 : 3) * sizeof(char*));
+	if (!new_command) return NULL;
+
+	new_command[use_last? 3 : 2] = NULL;
+	new_command[0] = strdup(protocol_file.c_str());
+	new_command[1] = strdup(filename.c_str());
+	if (use_last) new_command[2] = strdup(getenv("_RSERVR_LAST_FILENAME")? getenv("_RSERVR_LAST_FILENAME") : "");
+
+	if (!use_last)
+	 {
+	setenv("_RSERVR_LAST_PROTOCOL", protocol.c_str(), 1);
+	setenv("_RSERVR_LAST_FILENAME", filename.c_str(), 1);
+	 }
+
+	return new_command;
+	}
+}
+
+
+void free_protocol_command(protocol_command cCommand)
+{
+	if (!cCommand) return;
+	for (protocol_command current = cCommand; *current;) free(*current++);
+	free(cCommand);
+}
+
+
+int open_protocol_command(protocol_command cCommand, pid_t *pProcess)
+{
+	if (!cCommand) return RSERVR_BAD_PROTOCOL;
+
+	int count = 0;
+	protocol_command current = cCommand;
+	while (*current++) ++count;
+
+	if (!count) return RSERVR_BAD_PROTOCOL;
+
+
+	if (count == 1)
+	{
+	if (pProcess) *pProcess = -1;
+	int new_file = open(cCommand[0], O_RDONLY);
+	if (new_file == -1) return RSERVR_FILE_ERROR;
+	return new_file;
+	}
+
+
+	else
+	{
+	char protocol[PARAM_MAX_INPUT_SECTION] = "";
+
+	//make sure the protocol being called is in the proper location
+	if (sscanf(cCommand[0], PROTOCOL_PATH "/" STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION), protocol) != 1) return RSERVR_BAD_PROTOCOL;
+	if (strlen(PROTOCOL_PATH "/") + strlen(protocol) != strlen(cCommand[0])) return RSERVR_BAD_PROTOCOL;
+
 	int pipes[2] = { -1, -1 };
 	if (pipe(pipes) != 0) return RSERVR_PROTOCOL_ERROR;
 
@@ -130,10 +167,9 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	if (protocol_stat.st_gid != 0) _exit(1);
 	  }
 
-	std::string protocol_file = std::string(PROTOCOL_PATH "/") + protocol;
-	if (access(protocol_file.c_str(), X_OK | R_OK) == -1) _exit(1);
+	if (access(cCommand[0], X_OK | R_OK) == -1) _exit(1);
 
-	if (stat(protocol_file.c_str(), &protocol_stat) == -1) _exit(1);
+	if (stat(cCommand[0], &protocol_stat) == -1) _exit(1);
 	if (!S_ISREG(protocol_stat.st_mode)) _exit(1);
 
 	if (getuid() == 0)
@@ -143,16 +179,10 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	if (protocol_stat.st_gid != 0) _exit(1);
 	  }
 
-	//TODO: add a function that just returns this command, and another that
-	//calls it and waits, etc.; that way, this can be used for files that
-	//need to be reread (e.g., in rsvx-tls)
-	char *command[] = { &protocol_file[0], &filename[0],
-	  (use_last && getenv("_RSERVR_LAST_FILENAME"))? getenv("_RSERVR_LAST_FILENAME") : NULL, NULL };
-
 	close(pipes[0]);
 	if (dup2(pipes[1], STDOUT_FILENO) < 0) _exit(1);
 	raise(SIGSTOP);
-	_exit(execvp(command[0], command));
+	_exit(execvp(cCommand[0], cCommand));
 	 }
 
 
@@ -198,28 +228,27 @@ int open_file(const char *sSpec, pid_t *pProcess)
 	return RSERVR_PROTOCOL_ERROR;
 	  }
 
-	if (!use_last)
-	  {
-	setenv("_RSERVR_LAST_PROTOCOL", protocol.c_str(), 1);
-	setenv("_RSERVR_LAST_FILENAME", filename.c_str(), 1);
-	  }
-
 	if (pProcess) *pProcess = new_process;
 	return pipes[0];
 	 }
 	}
-
-
-	else
-	{
-	int new_file = open(filename.c_str(), O_RDONLY);
-	if (new_file == -1) return RSERVR_FILE_ERROR;
-	return new_file;
-	}
 }
 
 
-char *try_filename(const char *sSpec)
+int open_protocol_file(const char *sSpec, pid_t *pProcess)
+{
+	protocol_command new_command = get_protocol_command(sSpec);
+
+	if (!new_command) return RSERVR_BAD_PROTOCOL;
+
+	int new_file = open_protocol_command(new_command, pProcess);
+	free_protocol_command(new_command);
+
+	return new_file;
+}
+
+
+char *try_protocol_filename(const char *sSpec)
 {
 	if (!sSpec) return NULL;
 
@@ -231,18 +260,56 @@ char *try_filename(const char *sSpec)
 }
 
 
-int close_file(int fFile, pid_t pProcess)
+int close_protocol_file(int fFile, pid_t pProcess)
 {
 	if (fFile >= 0) close(fFile);
-	return close_process(pProcess);
+	return close_protocol_process(pProcess);
 }
 
 
-int close_process(pid_t pProcess)
+int close_protocol_process(pid_t pProcess)
 {
 	if (pProcess < 0) return 0;
 	int status = 0;
 	int error = waitpid(pProcess, &status, WEXITED);
 	if (error != pProcess) return (error < 0 && errno == ECHILD)? 0 : RSERVR_PROTOCOL_ERROR;
 	return (!WIFEXITED(status) || WEXITSTATUS(status) != 0)? RSERVR_PROTOCOL_ERROR : 0;
+}
+
+
+static bool split_protocol(const char *sSpec, std::string &pProto, std::string &fFile)
+{
+	//TODO: this should really be 'assert' or something
+	if (!sSpec) return false;
+
+	char protocol[PARAM_MAX_INPUT_SECTION] = "", file[PARAM_MAX_INPUT_SECTION] = "";
+	pProto.clear();
+	fFile = sSpec;
+
+	bool use_last = false;
+
+	if (sscanf(sSpec,
+	//NOTE: excluding "/" is very important for security!
+	           STRING_FORMAT("[^:/]", PARAM_MAX_INPUT_SECTION) "://"
+	           STRING_FORMAT("s", PARAM_MAX_INPUT_SECTION),
+	           protocol, file) == 2)
+	{
+	fFile = file;
+
+	//reuse the last protocol if the protocol specified was "-"
+	//TODO: use a parameter for "-"
+	if (strcmp(protocol, "-") == 0)
+	 {
+	if (getenv("_RSERVR_LAST_PROTOCOL"))
+	  {
+	strncpy(protocol, getenv("_RSERVR_LAST_PROTOCOL"), PARAM_MAX_INPUT_SECTION);
+	use_last = true;
+	  }
+	else protocol[0] = 0x00;
+	 }
+
+	pProto = protocol;
+	}
+
+	return use_last;
 }

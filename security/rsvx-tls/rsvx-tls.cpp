@@ -36,7 +36,7 @@
 extern "C" {
 #include "param.h"
 #include "config-parser.h"
-#include "open-file.h"
+#include "protocol-file.h"
 #include "api/log-output.h"
 #include "api/client-timing.h"
 #include "remote/security.h"
@@ -121,7 +121,7 @@ static bool parse_passwd()
 
 	//NOTE: this is actually pointless at the moment because the certificate
 	//files can't be opened using the rservr protocols
-	int config_fd = open_file(srp_file.c_str(), &protocol_pid);
+	int config_fd = open_protocol_file(srp_file.c_str(), &protocol_pid);
 	if (config_fd < 0)
 	{
 	if (config_fd == RSERVR_FILE_ERROR)
@@ -174,7 +174,7 @@ static bool parse_passwd()
 
 	if (protocol_pid >= 0)
 	{
-	if (close_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
+	if (close_protocol_process(protocol_pid) == RSERVR_PROTOCOL_ERROR)
 	 {
 	/*TODO: get rid of hard-coded message*/
     client_log_output(logging_minimal, "rsvx-tls:passwd", "protocol error");
@@ -529,13 +529,17 @@ const struct remote_security_filter *load_security_filter(int tType, const char 
 	 }
 
 #if defined(HAVE_GNUTLS_EXTRA_H) && HAVE_GNUTLS_EXTRA_H
+	//TODO: do things actually function properly without this?
 	gnutls_global_init_extra();
+#else
+	//TODO: maybe return 'NULL' here
 #endif
 
 	if (srp_passwd && strlen(srp_passwd) && srp_passwd_conf &&
 	  strlen(srp_passwd_conf))
 	 {
 	gnutls_srp_allocate_server_credentials(&srp_server);
+	//TODO: use "protocol-file.h" for this somehow
 	gnutls_srp_set_server_credentials_file(srp_server, srp_passwd,
 	  srp_passwd_conf);
 	 }

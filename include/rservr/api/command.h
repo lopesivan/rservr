@@ -231,14 +231,14 @@ extern result regex_compare(text_info Expression, text_info String) __attribute_
 
 #endif /*rservr_command_h*/
 
-/*! \mainpage Resourcerver API Reference
+/*! \mainpage rservr API Reference
  *
  * <!-- this is just some info for the API index HTML page -->
  *
- * <h2 align="center"><a href="http://ta0kira.github.io/rservr" target="_blank"><b>Resourcerver Main Page</b></a><br /><br /></h2>
+ * <h2 align="center"><a href="http://ta0kira.github.io/rservr" target="_blank"><b>rservr Main Page</b></a><br /><br /></h2>
  * <h3 align="center">hosted by <a href="http://github.com" target="_blank">GitHub</a></h3>
  *
- * <h3><br />The <a href="http://ta0kira.github.io/rservr" target="_blank"><b>Resourcerver Project</b></a>
+ * <h3><br />The <a href="http://ta0kira.github.io/rservr" target="_blank"><b>The rservr Project</b></a>
  * was conceived, designed, and written by
  * <a href="mailto:ta0kira@gmail.com">Kevin P. Barry</a>.  Source code is
  * released under the terms of the
