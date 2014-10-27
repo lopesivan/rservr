@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.7"/>
-<title>rservr: rservr/open-file.h Source File</title>
+<title>rservr: rservr/protocol-file.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,15 +46,15 @@
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('open-file_8h_source.html','');});
+$(document).ready(function(){initNavTree('protocol-file_8h_source.html','');});
 </script>
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">open-file.h</div>  </div>
+<div class="title">protocol-file.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="open-file_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\</span></div>
+<a href="protocol-file_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"></span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">______]|]]]]|]__]|]]]]|]__]|]]]]]|]__]|]]]]|]__]|]__]|]__]|]]]]|]_______,_______</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">_____]|]__]|]__]|]_______]|]___]|]__]|]__]|]___]|]_]|]__]|]__]|]_______, ,______</span></div>
@@ -99,8 +99,8 @@ $(document).ready(function(){initNavTree('open-file_8h_source.html','');});
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">/*TODO: this needs python bindings!*/</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#ifndef rservr_open_file_h</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define rservr_open_file_h</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#ifndef rservr_protocol_file_h</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define rservr_protocol_file_h</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
@@ -112,32 +112,46 @@ $(document).ready(function(){initNavTree('open-file_8h_source.html','');});
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#define RSERVR_FILE_ERROR     -1 </span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#define RSERVR_PROTOCOL_ERROR -2 </span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#define RSERVR_BAD_PROTOCOL   -3 </span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">extern int open_file(const char *Spec, pid_t *Process);</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">char</span> *<a class="code" href="open-file_8h.html#a02155889b664e4975fac3324a39043bb">try_filename</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *Spec);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="open-file_8h.html#a70e9db407837b9338a57cca644c87d98">close_file</a>(<span class="keywordtype">int</span> File, pid_t Process);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="open-file_8h.html#aa2dd3e5326f87483b8826185b246433e">close_process</a>(pid_t Process);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*rservr_open_file_h*/</span><span class="preprocessor"></span></div>
-<div class="ttc" id="open-file_8h_html_a02155889b664e4975fac3324a39043bb"><div class="ttname"><a href="open-file_8h.html#a02155889b664e4975fac3324a39043bb">try_filename</a></div><div class="ttdeci">char * try_filename(const char *Spec)</div><div class="ttdoc">Attempt to extract the filename of the protocol specification. </div></div>
-<div class="ttc" id="open-file_8h_html_aa2dd3e5326f87483b8826185b246433e"><div class="ttname"><a href="open-file_8h.html#aa2dd3e5326f87483b8826185b246433e">close_process</a></div><div class="ttdeci">int close_process(pid_t Process)</div><div class="ttdoc">Close a protocol process without closing a file. </div></div>
-<div class="ttc" id="open-file_8h_html_a70e9db407837b9338a57cca644c87d98"><div class="ttname"><a href="open-file_8h.html#a70e9db407837b9338a57cca644c87d98">close_file</a></div><div class="ttdeci">int close_file(int File, pid_t Process)</div><div class="ttdoc">Close a file opened by open_file. </div></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="protocol-file_8h.html#a8d1f4bd1d5c8fca3404683ea7c74104b">   69</a></span>&#160;<span class="preprocessor">typedef char **protocol_command; </span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">extern protocol_command get_protocol_command(const char *Spec);</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="protocol-file_8h.html#af053dceb66c8d9557ae62fe447c3a134">free_protocol_command</a>(<a class="code" href="protocol-file_8h.html#a8d1f4bd1d5c8fca3404683ea7c74104b">protocol_command</a> Command);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="protocol-file_8h.html#ae97b1151147c3bc65c2fbbeb028e80e5">open_protocol_command</a>(<a class="code" href="protocol-file_8h.html#a8d1f4bd1d5c8fca3404683ea7c74104b">protocol_command</a> Command, pid_t *Process);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="protocol-file_8h.html#a9cab3d6bea674edb22f192ee7058dea9">open_protocol_file</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *Spec, pid_t *Process);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">char</span> *<a class="code" href="protocol-file_8h.html#a04b9441d75c84cec26c074304a97d072">try_protocol_filename</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *Spec);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="protocol-file_8h.html#adf718583bf9920897c39e1ccfbec9b92">close_protocol_file</a>(<span class="keywordtype">int</span> File, pid_t Process);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="protocol-file_8h.html#a1279b397e2ca31b1487e11ddad9752c3">close_protocol_process</a>(pid_t Process);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/*rservr_protocol_file_h*/</span><span class="preprocessor"></span></div>
+<div class="ttc" id="protocol-file_8h_html_adf718583bf9920897c39e1ccfbec9b92"><div class="ttname"><a href="protocol-file_8h.html#adf718583bf9920897c39e1ccfbec9b92">close_protocol_file</a></div><div class="ttdeci">int close_protocol_file(int File, pid_t Process)</div><div class="ttdoc">Close a file opened by open_file. </div></div>
+<div class="ttc" id="protocol-file_8h_html_a9cab3d6bea674edb22f192ee7058dea9"><div class="ttname"><a href="protocol-file_8h.html#a9cab3d6bea674edb22f192ee7058dea9">open_protocol_file</a></div><div class="ttdeci">int open_protocol_file(const char *Spec, pid_t *Process)</div><div class="ttdoc">Open a file using a protocol. </div></div>
+<div class="ttc" id="protocol-file_8h_html_a8d1f4bd1d5c8fca3404683ea7c74104b"><div class="ttname"><a href="protocol-file_8h.html#a8d1f4bd1d5c8fca3404683ea7c74104b">protocol_command</a></div><div class="ttdeci">char ** protocol_command</div><div class="ttdef"><b>Definition:</b> protocol-file.h:69</div></div>
+<div class="ttc" id="protocol-file_8h_html_a1279b397e2ca31b1487e11ddad9752c3"><div class="ttname"><a href="protocol-file_8h.html#a1279b397e2ca31b1487e11ddad9752c3">close_protocol_process</a></div><div class="ttdeci">int close_protocol_process(pid_t Process)</div><div class="ttdoc">Close a protocol process without closing a file. </div></div>
+<div class="ttc" id="protocol-file_8h_html_ae97b1151147c3bc65c2fbbeb028e80e5"><div class="ttname"><a href="protocol-file_8h.html#ae97b1151147c3bc65c2fbbeb028e80e5">open_protocol_command</a></div><div class="ttdeci">int open_protocol_command(protocol_command Command, pid_t *Process)</div><div class="ttdoc">Open a file using a protocol. </div></div>
+<div class="ttc" id="protocol-file_8h_html_af053dceb66c8d9557ae62fe447c3a134"><div class="ttname"><a href="protocol-file_8h.html#af053dceb66c8d9557ae62fe447c3a134">free_protocol_command</a></div><div class="ttdeci">void free_protocol_command(protocol_command Command)</div><div class="ttdoc">Free a protocol command returned by get_protocol_command. </div></div>
+<div class="ttc" id="protocol-file_8h_html_a04b9441d75c84cec26c074304a97d072"><div class="ttname"><a href="protocol-file_8h.html#a04b9441d75c84cec26c074304a97d072">try_protocol_filename</a></div><div class="ttdeci">char * try_protocol_filename(const char *Spec)</div><div class="ttdoc">Attempt to extract the filename of the protocol specification. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_5083d196f835a300aefa3c36c0474c12.html">rservr</a></li><li class="navelem"><a class="el" href="open-file_8h.html">open-file.h</a></li>
-    <li class="footer">Generated on Mon Oct 27 2014 11:01:50 for rservr by
+    <li class="navelem"><a class="el" href="dir_5083d196f835a300aefa3c36c0474c12.html">rservr</a></li><li class="navelem"><a class="el" href="protocol-file_8h.html">protocol-file.h</a></li>
+    <li class="footer">Generated on Mon Oct 27 2014 13:28:33 for rservr by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
   </ul>
