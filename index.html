@@ -13,7 +13,7 @@
       <table summary="page title block">
         <tr>
           <td width="350" align="left">
-            <img alt="Resourcerver Bunny" src="rservr-rabbit2.png" height="250" width="250" />
+            <img alt="rservr Bunny" src="rservr-rabbit2.png" height="250" width="250" />
           </td>
           <td>
             <div>
@@ -28,14 +28,14 @@
     </div>
     <div class="overview_box">
       <h3 class="overview_title"> Purpose of this Project. </h3>
-      <p class="overview_content"> Resourcerver is a *nix ("Unix<sup>&reg;</sup>-like operating systems" such as Linux and FreeBSD) framework for large, multi-process applications. Resourcerver is intended to help developers create large applications using several smaller, special-purpose programs by controlling their run-time structures and by facilitating control-oriented IPC between the special-purpose components. </p>
-      <p class="overview_content"> Resourcerver is intended to be the permeating structural entity of an application designed to utilize it.  Resourcerver functions by providing a daemonized server process for each instance of each application.  All of the application's components are connected to that server and communicate with each other through it.  This communication is regulated by the server to bring stability to the application as a whole, thereby increasing its reliability.  Communication regulation is based on a role-based model where each of the application's processes has a discrete category within the context of the Resourcerver system.  These categories define the fundamental requirements of how each process can interact with the system. </p>
-      <p class="overview_content"> Applications built around Resourcerver will generally use programs with discretely-defined functionality. Ideally, an application will use separate programs to manage data retrieval, data processing, network connections, and user control over the application. The Resourcerver system will assemble these programs as a set of processes attached to a single server based on a configuration specified at run-time, allowing for dynamic application instances. </p>
-      <p class="overview_content"> The individual programs used in an application can be written by the application's developer in either C or C++ using the Resourcerver API. The API provides a simple C interface between the running program and the Resourcerver libraries. The Resourcerver libraries manage all communication with the server based on the actions taken by the running program. Communication with other processes is routed through the server for security and "sanity" filtering. </p>
-      <p class="overview_content"> The main purpose of the server in a Resourcerver application is to bind third-party programs into a dynamic system to form an application. Incidentally, it must facilitate IPC while exercising security control over the application. Most of the application's processes will be created by the server itself so that it can control the process' user and group IDs (super-user applications can use multiple users and groups,) which the server strictly regulates. </p>
-      <p class="overview_content"> The primary benefit of creating an application with Resourcerver is the ability to modify the structure of the application while it's running. This allows the application to be assembled in a series of steps, allows isolation and correction of run-time errors, allows different instances of the application to have different structures, and lastly allows the application to be shut down incrementally. </p>
-      <p class="overview_content"> The core Resourcerver package includes IPC-forwarding programs that allow an application to relocate processes across network connections. These IPC forwarders allow run-time specification of security-filter plug-ins that provide address filtering, connection authentication, and transmission encryption. The core package includes filters for SRP authentication and TLS encryption, as well as user-space incoming-IP filtering. </p>
-      <p class="overview_content"> The Resourcerver IPC system is fully extensible. The core package includes and utilized several standardized extensions that can be used as examples for third-party extensions. The inner workings and other pertinent information about the IPC system are discussed in detail in the project's documentation (see the links below.) </p>
+      <p class="overview_content"> rservr is a *nix ("Unix<sup>&reg;</sup>-like operating systems" such as Linux and FreeBSD) framework for large, multi-process applications. rservr is intended to help developers create large applications using several smaller, special-purpose programs by controlling their run-time structures and by facilitating control-oriented IPC between the special-purpose components. </p>
+      <p class="overview_content"> rservr is intended to be the permeating structural entity of an application designed to utilize it.  rservr functions by providing a daemonized server process for each instance of each application.  All of the application's components are connected to that server and communicate with each other through it.  This communication is regulated by the server to bring stability to the application as a whole, thereby increasing its reliability.  Communication regulation is based on a role-based model where each of the application's processes has a discrete category within the context of the rservr system.  These categories define the fundamental requirements of how each process can interact with the system. </p>
+      <p class="overview_content"> Applications built around rservr will generally use programs with discretely-defined functionality. Ideally, an application will use separate programs to manage data retrieval, data processing, network connections, and user control over the application. The rservr system will assemble these programs as a set of processes attached to a single server based on a configuration specified at run-time, allowing for dynamic application instances. </p>
+      <p class="overview_content"> The individual programs used in an application can be written by the application's developer in either C or C++ using the rservr API. The API provides a simple C interface between the running program and the rservr libraries. The rservr libraries manage all communication with the server based on the actions taken by the running program. Communication with other processes is routed through the server for security and "sanity" filtering. </p>
+      <p class="overview_content"> The main purpose of the server in an rservr application is to bind third-party programs into a dynamic system to form an application. Incidentally, it must facilitate IPC while exercising security control over the application. Most of the application's processes will be created by the server itself so that it can control the process' user and group IDs (super-user applications can use multiple users and groups,) which the server strictly regulates. </p>
+      <p class="overview_content"> The primary benefit of creating an application with rservr is the ability to modify the structure of the application while it's running. This allows the application to be assembled in a series of steps, allows isolation and correction of run-time errors, allows different instances of the application to have different structures, and lastly allows the application to be shut down incrementally. </p>
+      <p class="overview_content"> The core rservr package includes IPC-forwarding programs that allow an application to relocate processes across network connections. These IPC forwarders allow run-time specification of security-filter plug-ins that provide address filtering, connection authentication, and transmission encryption. The core package includes filters for SRP authentication and TLS encryption, as well as user-space incoming-IP filtering. </p>
+      <p class="overview_content"> The rservr IPC system is fully extensible. The core package includes and utilized several standardized extensions that can be used as examples for third-party extensions. The inner workings and other pertinent information about the IPC system are discussed in detail in the project's documentation (see the links below.) </p>
     </div>
     <div class="overview_box">
       <h3 class="overview_title"> Recent Project News. </h3>
@@ -44,7 +44,7 @@
         <br />
       </p>
       <p class="overview_content">
-     <span class="news_date">October 24<sup>th</sup>, 2014:</span> The Resourcerver project has migrated to <a class="general_link" href="http://github.com/">GitHub</a>. I did this because BerliOS.de dropped hosting for all projects in April 2014, leaving this project without a home. Some of the code might still refer to BerliOS.de, however, and I haven't come up with a new release strategy yet. <br />
+     <span class="news_date">October 24<sup>th</sup>, 2014:</span> The rservr project has migrated to <a class="general_link" href="http://github.com/">GitHub</a>. I did this because BerliOS.de dropped hosting for all projects in April 2014, leaving this project without a home. Some of the code might still refer to BerliOS.de, however, and I haven't come up with a new release strategy yet. <br />
         <br />
       </p>
       <p class="overview_content">
@@ -56,11 +56,11 @@
         <br />
       </p>
       <p class="overview_content">
-     <span class="news_date">January 3<sup>rd</sup>, 2010:</span> After about a year and a half of developing strictly on Linux, I finally got Resourcerver working on FreeBSD again, this time with <i>everything</i> working. In addition, I made several important fixes for which the need became apparent when running the code on a different OS. <br />
+     <span class="news_date">January 3<sup>rd</sup>, 2010:</span> After about a year and a half of developing strictly on Linux, I finally got rservr working on FreeBSD again, this time with <i>everything</i> working. In addition, I made several important fixes for which the need became apparent when running the code on a different OS. <br />
         <br />
       </p>
       <p class="overview_content">
-     <span class="news_date">August 18<sup>th</sup>, 2009:</span> I made several very important changes with this update, the most significant of which is the addition of a TLS encryption and authentication security filter for IPC forwarders. This allows secure connections between forwarders not previously possible. With this came the permanent removal of the encode/decode functions in the security filter API; encryption is now handled entirely by the send/receive functions. Combined with a kernel-space firewall and the address-filtering security filters, this new filter allows for very secure Resourcerver systems. I also added readline support to several programs, making it much easier to reuse commands when working with the interactive Resourcerver tools. <br />
+     <span class="news_date">August 18<sup>th</sup>, 2009:</span> I made several very important changes with this update, the most significant of which is the addition of a TLS encryption and authentication security filter for IPC forwarders. This allows secure connections between forwarders not previously possible. With this came the permanent removal of the encode/decode functions in the security filter API; encryption is now handled entirely by the send/receive functions. Combined with a kernel-space firewall and the address-filtering security filters, this new filter allows for very secure rservr systems. I also added readline support to several programs, making it much easier to reuse commands when working with the interactive rservr tools. <br />
         <br />
       </p>
       <p class="overview_content">
@@ -80,7 +80,7 @@
         <br />
       </p>
       <p class="overview_content">
-        <span class="news_date">December 16<sup>th</sup>, 2008:</span> Completion of the first successful wide-area-network (WAN) test between Resourcerver systems. This involved two machines: one with a static IP address on a controlled network and one with a dynamic wireless IP address. The machine with the static IP listened to a port and the other connected. I proceeded to poll the wireless-IP server for registered Resourcerver services from the static-IP server, and succeeded in having the wireless-IP server automatically register a remote service with the static-IP server. Upon disconnecting the wireless-IP server, the static-IP server registered the loss of connection with no human-visible delay. While I've performed a substantial number of local-machine network tests, this was the first test between two separate machines. <br />
+        <span class="news_date">December 16<sup>th</sup>, 2008:</span> Completion of the first successful wide-area-network (WAN) test between rservr systems. This involved two machines: one with a static IP address on a controlled network and one with a dynamic wireless IP address. The machine with the static IP listened to a port and the other connected. I proceeded to poll the wireless-IP server for registered rservr services from the static-IP server, and succeeded in having the wireless-IP server automatically register a remote service with the static-IP server. Upon disconnecting the wireless-IP server, the static-IP server registered the loss of connection with no human-visible delay. While I've performed a substantial number of local-machine network tests, this was the first test between two separate machines. <br />
         <br />
       </p>
       <p class="overview_content">
@@ -108,7 +108,7 @@
         <br />
       </p>
       <p class="overview_content">
-        <span class="news_date">February 18<sup>th</sup>, 2008:</span> The core Resourcerver package is complete and awaiting documentation. Initial release won't happen before at least the user's and application developer's guides are complete. The initial API documentation is nearly complete. <br />
+        <span class="news_date">February 18<sup>th</sup>, 2008:</span> The core rservr package is complete and awaiting documentation. Initial release won't happen before at least the user's and application developer's guides are complete. The initial API documentation is nearly complete. <br />
         <br />
       </p>
     </div>
@@ -116,42 +116,42 @@
       <h3 class="overview_title"> Project Resources. </h3>
       <ul class="overview_link_list">
         <li>
-          <a href="http://github.com/ta0kira/rservr" target="_blank" class="overview_link">Resourcerver on GitHub.</a> <span style="font-size:smaller; vertical-align:text-top;">&nbsp;<a class="general_link" href="http://github.com/ta0kira/rservr.git">[git]</a></span>
+          <a href="http://github.com/ta0kira/rservr" target="_blank" class="overview_link">rservr on GitHub.</a> <span style="font-size:smaller; vertical-align:text-top;">&nbsp;<a class="general_link" href="http://github.com/ta0kira/rservr.git">[git]</a></span>
           <br />
-          <span class="overview_link_info">The official download site for the Resourcerver Project.</span>
+          <span class="overview_link_info">The official download site for the rservr Project.</span>
           <br />
           <br />
         </li>
         <li>
-          <a href="user/user-guide.html" target="_blank" class="overview_link">Resourcerver User's Guide.</a>
+          <a href="user/user-guide.html" target="_blank" class="overview_link">rservr User's Guide.</a>
           <br />
           <span class="overview_link_info">An in-depth guide for programmers and non-programmers.</span>
           <br />
           <br />
         </li>
         <li>
-          <a href="app/app-developer-guide.html" target="_blank" class="overview_link">Resourcerver Application Development Guide.</a>
+          <a href="app/app-developer-guide.html" target="_blank" class="overview_link">rservr Application Development Guide.</a>
           <br />
           <span class="overview_link_info">An introductory guide for programmers writing clients and assembling applications.</span>
           <br />
           <br />
         </li>
         <li>
-          <a href="api/html/index.html" target="_blank" class="overview_link">Resourcerver C/C++ API Reference.</a>
+          <a href="api/html/index.html" target="_blank" class="overview_link">rservr C/C++ API Reference.</a>
           <br />
-          <span class="overview_link_info">A complete reference of the Resourcerver C/C++ API.</span>
+          <span class="overview_link_info">A complete reference of the rservr C/C++ API.</span>
           <br />
           <br />
         </li>
         <li>
-          <!-- href="command/command-developer-guide.html" --><a target="_blank" class="overview_link"><strike>Resourcerver Command Plug-in Development Guide.</strike></a>
+          <!-- href="command/command-developer-guide.html" --><a target="_blank" class="overview_link"><strike>rservr Command Plug-in Development Guide.</strike></a>
           <br />
           <span class="overview_link_info">An (unfinished) in-depth guide for programmers writing command plug-ins.</span>
           <br />
           <br />
         </li>
         <li>
-          <!-- href="security/security-developer-guide.html" --><a target="_blank" class="overview_link"><strike>Resourcerver Security Plug-in Development Guide.</strike></a>
+          <!-- href="security/security-developer-guide.html" --><a target="_blank" class="overview_link"><strike>rservr Security Plug-in Development Guide.</strike></a>
           <br />
           <span class="overview_link_info">An (unfinished) in-depth guide for programmers writing network security filter plug-ins.</span>
           <br />
@@ -162,20 +162,20 @@
       <table style="width: 100%; table-layout: fixed; border-spacing: 0px;" summary="related project links">
         <tr style="vertical-align: top;">
           <td class="overview_box">
-            <h3 class="overview_title"> Resourcerver Applications. </h3>
+            <h3 class="overview_title"> rservr Applications. </h3>
             <p class="overview_content"> (nothing available at this time) </p>
           </td>
           <td style="width: 20px;">
           </td>
           <td class="overview_box">
-            <h3 class="overview_title"> Resourcerver Clients and Plug-ins. </h3>
+            <h3 class="overview_title"> rservr Clients and Plug-ins. </h3>
             <p class="overview_content"> (nothing available at this time) </p>
           </td>
         </tr>
       </table>
     </div>
     <div class="overview_box">
-      <h3 class="overview_title"> Resourcerver Terms of Use. </h3>
+      <h3 class="overview_title"> rservr Terms of Use. </h3>
       <div style="font-size: smaller;">
         <p class="overview_content">
           <b>This software is released under the <u>BSD License</u>.</b>
@@ -191,7 +191,7 @@
           <li class="overview_content"> Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. <br />
             <br />
           </li>
-          <li class="overview_content"> Neither the name of the <b>Resourcerver Project</b> nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. <br />
+          <li class="overview_content"> Neither the name of the <b>rservr Project</b> nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. <br />
             <br />
           </li>
         </ul>
@@ -200,7 +200,7 @@
     </div>
     <div class="overview_box">
       <h3 class="overview_title"> Acknowledgements and "Thanks". </h3>
-      <p class="overview_content"> I'll list your name, project, or organization here if you provide a significant contribution to the Resourcerver Project. I'll ask before listing any individual person or private project/organization in case you don't want to be known publicly. I can't list <i>everyone</i> here; therefore, I'll only list those who've expended a generous amount of time or effort, so as to not trivialize major contributions. </p>
+      <p class="overview_content"> I'll list your name, project, or organization here if you provide a significant contribution to the rservr Project. I'll ask before listing any individual person or private project/organization in case you don't want to be known publicly. I can't list <i>everyone</i> here; therefore, I'll only list those who've expended a generous amount of time or effort, so as to not trivialize major contributions. </p>
       <h4 class="overview_title"> Code Contributions, Bug Fixes, and Quality Improvements. </h4>
       <div class="thanks_table">
         <table class="overview_content">
@@ -259,7 +259,7 @@
     <hr />
     <table style="width: 100%; table-layout: fixed;" summary="footer info">
       <tr>
-        <td class="signature" align="left"> &copy; 2008 - <a href="mailto:ta0kira@gmail.com?subject=Resourcerver&#32;Web&#32;Page" class="signature_text">Kevin P. Barry</a>
+        <td class="signature" align="left"> &copy; 2008 - <a href="mailto:ta0kira@gmail.com?subject=rservr&#32;Web&#32;Page" class="signature_text">Kevin P. Barry</a>
         </td>
         <td align="center">
         </td>
