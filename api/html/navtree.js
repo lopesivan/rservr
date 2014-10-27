@@ -1,7 +1,7 @@
 var NAVTREE =
 [
-  [ "Resourcerver", "index.html", [
-    [ "Resourcerver API Reference", "index.html", null ],
+  [ "rservr", "index.html", [
+    [ "rservr API Reference", "index.html", null ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
       [ "Data Fields", "functions.html", [
