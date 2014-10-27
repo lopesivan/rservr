@@ -279,11 +279,15 @@ const command_info *oOriginal, command_type tType, const void *mMessage)
 	new_message->__response.__n1.__n2.__size = 0x00;
 	info_list current = message_data->__n1.__list;
 
-	if (current) while (*current)
+	int count = 0;
+	for (info_list counting = current; counting && *counting; ++counting) ++count;
+	new_mirror->message_list.resize(count);
+
+	for (int I = 0; I < count && *current; I++, ++current)
 	   {
-	new_mirror->message_list.push_back(*current++);
+	new_mirror->message_list[I] = *current;
 	new_mirror->message_pointers.push_back(
-	  new_mirror->message_list[ new_mirror->message_list.size() - 1 ].c_str() );
+	  new_mirror->message_list[I].c_str() );
 	   }
 
 	new_mirror->message_pointers.push_back(NULL);
