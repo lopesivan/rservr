@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, errno, platform, distutils.core, distutils.sysconfig
+import os, errno, platform, distutils.core, distutils.sysconfig, distutils.util
 
 
 package_base = 'rservr-python'
@@ -15,9 +15,7 @@ Resourcerver package.'
 
 
 build_path_guess = '-'.join((
-    'build/lib.' + platform.system().lower(),
-    platform.release(),
-    platform.machine(),
+    'build/lib.' + distutils.util.get_platform(),
     '.'.join((
       platform.python_version_tuple()[0],
       platform.python_version_tuple()[1]))))
