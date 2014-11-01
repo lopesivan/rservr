@@ -84,6 +84,8 @@ int process_message(char *mMessage, FILE *fFile)
 	return 0;
 	char **const original = message_list;
 
+	/*TODO: use a search tree here*/
+
 	if (0x00) /*do nothing*/;
 	PROCESS_GENERAL(PROCESS_CONDITION)
 	PROCESS_CLIENTS(PROCESS_CONDITION)

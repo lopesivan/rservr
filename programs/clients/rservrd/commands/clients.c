@@ -91,6 +91,8 @@ const char *retrieve_info(const char *fField)
 
 	static char buffer[PARAM_DEFAULT_FORMAT_BUFFER];
 
+	/*TODO: use a search tree here*/
+
 	buffer[0] = 0x00;
 
 	if      (strcmp(fField, "uid") == 0)
