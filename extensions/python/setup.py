@@ -105,7 +105,9 @@ ext_modules = [
         extra_objects = ['_rservr.so'] + extra_objects[submodules[i]],
         include_dirs = include_search_paths,
         library_dirs = lib_search_paths + libexec_search_paths,
-        runtime_library_dirs = lib_search_paths + libexec_search_paths + [distutils.sysconfig.get_python_lib() + '/rservr'])
+        runtime_library_dirs = lib_search_paths + libexec_search_paths +
+          #(sometimes there is an inconsistency between 'get_python_lib' and where things are actually installed)
+          [distutils.sysconfig.get_python_lib(prefix=prefix) + '/rservr' for prefix in ['/usr', '/usr/local']])
     for i in range(len(submodules))]
 
 
