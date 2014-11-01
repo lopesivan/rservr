@@ -117,6 +117,9 @@ const char *retrieve_info(const char *fField)
 	else if (strcmp(fField, "group") == 0)
 	snprintf(buffer, sizeof(buffer), "%s:%i\n", fField, (int) group_allowed);
 
+	else if (strcmp(fField, "wait") == 0)
+	snprintf(buffer, sizeof(buffer), "%s:%i\n", fField, (int) get_register_wait());
+
 	else if (strcmp(fField, "terminate") == 0)
 	snprintf(buffer, sizeof(buffer), "%s:%i\n", fField, (int) auto_terminate);
 

@@ -65,6 +65,9 @@ static int wait_register = 0;
 void enable_register_wait()
 { wait_register = 1; }
 
+int get_register_wait()
+{ return wait_register; }
+
 
 #define PROCESS_CONDITION(name) else if (check_##name(*original)) \
                                 result = message_##name(fFile, ++message_list);

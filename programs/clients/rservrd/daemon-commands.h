@@ -45,6 +45,7 @@ int set_priority_permission(char*, int, int);
 const char *retrieve_info(const char*);
 
 void enable_register_wait();
+int get_register_wait();
 
 void return_message(FILE*, const char*, unsigned char);
 void return_data(FILE*, const char*);
